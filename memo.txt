@@ -4,7 +4,10 @@ Eslintの設定:::まだ
 prettierの設定
 https://zenn.dev/k_kazukiiiiii/articles/670ebae0005872
 
-
+Git
+git remote add origin https://github.com/jhon-g283/CakeSites.git
+git branch -M main
+git push -u origin main
 
 インストールしたライブラリや実施コマンド
 npx create-next-app --typescript new-project
