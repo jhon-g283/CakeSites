@@ -7,6 +7,7 @@ import Main from "../src/component/main/cakepagelayout";
 
 const Home: NextPage = () => {
   return (
+    // head meta情報などをこっちに入れる
     <div className={styles.container}>
       <Head>
         <title>Create Next App</title>

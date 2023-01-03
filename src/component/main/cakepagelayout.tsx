@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Header from "../header/header";
 
 const Main = () => {
   const StyledLink = styled.a`
@@ -24,6 +25,7 @@ const Main = () => {
 
   const headerMenu = (
     <>
+      <Header />
       <StyledLink>Main</StyledLink>
     </>
   );

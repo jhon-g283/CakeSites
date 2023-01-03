@@ -14,3 +14,8 @@ npx create-next-app --typescript new-project
 npm install styled-components   
 npm i --save-dev @types/styled-components
 
+
+【調べる機能など】
+json読み取り
+スライダーReact
+画像の読み込み方法
