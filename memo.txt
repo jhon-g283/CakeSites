@@ -19,3 +19,8 @@ npm i --save-dev @types/styled-components
 json読み取り
 スライダーReact
 画像の読み込み方法
+Redux導入の方法
+
+[全体的にやらないといけないこと]
+画面の項目がデカすぎるので調整する
+ヘッダーは150px？

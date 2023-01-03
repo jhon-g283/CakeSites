@@ -8,38 +8,19 @@ interface CartImageProps {
 const Header = () => {
   // styled-componentsの変数は大文字スタート
 
-  const TitleName = styled.h1`
-    //ここにスタイルを記述
-    outline: none;
-    text-decoration: none;
-    display: inline-block;
-    width: 19.5%;
-    margin-right: 0.625%;
-    text-align: center;
-    line-height: 3;
-    color: black;
-    background: yellow;
-    &:hover {
-      background: orange;
-    }
-    &:active {
-      background: red;
-      color: white;
-    }
-  `;
-
   // ヘッダー全体
   const Header = styled.header`
+    // position: fixed;
     top: 0px;
     left: 0px;
     width: 1336px;
-    height: 30%;
+    height: 151px;
     background: #dec192 0% 0% no-repeat padding-box;
     opacity: 1;
   `;
 
   // タイトルロゴ
-  const TitleLogo = styled.h1`
+  const TitleLogo = styled.a`
     top: 2px;
     left: 27px;
     width: 508px;
@@ -54,8 +35,11 @@ const Header = () => {
   `;
 
   const Nav1 = styled.a`
-    top: 69px;
-    left: 728px;
+    // position: absolute;
+
+    // top: 69px;
+    // left: 728px;
+    margin-right: 30px;
     width: 156px;
     height: 39px;
     font: var(--unnamed-font-style-normal) normal normal 39px/49px Adobe Clean;
@@ -68,8 +52,10 @@ const Header = () => {
   `;
 
   const Nav2 = styled.a`
-    top: 69px;
-    left: 925px;
+    // position: absolute;
+    // top: 69px;
+    // left: 925px;
+    margin-right: 30px;
     width: 117px;
     height: 39px;
     font: var(--unnamed-font-style-normal) normal normal 39px/49px Adobe Clean;
@@ -81,32 +67,43 @@ const Header = () => {
     opacity: 1;
   `;
 
+  // propsを使ってないが使えば画像のパスで使い回しができる
   const ImgCart = styled.button<CartImageProps>`
+    // position: relative;
     // top: 30px;
     // left: 1110px;
-    // width: 108px;
-    // height: 98px;
-
-    background-image: url(${(props) => props.CartImage});
-    // border-radius: 35px;
-    // opacity: 1;
+    width: 108px;
+    height: 98px;
+    margin: 30px;
+    background-image: url(${CartImagePath.src});
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 35px;
+    opacity: 1;
   `;
 
-  // const back = styled.div`
-  //   backgraund-color: ;
-  // `;
+  const Left = styled.div`
+    float: right;
+  `;
+
+  console.log("CartImagePath");
+  console.log(CartImagePath);
+  console.log(ImgCart);
 
   const headerMenu = (
     <>
       <Header>
         {/* <StyledLink>Peace Of Cake</StyledLink> */}
         <TitleLogo>Peace Of Cake</TitleLogo>
-        <Nav1>お知らせ</Nav1>
-        <Nav2>ヘルプ</Nav2>
-        <nav>
-          <li>a</li>
-        </nav>
-        {/* <ImgCart CartImage={CartImagePath}></ImgCart> */}
+        <Left>
+          <Nav1>お知らせ</Nav1>
+          <Nav2>ヘルプ</Nav2>
+          <ImgCart></ImgCart>
+          <nav>
+            <li>a</li>
+            <li>a</li>
+            <li>a</li>
+          </nav>
+        </Left>
       </Header>
     </>
   );
