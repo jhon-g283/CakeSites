@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Header from "../header/header";
 import Hero from "../../../public/img/hero.png";
+import ItemBox from "../common/item";
 
 const Main = () => {
+  //To Do ReduxのState読み込み（Selector）
+  //
+  //
+
+  //ToDo 商品リストの配列が更新されたときに動くように、mapからコンポーネントの配列を作成できるようにする。
+  //
+  // ・・
+
+  // ToDo　検索条件を作る検索ボックスを作成
+  //
+  // 。。
+
+  // ToDo 検索時に投げるクエリの作成関数を作る
+  // dataなんたらから撮ってくる
+  // ・・
+
   const StyledLink = styled.a`
     //ここにスタイルを記述
     outline: none;
@@ -42,6 +59,7 @@ const Main = () => {
       {/* <img src="${{ImgHero.src}}"></img> */}
       <ImgHero></ImgHero>
       <StyledLink>Main</StyledLink>
+      <ItemBox />
     </>
   );
 

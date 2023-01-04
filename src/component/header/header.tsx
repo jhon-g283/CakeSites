@@ -68,7 +68,7 @@ const Header = () => {
   `;
 
   // propsを使ってないが使えば画像のパスで使い回しができる
-  const ImgCart = styled.button<CartImageProps>`
+  const ImgCart = styled.button`
     // position: relative;
     // top: 30px;
     // left: 1110px;
@@ -87,22 +87,23 @@ const Header = () => {
 
   console.log("CartImagePath");
   console.log(CartImagePath);
-  console.log(ImgCart);
+  // console.log(ImgCart);
 
   const headerMenu = (
     <>
       <Header>
         {/* <StyledLink>Peace Of Cake</StyledLink> */}
         <TitleLogo>Peace Of Cake</TitleLogo>
+
         <Left>
-          <Nav1>お知らせ</Nav1>
+          {/* <Nav1>お知らせ</Nav1>
           <Nav2>ヘルプ</Nav2>
-          <ImgCart></ImgCart>
-          <nav>
+          <ImgCart></ImgCart> */}
+          {/* <nav>
             <li>a</li>
             <li>a</li>
             <li>a</li>
-          </nav>
+          </nav> */}
         </Left>
       </Header>
     </>
