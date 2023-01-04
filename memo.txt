@@ -10,9 +10,13 @@ git branch -M main
 git push -u origin main
 
 インストールしたライブラリや実施コマンド
+[CMD]
 npx create-next-app --typescript new-project
 npm install styled-components   
 npm i --save-dev @types/styled-components
+npm install babel-plugin-styled-components  
+[URL]
+https://zenn.dev/nbr41to/articles/c0c691653e3d55
 
 
 【調べる機能など】

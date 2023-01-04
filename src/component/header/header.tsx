@@ -96,9 +96,9 @@ const Header = () => {
         <TitleLogo>Peace Of Cake</TitleLogo>
 
         <Left>
-          {/* <Nav1>お知らせ</Nav1>
+          <Nav1>お知らせ</Nav1>
           <Nav2>ヘルプ</Nav2>
-          <ImgCart></ImgCart> */}
+          <ImgCart></ImgCart>
           {/* <nav>
             <li>a</li>
             <li>a</li>
