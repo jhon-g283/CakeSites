@@ -21,6 +21,9 @@ const Main = () => {
   // dataなんたらから撮ってくる
   // ・・
 
+  // メニューボタン。Propsで画像を変える
+  const MenuButton = styled.button``;
+
   const StyledLink = styled.a`
     //ここにスタイルを記述
     outline: none;

@@ -85,8 +85,8 @@ const Header = () => {
     float: right;
   `;
 
-  console.log("CartImagePath");
-  console.log(CartImagePath);
+  // console.log("CartImagePath");
+  // console.log(CartImagePath);
   // console.log(ImgCart);
 
   const headerMenu = (
