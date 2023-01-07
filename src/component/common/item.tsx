@@ -3,8 +3,33 @@ import styled from "styled-components";
 import Image from "next/image";
 import Cake1 from "../../../public/img/cake1.png";
 import Cake2 from "../../../public/img/cake2.png";
+import { itemData } from "../../types";
 
-const itemBox = () => {
+// 引数
+// 商品画像URL
+// 商品名
+// 値段（ホール）
+// 値段（ピース）
+// カロリー
+// ユーザーの評価値★
+// 販売店名
+// 販売店名のリンク
+//
+
+// interface itemData {
+//   itemName?: any;
+//   imageUrl?: any;
+//   priceHole?: any;
+//   pricePieace?: any;
+//   kcal?: any;
+// }
+const itemBox = ({
+  itemName,
+  imageUrl,
+  priceHole,
+  pricePieace,
+  kcal,
+}: itemData) => {
   // ToDo アイテムコンポーネント作成
   // もっっくとしてサンプル作成
   //　　値段のスタイル調整
@@ -12,6 +37,10 @@ const itemBox = () => {
   // 外枠の作成
   //
   //
+
+  console.log("itemName");
+  console.log(itemName);
+  console.log("imageUrl");
 
   // ToDo コンポーネント化して引数の設定
 
@@ -30,12 +59,13 @@ const itemBox = () => {
 
   // 画像の調整用
   const ImageBox = styled.div`
-    margin: 23px 29px 39px;
+    margin: 23px 29px;
   `;
 
   // テキスト類のまとめ
   const TextGroup = styled.div`
     margin-left: 24px;
+    margin-top: 0px;
   `;
 
   // 商品名
@@ -53,11 +83,11 @@ const itemBox = () => {
 
   const PriceTag1 = styled.p`
     // background-image: url(${Cake1.src});
-    margin-top: 14px;
+    margin-top: 0px;
     // margin-buttom: 14px;
 
     &::before {
-      content: url(${Cake1.src});
+      // content: url(${Cake1.src});
       // padding-top: 100px;
     }
   `;
@@ -75,6 +105,13 @@ const itemBox = () => {
     }
   `;
 
+  // 店名
+  const Shopname = styled.p`
+    margin-top: 0px;
+    float: right;
+  `;
+
+  // 返却するコンポーネント
   const result = (
     <>
       <Box>
@@ -88,13 +125,7 @@ const itemBox = () => {
         </ImageBox>
 
         <TextGroup>
-          <ItemNameLabel>モンブラン</ItemNameLabel>
-          {/* <Image
-        src="/img/cake1.png"
-        width={32}
-        height={32}
-        alt="My avatar"
-      ></Image> */}
+          <ItemNameLabel>{itemName}</ItemNameLabel>
 
           <FlexBlock>
             <Image
@@ -108,7 +139,7 @@ const itemBox = () => {
 
           <FlexBlock>
             <Image
-              src="/img/test.png"
+              src={Cake2.src}
               width={23}
               height={23}
               alt="My avatar"
@@ -119,7 +150,8 @@ const itemBox = () => {
 
           <ItemNameLabel>★★★</ItemNameLabel>
           <p>kcal 300~</p>
-          <p>店の名前</p>
+          {/* <p>店の名前</p> */}
+          <Shopname>shopname</Shopname>
         </TextGroup>
       </Box>
     </>

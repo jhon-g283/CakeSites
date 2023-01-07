@@ -81,6 +81,7 @@ const Header = () => {
     opacity: 1;
   `;
 
+  // 左のメニュー群
   const Left = styled.div`
     float: right;
   `;
