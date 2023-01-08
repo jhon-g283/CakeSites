@@ -9,14 +9,19 @@ git remote add origin https://github.com/jhon-g283/CakeSites.git
 git branch -M main
 git push -u origin main
 
-インストールしたライブラリや実施コマンド
+インストールしたライブラßリや実施コマンド
 [CMD]
 npx create-next-app --typescript new-project
 npm install styled-components   
 npm i --save-dev @types/styled-components
-npm install babel-plugin-styled-components  
-[URL]
+npm install babel-plugin-styled-components 
+npm install @reduxjs/toolkit
+npm install react-redux
+
+
+ [URL]
 https://zenn.dev/nbr41to/articles/c0c691653e3d55
+https://dev.classmethod.jp/articles/react-typescript-redux-toolkit/
 
 
 【調べる機能など】
@@ -35,4 +40,3 @@ api＝＞Next.js内で完結できる（別階層に用意）
 [全体的にやらないといけないこと]
 画面の項目がデカすぎるので調整する
 ヘッダーは150px？
-

@@ -4,11 +4,18 @@ import Header from "../header/header";
 import Hero from "../../../public/img/hero.png";
 import ItemBox from "../common/item";
 import { itemData } from "../../types";
-
+import { useSelector, useDispatch } from "react-redux"; //Redux,useSelectorとdispatchの読み込み
+import { searchResultOfCake, fetchItems } from "../../api/searchCakeList";
+import { AppDispatch } from "../../store";
 const Main = () => {
   //To Do ReduxのState読み込み（Selector）
   //
   //
+  const dispatch = useDispatch<AppDispatch>();
+  const { item } = useSelector(searchResultOfCake);
+  useEffect(() => {
+    dispatch(fetchItems());
+  }, [dispatch]);
 
   //ToDo 商品リストの配列が更新されたときに動くように、mapからコンポーネントの配列を作成できるようにする。
   //
@@ -135,13 +142,13 @@ const responceData = async () => {
 
   const result = await fetch(requestUrl)
     .then((responce) => {
-      console.log("fetch responce");
-      console.log(responce);
+      // console.log("fetch responce");
+      // console.log(responce);
       return responce.json();
     })
     .then((data) => {
-      console.log("fetch data");
-      console.log(data);
+      // console.log("fetch data");
+      // console.log(data);
       return data;
     })
     .catch(() => {
