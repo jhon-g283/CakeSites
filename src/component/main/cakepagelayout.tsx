@@ -5,19 +5,29 @@ import Hero from "../../../public/img/hero.png";
 import ItemBox from "../common/item";
 import { itemData } from "../../types";
 import { useSelector, useDispatch } from "react-redux"; //Redux,useSelectorとdispatchの読み込み
-import { searchResultOfCake, fetchItems } from "../../api/searchCakeList";
-import { AppDispatch } from "../../store";
+import { fetchItems, dataList } from "../../api/searchCakeSlice";
+import { AppDispatch } from "../../store"; //方で怒られるので入れた
+
 const Main = () => {
-  //To Do ReduxのState読み込み（Selector）
-  //
-  //
-  const dispatch = useDispatch<AppDispatch>();
-  const { item } = useSelector(searchResultOfCake);
+  //Reduxの設定
+  const dispatch = useDispatch<AppDispatch>(); //dispatch設定
+  const itemlist = useSelector((state: { cakereducer: dataList }) =>
+    state.cakereducer?.itemlist ? state.cakereducer.itemlist : []
+  ); //商品リスト取得
+  const status: string = useSelector((state: { cakereducer: dataList }) =>
+    state.cakereducer?.status ? state.cakereducer.status : ""
+  ); //ステータス取得
+  // useEffectでdispatch実行
   useEffect(() => {
     dispatch(fetchItems());
+    console.log("dispatch!");
   }, [dispatch]);
 
-  //ToDo 商品リストの配列が更新されたときに動くように、mapからコンポーネントの配列を作成できるようにする。
+  // useEffect(() => {
+  //   console.log("status:" + status);
+  // }, [status]);
+
+  //ToDo mapからコンポーネントの配列を作成するとき固有のキーを作成する
   //
   // ・・
 
@@ -29,9 +39,26 @@ const Main = () => {
   // dataなんたらから撮ってくる
   // ・・
 
-  const jsontext = responceData();
-  console.log("Connecting...");
-  console.log(jsontext);
+  // ToDo検索０件時や失敗した時の処理
+  //
+  //
+
+  // ToDo お知らせ画面の作成
+  //
+  //
+
+  // ToDo ヘルプ画面（モーダル）の作成
+  //
+  //
+
+  // ToDo 詳細画面の表示機能実装
+  //
+  //
+
+  // カート画面の実装
+  //
+  //
+  console.log("Connecting..." + status);
 
   // メニューボタン。Propsで画像を変える
   const MenuButton = styled.button``;
@@ -98,7 +125,7 @@ const Main = () => {
   ];
 
   // 取得したJsonデータから商品コンポーネントのリストを作成
-  const arrayItemBox = testData.map((item) => {
+  const arrayItemBox = itemlist.map((item) => {
     const result = (
       <ItemBox
         itemName={item.itemName}
@@ -117,7 +144,7 @@ const Main = () => {
       <Header />
       {/* <img src="${{ImgHero.src}}"></img> */}
       <ImgHero></ImgHero>
-
+      {/* <p>{status}</p> */}
       <Itemlist>
         {arrayItemBox}
         {/* <ItemBox

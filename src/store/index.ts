@@ -1,11 +1,20 @@
 // Reducerのエリアス
 import { configureStore } from "@reduxjs/toolkit";
-import cake from "../api/searchCakeList";
+import cakeList from "../api/searchCakeSlice";
 export type AppDispatch = typeof store.dispatch; // dispatchの方で怒られるので追加
+
+// ToDo カート機能の商品保持用の Store実装
+//
+//
+
+// ToDo 詳細画面用のスライサー（モックでデータを取るならReduxなしでデータ保持はいらないはず）
+//
+//
 
 export const store = configureStore({
   reducer: {
-    // reducerめい：インポートしたReducerファイル(XX.reducer)
-    cakereducer: cake,
+    // reducer名：インポートしたReducerファイル(XX.reducer)
+    // useSelectorで引数のstate.Reducer名で読み込むのに必要
+    cakereducer: cakeList,
   },
 });

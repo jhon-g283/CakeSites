@@ -7,3 +7,4 @@ export interface itemData {
   pricePieace?: any;
   kcal?: any;
 }
+[];

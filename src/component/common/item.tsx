@@ -31,18 +31,27 @@ const itemBox = ({
   kcal,
 }: itemData) => {
   // ToDo アイテムコンポーネント作成
-  // もっっくとしてサンプル作成
   //　　値段のスタイル調整
   //　　星の色変更
   // 外枠の作成
   //
   //
 
-  console.log("itemName");
-  console.log(itemName);
-  console.log("imageUrl");
+  // console.log("itemName");
+  // console.log(itemName);
+  // console.log("imageUrl");
 
   // ToDo コンポーネント化して引数の設定
+  //
+  //
+
+  // ToDO 他のタグのスタイル作成
+  //
+  //
+
+  // ToDo評価タグの計算機能実装
+  //
+  //
 
   // 外枠
   const Box = styled.div`
