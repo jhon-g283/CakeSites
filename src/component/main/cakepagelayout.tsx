@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import Header from "../header/header";
 import Hero from "../../../public/img/hero.png";
-import ItemBox from "../common/item";
+import ItemBox from "../common/item"; //商品コンポーネント
+import Image from "next/image"; //Imageコンポーネント
 import { itemData } from "../../types";
 import { useSelector, useDispatch } from "react-redux"; //Redux,useSelectorとdispatchの読み込み
 import { fetchItems, dataList } from "../../api/searchCakeSlice";
@@ -35,8 +36,12 @@ const Main = () => {
   //
   // 。。
 
+  // ToDoボタンクリック時の関数（ケーキの種類）作成
+  //
+  //
+
   // ToDo 検索時に投げるクエリの作成関数を作る
-  // dataなんたらから撮ってくる
+  // dataなんたらから撮ってくる=>button押下時に保持用の配列を変えればいいかも
   // ・・
 
   // ToDo検索０件時や失敗した時の処理
@@ -44,11 +49,11 @@ const Main = () => {
   //
 
   // ToDo お知らせ画面の作成
-  //
+  //　　useState`をPropsにして渡す？
   //
 
   // ToDo ヘルプ画面（モーダル）の作成
-  //
+  //　useState`をPropsにして渡す？
   //
 
   // ToDo 詳細画面の表示機能実装
@@ -58,6 +63,7 @@ const Main = () => {
   // カート画面の実装
   //
   //
+
   console.log("Connecting..." + status);
 
   // メニューボタン。Propsで画像を変える
@@ -135,9 +141,145 @@ const Main = () => {
         kcal={item.kcal}
       />
     );
-
     return result;
   });
+
+  const BtnList = styled.div`
+    // 親がrelativeで相対的に子が動くようにする
+    position: relative;
+
+    // flexとwrapで折り返すようにする
+    display: flex;
+    flex-wrap: wrap;
+  `;
+
+  // ボタン用コンポーネント
+  // 引数
+  // 画像Url
+  // ボタン名
+  // ボタンの押下時の関数に関連する設定値
+  const searchBtn = (btnImageUrl: string, name: string, num: number) => {
+    // Propsで画像を変更できるようにする
+    // const Btn = styled.button``;
+
+    const BtnName = styled.p`
+      // margin: auto;
+      position: relative;
+      // display: block;
+      margin-left: auto;
+      margin-right: auto;
+    `;
+
+    const BtnDiv = styled.div`
+      // display: block;
+      margin: 10px;
+    `;
+
+    // クリック時の関数
+    const clickFunction = (n: number) => {
+      console.log(n);
+    };
+    const BtnComponent = (
+      <>
+        <BtnDiv>
+          <Image
+            src={btnImageUrl}
+            width={113}
+            height={82}
+            alt="My avatar"
+            onClick={() => {
+              clickFunction(num);
+            }}
+          ></Image>
+          <BtnName>
+            {name}
+            {num}
+          </BtnName>
+        </BtnDiv>
+      </>
+    );
+    return BtnComponent;
+  };
+
+  // 値段の入力欄
+  const priceArea = () => {
+    const TitleText = styled.p``;
+    const Text = styled.a``;
+    const TextBoxPrice = styled.input``;
+    const TextBoxDiv = styled.div`
+      display: block;
+    `;
+
+    const priceCompo = (
+      <>
+        <TitleText>今回のご予算</TitleText>
+
+        <TextBoxDiv>
+          <TextBoxPrice></TextBoxPrice>
+          <Text>まで</Text>
+        </TextBoxDiv>
+      </>
+    );
+
+    return <>{priceCompo}</>;
+  };
+
+  // カロリーの入力欄
+  const kcalArea = () => {
+    const TitleText = styled.p``;
+    const Text = styled.a``;
+    const TextBoxKcal = styled.input``;
+
+    const TextBoxDiv = styled.div`
+      display: block;
+    `;
+
+    const Compo = (
+      <>
+        <TitleText>カロリー</TitleText>
+
+        <TextBoxDiv>
+          <TextBoxKcal></TextBoxKcal>
+          <Text>異常は避けたい</Text>
+        </TextBoxDiv>
+      </>
+    );
+
+    return <>{Compo}</>;
+  };
+
+  // 探すボタン
+  const SearchButton = styled.button``;
+
+  // 閉じるボタン
+  const CloseButton = styled.p``;
+
+  // 検索パネル
+  const searchPanel = (
+    <>
+      <p>search panel</p>
+      <BtnList>
+        {searchBtn("/img/cupcake.png", "カップ", 1)}
+        {searchBtn("/img/cupcake.png", "ss", 1)}
+        {searchBtn("/img/cupcake.png", "ss", 1)}
+        {searchBtn("/img/cupcake.png", "ss", 1)}
+        {searchBtn("/img/cupcake.png", "ss", 1)}
+        {searchBtn("/img/cupcake.png", "ss", 1)}
+        {searchBtn("/img/cupcake.png", "ss", 1)}
+        {searchBtn("/img/cupcake.png", "ss", 1)}
+        {searchBtn("/img/cupcake.png", "ss", 1)}
+        {searchBtn("/img/cupcake.png", "ss", 1)}
+        {searchBtn("/img/cupcake.png", "ss", 1)}
+        {searchBtn("/img/cupcake.png", "ss", 1)}
+        {searchBtn("/img/cupcake.png", "ss", 1)}
+      </BtnList>
+
+      {priceArea()}
+      {kcalArea()}
+      <SearchButton>探す</SearchButton>
+      <CloseButton>X Close</CloseButton>
+    </>
+  );
 
   const mainBlock = (
     <>
@@ -145,6 +287,7 @@ const Main = () => {
       {/* <img src="${{ImgHero.src}}"></img> */}
       <ImgHero></ImgHero>
       {/* <p>{status}</p> */}
+      {searchPanel}
       <Itemlist>
         {arrayItemBox}
         {/* <ItemBox
