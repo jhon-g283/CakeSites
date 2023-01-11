@@ -2,9 +2,6 @@ import React from "react";
 import styled from "styled-components";
 import CartImagePath from "../../../public/img/cart.png";
 
-interface CartImageProps {
-  CartImage?: string;
-}
 const Header = () => {
   // styled-componentsの変数は大文字スタート
 

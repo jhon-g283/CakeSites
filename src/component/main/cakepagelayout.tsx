@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Header from "../header/header";
+import Header from "../header/header"; //ヘッダーコンポーネント
 import Hero from "../../../public/img/hero.png";
 import ItemBox from "../common/item"; //商品コンポーネント
 import Image from "next/image"; //Imageコンポーネント
@@ -23,6 +23,8 @@ const Main = () => {
     dispatch(fetchItems());
     console.log("dispatch!");
   }, [dispatch]);
+
+  const [flg, changeflg] = useState(false); //お知らせ画面の表示切り替え用のフラグ
 
   // useEffect(() => {
   //   console.log("status:" + status);
@@ -255,39 +257,56 @@ const Main = () => {
   const CloseButton = styled.p``;
 
   // 検索パネル
-  const searchPanel = (
-    <>
-      <p>search panel</p>
-      <BtnList>
-        {searchBtn("/img/cupcake.png", "カップ", 1)}
-        {searchBtn("/img/cupcake.png", "ss", 1)}
-        {searchBtn("/img/cupcake.png", "ss", 1)}
-        {searchBtn("/img/cupcake.png", "ss", 1)}
-        {searchBtn("/img/cupcake.png", "ss", 1)}
-        {searchBtn("/img/cupcake.png", "ss", 1)}
-        {searchBtn("/img/cupcake.png", "ss", 1)}
-        {searchBtn("/img/cupcake.png", "ss", 1)}
-        {searchBtn("/img/cupcake.png", "ss", 1)}
-        {searchBtn("/img/cupcake.png", "ss", 1)}
-        {searchBtn("/img/cupcake.png", "ss", 1)}
-        {searchBtn("/img/cupcake.png", "ss", 1)}
-        {searchBtn("/img/cupcake.png", "ss", 1)}
-      </BtnList>
+  const searchPanel = () => {
+    const PanelDiv = styled.div`
+      // top: 1062px;
+      // left: 54px;
+      // width: 1229px;
+      // height: 792px;
+      background: #ffffff 0% 0% no-repeat padding-box;
+      border: 1px solid #707070;
+      border-radius: 37px;
+      // opacity: 1;
+    `;
 
-      {priceArea()}
-      {kcalArea()}
-      <SearchButton>探す</SearchButton>
-      <CloseButton>X Close</CloseButton>
-    </>
-  );
+    const result = (
+      <>
+        <PanelDiv>
+          <p>search panel</p>
+          <BtnList>
+            {searchBtn("/img/cupcake.png", "カップ", 1)}
+            {searchBtn("/img/cupcake.png", "ss", 1)}
+            {searchBtn("/img/cupcake.png", "ss", 1)}
+            {searchBtn("/img/cupcake.png", "ss", 1)}
+            {searchBtn("/img/cupcake.png", "ss", 1)}
+            {searchBtn("/img/cupcake.png", "ss", 1)}
+            {searchBtn("/img/cupcake.png", "ss", 1)}
+            {searchBtn("/img/cupcake.png", "ss", 1)}
+            {searchBtn("/img/cupcake.png", "ss", 1)}
+            {searchBtn("/img/cupcake.png", "ss", 1)}
+            {searchBtn("/img/cupcake.png", "ss", 1)}
+            {searchBtn("/img/cupcake.png", "ss", 1)}
+            {searchBtn("/img/cupcake.png", "ss", 1)}
+          </BtnList>
+
+          {priceArea()}
+          {kcalArea()}
+          <SearchButton>探す</SearchButton>
+          <CloseButton>X Close</CloseButton>
+        </PanelDiv>
+      </>
+    );
+
+    return result;
+  };
 
   const mainBlock = (
     <>
       <Header />
-      {/* <img src="${{ImgHero.src}}"></img> */}
+      {!flg ? "t" : "f"}
       <ImgHero></ImgHero>
       {/* <p>{status}</p> */}
-      {searchPanel}
+      {searchPanel()}
       <Itemlist>
         {arrayItemBox}
         {/* <ItemBox
