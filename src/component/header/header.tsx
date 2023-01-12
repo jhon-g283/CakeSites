@@ -2,9 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import CartImagePath from "../../../public/img/cart.png";
 
-const Header = () => {
+const Header = (fnc) => {
   // styled-componentsの変数は大文字スタート
 
+  const f = fnc;
   // ヘッダー全体
   const Header = styled.header`
     // position: fixed;
@@ -94,7 +95,16 @@ const Header = () => {
         <TitleLogo>Peace Of Cake</TitleLogo>
 
         <Left>
-          <Nav1>お知らせ</Nav1>
+          <Nav1
+            onClick={() => {
+              console.log(`---`);
+              console.log(fnc);
+              console.log(f);
+              fnc;
+            }}
+          >
+            お知らせ
+          </Nav1>
           <Nav2>ヘルプ</Nav2>
           <ImgCart></ImgCart>
           {/* <nav>

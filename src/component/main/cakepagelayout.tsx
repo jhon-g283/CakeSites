@@ -4,6 +4,7 @@ import Header from "../header/header"; //ヘッダーコンポーネント
 import Hero from "../../../public/img/hero.png";
 import ItemBox from "../common/item"; //商品コンポーネント
 import Image from "next/image"; //Imageコンポーネント
+import InfomationComponent from "../infopage/infomation";
 import { itemData } from "../../types";
 import { useSelector, useDispatch } from "react-redux"; //Redux,useSelectorとdispatchの読み込み
 import { fetchItems, dataList } from "../../api/searchCakeSlice";
@@ -26,6 +27,10 @@ const Main = () => {
 
   const [flg, changeflg] = useState(false); //お知らせ画面の表示切り替え用のフラグ
 
+  const testf = () => {
+    console.log(flg);
+    changeflg(!flg);
+  };
   // useEffect(() => {
   //   console.log("status:" + status);
   // }, [status]);
@@ -302,7 +307,7 @@ const Main = () => {
 
   const mainBlock = (
     <>
-      <Header />
+      <Header fnc={testf} />
       {!flg ? "t" : "f"}
       <ImgHero></ImgHero>
       {/* <p>{status}</p> */}
@@ -317,6 +322,7 @@ const Main = () => {
           kcal={testData[0].kcal}
         /> */}
       </Itemlist>
+      <InfomationComponent />
     </>
   );
 
