@@ -27,13 +27,27 @@ const Main = () => {
 
   const [flg, changeflg] = useState(false); //お知らせ画面の表示切り替え用のフラグ
 
-  const testf = () => {
-    console.log(flg);
+  // お知らせフラグを反転させる関数,戻り値がないのでvoidにする
+  const testf = (): void => {
     changeflg(!flg);
   };
+
+  const testf2 = function (x: () => void) {};
+
+  interface testi {
+    testf: () => void;
+  }
+
+  // 関数の型を宣言する
+  type testftype = typeof testf;
+
   // useEffect(() => {
   //   console.log("status:" + status);
   // }, [status]);
+
+  useEffect(() => {
+    console.log("flg:" + flg);
+  }, [flg]);
 
   //ToDo mapからコンポーネントの配列を作成するとき固有のキーを作成する
   //
@@ -353,4 +367,5 @@ const responceData = async () => {
   return result;
 };
 
+// export testftype;
 export default Main;
