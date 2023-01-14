@@ -5,6 +5,14 @@ import styles from "../styles/Home.module.css";
 import Header from "../src/component/header/header";
 import Main from "../src/component/main/cakepagelayout";
 
+// ToDo読み込み・レンダー前の処理　ServerSide PropsとかuseEffect
+//
+//
+
+// ToDo 階層を専用の階層へ移動させる
+//
+//
+
 const Home: NextPage = () => {
   return (
     // head meta情報などをこっちに入れる

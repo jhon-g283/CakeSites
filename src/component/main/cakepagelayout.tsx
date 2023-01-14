@@ -5,6 +5,7 @@ import Hero from "../../../public/img/hero.png";
 import ItemBox from "../common/item"; //商品コンポーネント
 import Image from "next/image"; //Imageコンポーネント
 import InfomationComponent from "../infopage/infomation";
+import ItemDetailComponent from "../itemdetail/itemdetai";
 import { itemData } from "../../types";
 import { useSelector, useDispatch } from "react-redux"; //Redux,useSelectorとdispatchの読み込み
 import { fetchItems, dataList } from "../../api/searchCakeSlice";
@@ -25,29 +26,20 @@ const Main = () => {
     console.log("dispatch!");
   }, [dispatch]);
 
-  const [flg, changeflg] = useState(false); //お知らせ画面の表示切り替え用のフラグ
+  const [infoFlg, changeInfoFlg] = useState<boolean>(false); //お知らせ画面の表示切り替え用のフラグ
 
-  // お知らせフラグを反転させる関数,戻り値がないのでvoidにする
-  const testf = (): void => {
-    changeflg(!flg);
+  // お知らせフラグを変更させる関数,戻り値がないのでvoidにする
+  const infoFlgFnc = (flg: boolean): void => {
+    changeInfoFlg(flg);
   };
-
-  const testf2 = function (x: () => void) {};
-
-  interface testi {
-    testf: () => void;
-  }
-
-  // 関数の型を宣言する
-  type testftype = typeof testf;
 
   // useEffect(() => {
   //   console.log("status:" + status);
   // }, [status]);
 
-  useEffect(() => {
-    console.log("flg:" + flg);
-  }, [flg]);
+  // useEffect(() => {
+  //   console.log("flg:" + flg);
+  // }, [flg]);
 
   //ToDo mapからコンポーネントの配列を作成するとき固有のキーを作成する
   //
@@ -108,6 +100,10 @@ const Main = () => {
       background: red;
       color: white;
     }
+  `;
+
+  const MainWrapper = styled.div`
+    background: #ffe5d5 0% 0% no-repeat padding-box;
   `;
 
   const ImgHero = styled.div`
@@ -321,8 +317,9 @@ const Main = () => {
 
   const mainBlock = (
     <>
-      <Header fnc={testf} />
-      {!flg ? "t" : "f"}
+      {/* <MainWrapper> */}
+      <Header fnc={infoFlgFnc} />
+      {!infoFlg ? "t" : <InfomationComponent fukflg={infoFlgFnc} />}
       <ImgHero></ImgHero>
       {/* <p>{status}</p> */}
       {searchPanel()}
@@ -336,7 +333,8 @@ const Main = () => {
           kcal={testData[0].kcal}
         /> */}
       </Itemlist>
-      <InfomationComponent />
+      <ItemDetailComponent></ItemDetailComponent>
+      {/* </MainWrapper> */}
     </>
   );
 

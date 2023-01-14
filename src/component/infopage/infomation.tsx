@@ -1,8 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
+//Props 引数の型
+interface Props {
+  fukflg: (flg: boolean) => void; // ()=>void
+}
+
 //　お知らせ用の画面のコンポーネント
-const InfomationComponent = () => {
+const InfomationComponent = ({ fukflg }: Props) => {
   //ページのタイトル部分
   const Title = styled.p`
     //   top: 212px;
@@ -165,7 +170,7 @@ const InfomationComponent = () => {
       </TabDiv>
 
       {InfoArea()}
-      <BackButton>戻る</BackButton>
+      <BackButton onClick={() => fukflg(false)}>戻る</BackButton>
     </>
   );
 

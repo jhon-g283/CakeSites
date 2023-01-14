@@ -1,15 +1,19 @@
+/* containerクラスのスタイル */
 .container {
-  padding: 0 2rem;
+  /* padding: 0 2rem; */
+  background: #ffe5d5 0% 0% no-repeat padding-box;
 }
 
+/* mainクラスのスタイル */
 .main {
   min-height: 100vh;
-  padding: 4rem 0;
+  /* padding: 4rem 0; */
   flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  /* background: #ffe5d5 0% 0% no-repeat padding-box; */
 }
 
 .footer {
