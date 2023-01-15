@@ -106,6 +106,10 @@ const EditComponent = () => {
 // Todo
 // 別ファイルにコンポーネントとして作り直す
 //
+
+// ToDo
+// 合計の計算機能を配列を使って実装
+//
 // 編集モードのコンポーネント
 const EditModeComponent = () => {
   // 項目名
@@ -164,10 +168,18 @@ const EditModeComponent = () => {
 
   const EditButtonWrapper = styled.div``;
 
-  const EditButton = (
+  const CartButton = (
     <>
       <EditButtonWrapper>
-        <MenuButton>Edit</MenuButton>
+        <MenuButton>Cart</MenuButton>
+      </EditButtonWrapper>
+    </>
+  );
+
+  const QuitButton = (
+    <>
+      <EditButtonWrapper>
+        <MenuButton>Quit</MenuButton>
       </EditButtonWrapper>
     </>
   );
@@ -183,6 +195,45 @@ const EditModeComponent = () => {
     border-radius: 62px;
   `;
 
+  const PricePanelWrapper = styled.div`
+    display: flex;
+  `;
+
+  const PriceSubText = styled.p``;
+
+  const PriceLabel = styled.p``;
+
+  const PriceWrapper = styled.div``;
+
+  const beforePrice = () => {
+    const component = (
+      <>
+        <PriceWrapper>
+          <PriceSubText>Before</PriceSubText>
+          <PriceLabel>¥100</PriceLabel>
+        </PriceWrapper>
+      </>
+    );
+
+    return component;
+  };
+
+  const PricePanel = (
+    <>
+      <PricePanelWrapper>
+        {beforePrice()}
+        <Image
+          src="/img/arrow.png"
+          width={48}
+          height={42}
+          alt="My avatar"
+        ></Image>
+        {beforePrice()}
+      </PricePanelWrapper>
+      {QuitButton}
+    </>
+  );
+
   const LeftPanel = (
     <LeftPanelWrapper>
       <Image
@@ -191,6 +242,7 @@ const EditModeComponent = () => {
         height={260}
         alt="My avatar"
       ></Image>
+      {PricePanel}
     </LeftPanelWrapper>
   );
 
@@ -200,13 +252,19 @@ const EditModeComponent = () => {
   const RightPanel = (
     <>
       <RightPanelWrapper>
+        <ItemText>order change</ItemText>
+        {optionComponent(0, 0)}
+        <ItemText>topping</ItemText>
         <ItemText>test</ItemText>
         {optionComponent(1, 100)}
+        <ItemText>tes2</ItemText>
+        {optionComponent(2, 200)}
+        {CartButton}
       </RightPanelWrapper>
     </>
   );
 
-  const sinlePeace = (
+  const multiPeace = (
     <>
       <PanelWrapper>
         {LeftPanel}
@@ -215,7 +273,7 @@ const EditModeComponent = () => {
     </>
   );
 
-  const editArea = <>{sinlePeace}</>;
+  const editArea = <>{multiPeace}</>;
 
   return editArea;
 };
