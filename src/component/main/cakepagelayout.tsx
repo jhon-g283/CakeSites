@@ -6,6 +6,7 @@ import ItemBox from "../common/item"; //商品コンポーネント
 import Image from "next/image"; //Imageコンポーネント
 import InfomationComponent from "../infopage/infomation";
 import ItemDetailComponent from "../itemdetail/itemdetai";
+import CartComponent from "../cart/cart";
 import { itemData } from "../../types";
 import { useSelector, useDispatch } from "react-redux"; //Redux,useSelectorとdispatchの読み込み
 import { fetchItems, dataList } from "../../api/searchCakeSlice";
@@ -334,6 +335,7 @@ const Main = () => {
         /> */}
       </Itemlist>
       <ItemDetailComponent></ItemDetailComponent>
+      <CartComponent></CartComponent>
       {/* </MainWrapper> */}
     </>
   );
