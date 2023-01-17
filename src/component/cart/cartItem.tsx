@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Image from "next/image"; //Imageコンポーネント
+import InPutForm from "./inputForm";
 import Cake1 from "../../../public/img/cake1.png";
 import gaberge from "../../../public/img/gaberge.png";
 
@@ -9,6 +10,10 @@ import gaberge from "../../../public/img/gaberge.png";
 //
 
 // ToDo カートない商品の商品ボックス作成
+//
+//
+
+// ToDo 削除ボタンでカートから削除
 //
 //
 
@@ -68,6 +73,26 @@ const CartItem = () => {
   `;
   const ButtonPanelWrapper = styled.div``;
 
+  const GuideText = styled.p``;
+
+  const ConfButton = styled.button`
+    width: 446px;
+    height: 84px;
+    background: #310202 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    border-radius: 33px;
+    opacity: 1;
+    // テキスト
+    font: var(--unnamed-font-style-normal) normal normal 43px/74px Hiragino Kaku
+      Gothic ProN;
+    letter-spacing: var(--unnamed-character-spacing-0);
+    text-align: left;
+    font: normal normal normal 43px/74px Hiragino Kaku Gothic ProN;
+    letter-spacing: 0px;
+    color: #ffffff;
+    opacity: 1;
+  `;
+
   const ButtonArea = (
     <>
       <ButtonPanelWrapper>
@@ -102,6 +127,7 @@ const CartItem = () => {
 
   const Item = (
     <>
+      <GuideText>Caet Items</GuideText>
       <ItemWrapper>
         <Image
           src="/img/test.png"
@@ -112,6 +138,9 @@ const CartItem = () => {
         {orderInfo}
         {ButtonArea}
       </ItemWrapper>
+      <InPutForm />
+      <GuideText>Check Your Order</GuideText>
+      <ConfButton>Confirm</ConfButton>
     </>
   );
 
