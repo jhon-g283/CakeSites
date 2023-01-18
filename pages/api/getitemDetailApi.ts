@@ -1,7 +1,8 @@
+// ケーキの詳細情報の取得用API
+
 import type { NextApiRequest, NextApiResponse } from "next";
-import { itemData } from "../../src/types";
-import jsonData from "./stbdata/sample.json";
-// type Data = Array<itemData>;
+import { cakeDetail } from "../../src/types";
+import jsonData from "./stbdata/cakeDate.json";
 
 // ToDo
 // interfaceを１つにまとめる
@@ -11,22 +12,9 @@ import jsonData from "./stbdata/sample.json";
 //
 //
 
-interface dataList {
-  itemlist?: {
-    id?: string;
-    itemName?: any;
-    imageUrl?: any;
-    priceHole?: any;
-    pricePieace?: any;
-    kcal?: any;
-    code?: string;
-  }[];
-  status?: string;
-}
-
 export default function searchCakesData(
   req: NextApiRequest,
-  res: NextApiResponse<dataList>
+  res: NextApiResponse<cakeDetail>
 ) {
   console.log("req");
   console.log(req.query);

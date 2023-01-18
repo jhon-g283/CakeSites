@@ -1,18 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { itemData } from "../types";
-
-// ToDo方の宣言（Interface）を１まとめにする
-//
-//
-
-// ToDo検索失敗やエラー発生時のデフォルト値設定やペイロードの値チェック
-//
-//
-
-// ToDo 問合せ先のURLをENVに設定する
-//
-//
-
+import { cakeDetail } from "../../src/types";
 // Stateの型の設定
 export interface dataList {
   itemlist?: {
@@ -26,18 +13,6 @@ export interface dataList {
   }[];
   status: string;
 }
-
-type dataListType = {
-  List?: itemData;
-  status?: string;
-};
-
-const test: dataList = {
-  itemlist: [
-    { itemName: "", imageUrl: "", priceHole: "", pricePieace: "", kcal: "" },
-  ],
-  status: "",
-};
 
 // State初期値の設定
 const initialState: dataList = {
@@ -54,7 +29,7 @@ const initialState: dataList = {
 };
 
 //問合せURL
-const ulr: string = "http://localhost:3000/api/searchCakeApi?q=%22qq%22";
+const ulr: string = "http://localhost:3000/api/getitemDetailApi?q=%yy%22";
 
 // APIへの問い合わせ関数（fetchで取得する部分）
 const getItems = async (url: string) => {
@@ -82,7 +57,7 @@ const getItems = async (url: string) => {
 };
 
 // Thunk
-export const fetchItems = createAsyncThunk<dataList>(
+export const fetchItems = createAsyncThunk<cakeDetail>(
   "fetchItem_Cake",
   async (arg, thunkAPI) => {
     const result = getItems(ulr); // API問い合わせ
@@ -92,8 +67,8 @@ export const fetchItems = createAsyncThunk<dataList>(
 
 //https:future-architect.github.io/articles/20200501/
 
-const getCakeDetailSlice = createSlice({
-  name: "cakeDetailData",
+const getItemDetailSlice = createSlice({
+  name: "cakeList",
   initialState: initialState, //初期のStateセット
   reducers: {},
   extraReducers: (builder) => {
@@ -109,7 +84,7 @@ const getCakeDetailSlice = createSlice({
     // 通信完了
     builder.addCase(fetchItems.fulfilled, (state, action) => {
       // state.loading = true;
-      const item = action.payload.itemlist; //payloadから取得したデータを取り出す
+      const item = action.payload.cakeData; //payloadから取得したデータを取り出す
 
       // console.log("payload");
 
@@ -129,8 +104,8 @@ const getCakeDetailSlice = createSlice({
 });
 
 // selectorをエクスポート
-export const resultOfCakeDetail = (cakeDetailData: dataList) => cakeDetailData;
+export const searchResultOfCake = (cakeList: dataList) => cakeList;
 
 // Reducerをエクスポート
 // 読み込み時にはuseSelectで[state.設定したreducer名.State名]で読み込む
-export default getCakeDetailSlice.reducer;
+export default getItemDetailSlice.reducer;

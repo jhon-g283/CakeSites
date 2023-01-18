@@ -1,11 +1,13 @@
 {
   "itemlist": [
     {
+      "id": "1",
       "itemName": "モンブランs",
       "imageUrl": "imageUrl",
       "priceHole": "priceHole",
       "pricePieace": "pricePieace",
-      "kcal": "kcal"
+      "kcal": "kcal",
+      "code": "1A"
     },
     {
       "itemName": "モンブランa",
