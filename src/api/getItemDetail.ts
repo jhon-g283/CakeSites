@@ -15,18 +15,42 @@ export interface dataList {
 }
 
 // State初期値の設定
-const initialState: dataList = {
-  itemlist: [
+const initialState: cakeDetail = {
+  cakeData: [
     {
-      itemName: "**",
+      id: "",
+      itemName: "",
       imageUrl: "",
+      imageUr2: "",
       priceHole: "",
       pricePieace: "",
       kcal: "",
+      code: "",
+      discriotion: "",
+      options: {
+        option1: { name: "", param: "" },
+        option2: { name: "", param: "" },
+        option3: { name: "", param: "" },
+      },
     },
   ],
+
   status: "***",
 };
+
+// State初期値の設定
+// const initialState: dataList = {
+//   itemlist: [
+//     {
+//       itemName: "**",
+//       imageUrl: "",
+//       priceHole: "",
+//       pricePieace: "",
+//       kcal: "",
+//     },
+//   ],
+//   status: "***",
+// };
 
 //問合せURL
 const ulr: string = "http://localhost:3000/api/getitemDetailApi?q=%yy%22";
@@ -42,7 +66,7 @@ const getItems = async (url: string) => {
       // console.log(responce);
       return responce.json();
     })
-    .then((data: dataList) => {
+    .then((data: cakeDetail) => {
       // console.log("fetch data reducer");
       // console.log(data);
       // const str: string = "data.name";
@@ -57,10 +81,13 @@ const getItems = async (url: string) => {
 };
 
 // Thunk
-export const fetchItems = createAsyncThunk<cakeDetail>(
+// 第１引数：返り値の型
+// 第２引数：受け渡す引数の型
+export const fetchItems = createAsyncThunk<cakeDetail, number>(
   "fetchItem_Cake",
-  async (arg, thunkAPI) => {
-    const result = getItems(ulr); // API問い合わせ
+  async (n: number, thunkAPI) => {
+    console.log("item id is :" + n);
+    const result = getItems(ulr + "&id=" + n); // API問い合わせ
     return result;
   }
 );
@@ -77,7 +104,7 @@ const getItemDetailSlice = createSlice({
       state.status = "pending";
 
       console.log("pending--");
-      console.log(state.itemlist);
+
       console.log(state.status);
     });
 
@@ -88,7 +115,7 @@ const getItemDetailSlice = createSlice({
 
       // console.log("payload");
 
-      state.itemlist = item;
+      state.cakeData = item;
       state.status = "success";
 
       // console.log(action.payload);
@@ -104,7 +131,7 @@ const getItemDetailSlice = createSlice({
 });
 
 // selectorをエクスポート
-export const searchResultOfCake = (cakeList: dataList) => cakeList;
+export const searchResultOfCake = (cakeList: cakeDetail) => cakeList;
 
 // Reducerをエクスポート
 // 読み込み時にはuseSelectで[state.設定したreducer名.State名]で読み込む

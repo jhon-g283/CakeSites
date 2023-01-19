@@ -4,6 +4,10 @@ import styled from "styled-components";
 import Image from "next/image"; //Imageコンポーネント
 import Cake1 from "../../../public/img/cake1.png";
 import Cake2 from "../../../public/img/cake2.png";
+import { cakeDetail } from "../../types";
+import { useSelector, useDispatch } from "react-redux"; //Redux,useSelectorとdispatchの読み込み
+import { fetchItems } from "../../api/getItemDetail";
+import { AppDispatch } from "../../store"; //方で怒られるので入れた
 // ToDo idを引数などから取得しデータを取得する機能
 //
 //
@@ -19,6 +23,7 @@ import Cake2 from "../../../public/img/cake2.png";
 // Todo
 // 別ファイルにコンポーネントとして作り直す
 //
+
 // 編集コンポーネント
 const EditComponent = () => {
   //   const [ingnmber, changeimgnumber] = useState(1);
@@ -280,6 +285,15 @@ const EditModeComponent = () => {
 
 // 商品詳細のメイン部分
 const ItemDetailComponent = () => {
+  const dispatch = useDispatch<AppDispatch>(); //dispatch設定
+  const itemDetail = useSelector(
+    (state: { detailreducer: cakeDetail }) => state.detailreducer.cakeData
+  );
+  useEffect(() => {
+    dispatch(fetchItems(1));
+    console.log("dispatch! detail");
+  }, [dispatch]);
+
   const [ingnmber, changeimgnumber] = useState(1); //ピース数
   const DetailAreaDiv = styled.div`
     background: #eac0c0 0% 0% no-repeat padding-box;

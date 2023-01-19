@@ -82,6 +82,8 @@ const getItems = async (url: string) => {
 };
 
 // Thunk
+// 第１引数：返り値の型
+// 第２引数：受け渡す引数の型
 export const fetchItems = createAsyncThunk<dataList>(
   "fetchItem_Cake",
   async (arg, thunkAPI) => {
