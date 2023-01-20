@@ -25,8 +25,29 @@ export interface cakeDetail {
       option2?: { name: string; param: any };
       option3?: { name: string; param: any };
     };
-  }[];
+  };
   status?: string;
+}
+
+// API用：ケーキの商品情報取得
+export interface cakeDetailArray {
+  cakeData?: {
+    id?: string;
+    itemName?: any;
+    imageUrl?: any;
+    imageUr2?: any;
+    priceHole?: any;
+    pricePieace?: any;
+    kcal?: any;
+    code?: string;
+    discriotion?: string;
+    options?: {
+      option1?: { name: string; param: any };
+      option2?: { name: string; param: any };
+      option3?: { name: string; param: any };
+    };
+  }[];
+  // status?: string;
 }
 
 // "cakeData": [

@@ -289,10 +289,26 @@ const ItemDetailComponent = () => {
   const itemDetail = useSelector(
     (state: { detailreducer: cakeDetail }) => state.detailreducer.cakeData
   );
+
+  // const status =
   useEffect(() => {
     dispatch(fetchItems(1));
     console.log("dispatch! detail");
   }, [dispatch]);
+  // const itemDetail = useSelector((state: { detailreducer: cakeDetail }) =>
+  //   state.detailreducer.cakeData != undefined
+  //     ? state.detailreducer.cakeData
+  //     : null
+  // );
+
+  const pPrice =
+    itemDetail?.pricePieace != undefined ? itemDetail.pricePieace : "???";
+
+  useEffect(() => {
+    // dispatch(fetchItems(1));
+    console.log("change! detail");
+    console.log(itemDetail);
+  }, [itemDetail]);
 
   const [ingnmber, changeimgnumber] = useState(1); //ピース数
   const DetailAreaDiv = styled.div`
@@ -371,7 +387,7 @@ const ItemDetailComponent = () => {
         <Prise>値段</Prise>
         <FlexBlock>
           <Image src={Cake1.src} width={23} height={23} alt="My avatar"></Image>
-          <PrisePeace>Peace:200¥</PrisePeace>
+          <PrisePeace>Peace:¥{pPrice}</PrisePeace>
         </FlexBlock>
         <FlexBlock>
           <Image src={Cake2.src} width={23} height={23} alt="My avatar"></Image>

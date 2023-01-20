@@ -16,24 +16,22 @@ export interface dataList {
 
 // State初期値の設定
 const initialState: cakeDetail = {
-  cakeData: [
-    {
-      id: "",
-      itemName: "",
-      imageUrl: "",
-      imageUr2: "",
-      priceHole: "",
-      pricePieace: "",
-      kcal: "",
-      code: "",
-      discriotion: "",
-      options: {
-        option1: { name: "", param: "" },
-        option2: { name: "", param: "" },
-        option3: { name: "", param: "" },
-      },
+  cakeData: {
+    id: "",
+    itemName: "---",
+    imageUrl: "---",
+    imageUr2: "---",
+    priceHole: "---",
+    pricePieace: "---",
+    kcal: "---",
+    code: "---",
+    discriotion: "--",
+    options: {
+      option1: { name: "--", param: "--" },
+      option2: { name: "--", param: "--" },
+      option3: { name: "--", param: "--" },
     },
-  ],
+  },
 
   status: "***",
 };
@@ -113,12 +111,12 @@ const getItemDetailSlice = createSlice({
       // state.loading = true;
       const item = action.payload.cakeData; //payloadから取得したデータを取り出す
 
-      // console.log("payload");
+      console.log("payload detail");
 
       state.cakeData = item;
       state.status = "success";
 
-      // console.log(action.payload);
+      console.log(action.payload);
       // console.log(state.itemlist);
       // console.log(state.status);
     });
