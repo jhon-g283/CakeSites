@@ -7,10 +7,12 @@ import Image from "next/image"; //Imageコンポーネント
 import InfomationComponent from "../infopage/infomation";
 import ItemDetailComponent from "../itemdetail/itemdetai";
 import CartComponent from "../cart/cart";
-import { itemData } from "../../types";
+import { itemData, dataList, cakeDetail, cakeDetailData } from "../../types";
 import { useSelector, useDispatch } from "react-redux"; //Redux,useSelectorとdispatchの読み込み
-import { fetchItems, dataList } from "../../api/searchCakeSlice";
+import { fetchItems } from "../../api/searchCakeSlice";
 import { AppDispatch } from "../../store"; //方で怒られるので入れた
+
+import { fetchDetails } from "../../api/getItemDetail";
 
 const Main = () => {
   //Reduxの設定
@@ -21,11 +23,26 @@ const Main = () => {
   const status: string = useSelector((state: { cakereducer: dataList }) =>
     state.cakereducer?.status ? state.cakereducer.status : ""
   ); //ステータス取得
-  // useEffectでdispatch実行
-  useEffect(() => {
-    dispatch(fetchItems());
-    console.log("dispatch!");
-  }, [dispatch]);
+
+  const dummyData: cakeDetail = {
+    cakeData: { id: 99 },
+  };
+
+  const itemDetailSelector: cakeDetail = useSelector(
+    (state: { detailreducer: cakeDetail }) =>
+      state.detailreducer.cakeData != undefined
+        ? state.detailreducer
+        : dummyData
+  );
+
+  const itemDetail =
+    itemDetailSelector.cakeData != undefined
+      ? itemDetailSelector.cakeData
+      : dummyData.cakeData;
+
+  const itemId = itemDetail?.id || 0;
+
+  const st: any = useSelector((state: { reducer: any }) => state); //ステータス取得
 
   const [infoFlg, changeInfoFlg] = useState<boolean>(false); //お知らせ画面の表示切り替え用のフラグ
 
@@ -34,9 +51,36 @@ const Main = () => {
     changeInfoFlg(flg);
   };
 
-  // useEffect(() => {
-  //   console.log("status:" + status);
-  // }, [status]);
+  const showItemDetail = (id: number) => {
+    console.log("get item detail id:" + id);
+    dispatch(fetchDetails(id));
+  };
+
+  const fnc2 = () => {
+    dispatch(fetchItems());
+  };
+
+  // useEffectでdispatch実行
+  useEffect(() => {
+    dispatch(fetchItems());
+    console.log("dispatch! items");
+  }, [dispatch]);
+
+  const [stateItemDetail, upDateItemDetail] = useState(itemDetail);
+  // useEffectでdispatch実行
+  useEffect(() => {
+    console.log("useEffect itemDetail");
+    console.log(itemDetail);
+    // upDateItemDetail(itemDetail);
+  }, [itemDetail]);
+
+  console.log("st");
+  console.log(st);
+
+  useEffect(() => {
+    console.log("itemlist　usestate");
+    console.log(st);
+  }, [st]);
 
   // useEffect(() => {
   //   console.log("flg:" + flg);
@@ -131,32 +175,35 @@ const Main = () => {
     flex-wrap: wrap;
   `;
 
-  const testData: Array<itemData> = [
-    {
-      itemName: "モンブランs",
-      imageUrl: "imageUrl",
-      priceHole: "priceHole",
-      pricePieace: "pricePieace",
-      kcal: "kcal",
-    },
-    {
-      itemName: "モンブランa",
-      imageUrl: "imageUrl",
-      priceHole: "priceHole",
-      pricePieace: "pricePieace",
-      kcal: "kcal",
-    },
-  ];
+  // const testData: Array<itemData> = [
+  //   {
+  //     itemName: "モンブランs",
+  //     imageUrl: "imageUrl",
+  //     priceHole: "priceHole",
+  //     pricePieace: "pricePieace",
+  //     kcal: "kcal",
+  //   },
+  //   {
+  //     itemName: "モンブランa",
+  //     imageUrl: "imageUrl",
+  //     priceHole: "priceHole",
+  //     pricePieace: "pricePieace",
+  //     kcal: "kcal",
+  //   },
+  // ];
 
   // 取得したJsonデータから商品コンポーネントのリストを作成
   const arrayItemBox = itemlist.map((item) => {
     const result = (
       <ItemBox
+        id={item.id}
         itemName={item.itemName}
         imageUrl={item.imageUrl}
         priceHole={item.priceHole}
         pricePieace={item.pricePieace}
         kcal={item.kcal}
+        clickFunction={showItemDetail}
+        // ::::::::::::::::
       />
     );
     return result;
@@ -324,17 +371,22 @@ const Main = () => {
       <ImgHero></ImgHero>
       {/* <p>{status}</p> */}
       {searchPanel()}
-      <Itemlist>
-        {arrayItemBox}
-        {/* <ItemBox
-          itemName={testData[0].itemName}
-          imageUrl={testData[0].imageUrl}
-          priceHole={testData[0].priceHole}
-          pricePieace={testData[0].pricePieace}
-          kcal={testData[0].kcal}
-        /> */}
-      </Itemlist>
-      <ItemDetailComponent></ItemDetailComponent>
+      <Itemlist>{arrayItemBox}</Itemlist>
+      <button
+        onClick={() => {
+          showItemDetail(0);
+        }}
+      >
+        0**
+      </button>
+      <button onClick={fnc2}>{itemId}</button>
+      {itemId}
+      {itemDetail?.id == 0 ? (
+        " 0now"
+      ) : (
+        <ItemDetailComponent cakeData={itemDetail || {}} />
+      )}
+      {/* <ItemDetailComponent data={itemDetail} /> */}
       <CartComponent></CartComponent>
       {/* </MainWrapper> */}
     </>

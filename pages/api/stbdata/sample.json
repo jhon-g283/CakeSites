@@ -1,7 +1,7 @@
 {
   "itemlist": [
     {
-      "id": "1",
+      "id": 1,
       "itemName": "モンブランs",
       "imageUrl": "imageUrl",
       "priceHole": "priceHole",
@@ -10,6 +10,7 @@
       "code": "1A"
     },
     {
+      "id": 2,
       "itemName": "モンブランa",
       "imageUrl": "imageUrl",
       "priceHole": "priceHole",
@@ -17,6 +18,7 @@
       "kcal": "kcal"
     },
     {
+      "id": 3,
       "itemName": "モンブランt",
       "imageUrl": "imageUrl",
       "priceHole": "priceHole",
@@ -24,7 +26,8 @@
       "kcal": "kcal"
     },
     {
-      "itemName": "モンブランc",
+      "id": 4,
+      "itemName": "モンブランyyc",
       "imageUrl": "imageUrl",
       "priceHole": "priceHole",
       "pricePieace": "pricePieace",

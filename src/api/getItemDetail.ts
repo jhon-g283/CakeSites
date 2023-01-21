@@ -17,7 +17,7 @@ export interface dataList {
 // State初期値の設定
 const initialState: cakeDetail = {
   cakeData: {
-    id: "",
+    id: 0,
     itemName: "---",
     imageUrl: "---",
     imageUr2: "---",
@@ -81,11 +81,11 @@ const getItems = async (url: string) => {
 // Thunk
 // 第１引数：返り値の型
 // 第２引数：受け渡す引数の型
-export const fetchItems = createAsyncThunk<cakeDetail, number>(
+export const fetchDetails = createAsyncThunk<cakeDetail, number>(
   "fetchItem_Cake",
   async (n: number, thunkAPI) => {
     console.log("item id is :" + n);
-    const result = getItems(ulr + "&id=" + n); // API問い合わせ
+    const result = await getItems(ulr + "&id=" + n); // API問い合わせ
     return result;
   }
 );
@@ -98,7 +98,7 @@ const getItemDetailSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     // 通信中
-    builder.addCase(fetchItems.pending, (state, action) => {
+    builder.addCase(fetchDetails.pending, (state, action) => {
       state.status = "pending";
 
       console.log("pending--");
@@ -107,13 +107,17 @@ const getItemDetailSlice = createSlice({
     });
 
     // 通信完了
-    builder.addCase(fetchItems.fulfilled, (state, action) => {
+    builder.addCase(fetchDetails.fulfilled, (state, action) => {
       // state.loading = true;
       const item = action.payload.cakeData; //payloadから取得したデータを取り出す
 
-      console.log("payload detail");
+      console.log("payload sucess detail");
+      console.log(item);
 
-      state.cakeData = item;
+      if (item != undefined) {
+        state.cakeData = item;
+      }
+
       state.status = "success";
 
       console.log(action.payload);
@@ -122,7 +126,7 @@ const getItemDetailSlice = createSlice({
     });
 
     // 通信失敗
-    builder.addCase(fetchItems.rejected, (state, action) => {
+    builder.addCase(fetchDetails.rejected, (state, action) => {
       state.status = "error";
     });
   },

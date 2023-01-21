@@ -1,17 +1,53 @@
 // typescript型情報の定義ファイル
 
+// 商品ボックスのデータ定義
 export interface itemData {
+  id?: number;
   itemName?: any;
   imageUrl?: any;
   priceHole?: any;
   pricePieace?: any;
   kcal?: any;
+  clickFunction: (id: number) => void; //商品詳細情報取得用関数
 }
 [];
 
+//
+export interface cakeDetailData {
+  id?: number;
+  itemName?: any;
+  imageUrl?: any;
+  imageUr2?: any;
+  priceHole?: any;
+  pricePieace?: any;
+  kcal?: any;
+  code?: string;
+  discriotion?: string;
+  options?: {
+    option1?: { name: string; param: any };
+    option2?: { name: string; param: any };
+    option3?: { name: string; param: any };
+  };
+}
+
+// Reduxの型の設定
+export interface dataList {
+  itemlist?: {
+    id?: number;
+    itemName?: any;
+    imageUrl?: any;
+    priceHole?: any;
+    pricePieace?: any;
+    kcal?: any;
+    code?: string;
+  }[];
+  status: string;
+}
+
+// Reduxの型の設定
 export interface cakeDetail {
   cakeData?: {
-    id?: string;
+    id?: number;
     itemName?: any;
     imageUrl?: any;
     imageUr2?: any;
@@ -31,8 +67,8 @@ export interface cakeDetail {
 
 // API用：ケーキの商品情報取得
 export interface cakeDetailArray {
-  cakeData?: {
-    id?: string;
+  cakeData: {
+    id?: number;
     itemName?: any;
     imageUrl?: any;
     imageUr2?: any;

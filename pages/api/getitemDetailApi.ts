@@ -24,30 +24,32 @@ export default function searchCakesData(
   const json: cakeDetailArray = jsonData;
 
   const init = {
-    cakeData: [
-      {
-        id: "1",
-        itemName: "モンブランs",
-        imageUrl: "imageUrl",
-        imageUrl2: "imageUrl",
-        priceHole: "333",
-        pricePieace: "222",
-        kcal: "kcal",
-        code: "1A",
-        discription: "",
-        shopname: "",
-        options: {
-          option1: { name: "name1", param: "200" },
-          option2: { name: "name2", param: "300" },
-          option3: { name: "name3", param: "400" },
-        },
+    cakeData: {
+      id: 1,
+      itemName: "モンブランs",
+      imageUrl: "imageUrl",
+      imageUrl2: "imageUrl",
+      priceHole: "333",
+      pricePieace: "222",
+      kcal: "kcal",
+      code: "1A",
+      discription: "",
+      shopname: "",
+      options: {
+        option1: { name: "name1", param: "200" },
+        option2: { name: "name2", param: "300" },
+        option3: { name: "name3", param: "400" },
       },
-    ],
+    },
   };
 
   var set = { cakeData: {} };
   // set.cakeData=(json?.cakeData!=undefined)?json?.cakeData[0]:init
   set.cakeData = init;
   const result = json;
-  res.status(200).json(set);
+
+  // 教訓：レスポンスはRedux側でも見ること
+  //　TypeScriptの型定義でもレスポンス取得受信で入ってくるデータの方まではチェックしないみたい
+  //　そのせいでインデックス名が二重になってた
+  res.status(200).json(set.cakeData);
 }

@@ -5,6 +5,12 @@ import Cake1 from "../../../public/img/cake1.png";
 import Cake2 from "../../../public/img/cake2.png";
 import { itemData } from "../../types";
 
+// ////
+import { useSelector, useDispatch } from "react-redux"; //Redux,useSelectorとdispatchの読み込み
+import { fetchDetails } from "../../api/getItemDetail";
+import { AppDispatch } from "../../store"; //方で怒られるので入れた
+// ////
+
 // 引数
 // 商品画像URL
 // 商品名
@@ -24,11 +30,13 @@ import { itemData } from "../../types";
 //   kcal?: any;
 // }
 const itemBox = ({
+  id,
   itemName,
   imageUrl,
   priceHole,
   pricePieace,
   kcal,
+  clickFunction,
 }: itemData) => {
   // ToDo アイテムコンポーネント作成
   //　　値段のスタイル調整
@@ -123,7 +131,7 @@ const itemBox = ({
   // 返却するコンポーネント
   const result = (
     <>
-      <Box>
+      <Box onClick={() => clickFunction(id || 99)}>
         <ImageBox>
           <Image
             src="/img/test.png"
@@ -167,6 +175,11 @@ const itemBox = ({
   );
 
   return result;
+};
+
+const fnc = () => {
+  console.log("click");
+  // fetchDetails(1);
 };
 
 export default itemBox;

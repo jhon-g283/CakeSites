@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { itemData } from "../types";
+import { itemData, dataList } from "../types";
 
 // ToDo方の宣言（Interface）を１まとめにする
 //
@@ -12,20 +12,6 @@ import { itemData } from "../types";
 // ToDo 問合せ先のURLをENVに設定する
 //
 //
-
-// Stateの型の設定
-export interface dataList {
-  itemlist?: {
-    id?: string;
-    itemName?: any;
-    imageUrl?: any;
-    priceHole?: any;
-    pricePieace?: any;
-    kcal?: any;
-    code?: string;
-  }[];
-  status: string;
-}
 
 type dataListType = {
   List?: itemData;
@@ -103,8 +89,8 @@ const getCakeDetailSlice = createSlice({
     builder.addCase(fetchItems.pending, (state, action) => {
       state.status = "pending";
 
-      console.log("pending--");
-      console.log(state.itemlist);
+      console.log("pending--cake");
+      console.log(state);
       console.log(state.status);
     });
 
@@ -115,7 +101,12 @@ const getCakeDetailSlice = createSlice({
 
       // console.log("payload");
 
-      state.itemlist = item;
+      console.log("success--cake");
+
+      if (item != undefined) {
+        state.itemlist = item;
+      }
+
       state.status = "success";
 
       // console.log(action.payload);
