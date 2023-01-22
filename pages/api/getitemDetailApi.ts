@@ -8,20 +8,18 @@ import jsonData from "./stbdata/cakeDate.json";
 // interfaceを１つにまとめる
 //
 
-// ToDo クエリに応じたJsonのフィルター機能
-//
-//
-
 export default function searchCakesData(
   req: NextApiRequest,
-  res: NextApiResponse<cakeDetail>
+  res: NextApiResponse<cakeDetailArray>
 ) {
   console.log("req");
   console.log(req.query);
   console.log("jsonData");
   console.log(jsonData);
 
-  const json: cakeDetailArray = jsonData;
+  const queryId = req.query?.id || 1;
+
+  const json = jsonData;
 
   const init = {
     cakeData: {
@@ -43,13 +41,35 @@ export default function searchCakesData(
     },
   };
 
-  var set = { cakeData: {} };
-  // set.cakeData=(json?.cakeData!=undefined)?json?.cakeData[0]:init
-  set.cakeData = init;
-  const result = json;
+  var set: cakeDetailArray = { cakeData: {} };
+  // const newinit = Object.entries((json: cakeDetailArray) => {
+  //   if (json.cakeData.id) {
+  //     console.log(json.cakeData.id);
+  //     set.cakeData["id"]=
+  //   }
+  //   return json;
+  // });
+
+  json.cakeData.map((item) => {
+    if (item.id == queryId) {
+      // set.cakeData.id=item.id
+      set.cakeData = item;
+    }
+  });
+
+  console.log("json------");
+  console.log(json.cakeData[0]);
+  console.log("^^^^^^^^^^^^^^");
+
+  const result = json.cakeData[0];
+
+  console.log("set");
+  console.log(set);
+  console.log("^^^^^^^^^^^^^^");
+  console.log(set.cakeData);
 
   // 教訓：レスポンスはRedux側でも見ること
   //　TypeScriptの型定義でもレスポンス取得受信で入ってくるデータの方まではチェックしないみたい
   //　そのせいでインデックス名が二重になってた
-  res.status(200).json(set.cakeData);
+  res.status(200).json(set);
 }

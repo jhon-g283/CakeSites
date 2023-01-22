@@ -15,7 +15,8 @@
       "imageUrl": "imageUrl",
       "priceHole": "priceHole",
       "pricePieace": "pricePieace",
-      "kcal": "kcal"
+      "kcal": "kcal",
+      "code": "1A"
     },
     {
       "id": 3,
@@ -23,7 +24,8 @@
       "imageUrl": "imageUrl",
       "priceHole": "priceHole",
       "pricePieace": "pricePieace",
-      "kcal": "kcal"
+      "kcal": "kcal",
+      "code": "1A"
     },
     {
       "id": 4,
@@ -31,7 +33,8 @@
       "imageUrl": "imageUrl",
       "priceHole": "priceHole",
       "pricePieace": "pricePieace",
-      "kcal": "kcal"
+      "kcal": "kcal",
+      "code": "1A"
     }
   ]
 }

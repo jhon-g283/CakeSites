@@ -36,27 +36,12 @@ const initialState: cakeDetail = {
   status: "***",
 };
 
-// State初期値の設定
-// const initialState: dataList = {
-//   itemlist: [
-//     {
-//       itemName: "**",
-//       imageUrl: "",
-//       priceHole: "",
-//       pricePieace: "",
-//       kcal: "",
-//     },
-//   ],
-//   status: "***",
-// };
-
 //問合せURL
-const ulr: string = "http://localhost:3000/api/getitemDetailApi?q=%yy%22";
+const baseUrl: string = "http://localhost:3000/api/getitemDetailApi?";
 
 // APIへの問い合わせ関数（fetchで取得する部分）
-const getItems = async (url: string) => {
+const getItems = async (requestUrl: string) => {
   console.log("fetch! reducer!");
-  const requestUrl = ulr;
 
   const result = await fetch(requestUrl)
     .then((responce) => {
@@ -66,8 +51,7 @@ const getItems = async (url: string) => {
     })
     .then((data: cakeDetail) => {
       // console.log("fetch data reducer");
-      // console.log(data);
-      // const str: string = "data.name";
+
       return data;
     })
     .catch(() => {
@@ -84,8 +68,9 @@ const getItems = async (url: string) => {
 export const fetchDetails = createAsyncThunk<cakeDetail, number>(
   "fetchItem_Cake",
   async (n: number, thunkAPI) => {
-    console.log("item id is :" + n);
-    const result = await getItems(ulr + "&id=" + n); // API問い合わせ
+    const requesrUrl: string = baseUrl + "id=" + n.toString() + "&";
+
+    const result = await getItems(requesrUrl); // API問い合わせ
     return result;
   }
 );

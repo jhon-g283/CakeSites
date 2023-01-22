@@ -3,11 +3,11 @@ import styled from "styled-components";
 
 //Props 引数の型
 interface Props {
-  fukflg: (flg: boolean) => void; // ()=>void
+  clickFunc: (mode: string) => void; // ()=>void
 }
 
 //　お知らせ用の画面のコンポーネント
-const InfomationComponent = ({ fukflg }: Props) => {
+const InfomationComponent = ({ clickFunc }: Props) => {
   //ページのタイトル部分
   const Title = styled.p`
     //   top: 212px;
@@ -170,7 +170,7 @@ const InfomationComponent = ({ fukflg }: Props) => {
       </TabDiv>
 
       {InfoArea()}
-      <BackButton onClick={() => fukflg(false)}>戻る</BackButton>
+      <BackButton onClick={() => clickFunc("main")}>戻る</BackButton>
     </>
   );
 

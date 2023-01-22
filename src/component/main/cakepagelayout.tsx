@@ -24,10 +24,12 @@ const Main = () => {
     state.cakereducer?.status ? state.cakereducer.status : ""
   ); //ステータス取得
 
+  // ダミー用のデータ
   const dummyData: cakeDetail = {
     cakeData: { id: 99 },
   };
 
+  // セレクタから商品一覧のデータ取得。取得できない場合はダミーをセット
   const itemDetailSelector: cakeDetail = useSelector(
     (state: { detailreducer: cakeDetail }) =>
       state.detailreducer.cakeData != undefined
@@ -40,24 +42,48 @@ const Main = () => {
       ? itemDetailSelector.cakeData
       : dummyData.cakeData;
 
-  const itemId = itemDetail?.id || 0;
-
   const st: any = useSelector((state: { reducer: any }) => state); //ステータス取得
 
+  // 定数
+  const mainMode = "main";
+  const detailMode = "detail";
+  const cartMode = "cart";
+  const infoMode = "info";
+
   const [infoFlg, changeInfoFlg] = useState<boolean>(false); //お知らせ画面の表示切り替え用のフラグ
+  const [modeStatus, changeModeSttatus] = useState<string>(mainMode); //お知らせ画面の表示切り替え用のフラグ
 
   // お知らせフラグを変更させる関数,戻り値がないのでvoidにする
-  const infoFlgFnc = (flg: boolean): void => {
-    changeInfoFlg(flg);
+  const infoFlgFnc = (mode: string): void => {
+    // changeInfoFlg(flg);
+    console.log("mode:" + modeStatus + "=>" + mode);
+    changeModeSttatus(mode); //モードを詳細画面にする
+
+    // 引数がTrueの時はお知らせ画面表示
+    // if (mode==infoMode) {
+    //   changeModeSttatus(infoMode); //モードを詳細画面にする
+    // } else if(mode==) {
+    //   changeModeSttatus(mainMode); //モードを詳細画面にする
+    // }
   };
 
+  // 詳細画面表示用画面
   const showItemDetail = (id: number) => {
     console.log("get item detail id:" + id);
-    dispatch(fetchDetails(id));
+    dispatch(fetchDetails(id)); //詳細画面のデータ取得のActionをDispatch
+    changeModeSttatus(detailMode); //モードを詳細画面にする
   };
 
-  const fnc2 = () => {
-    dispatch(fetchItems());
+  // モードチェック用関数
+  const modeCeckFunction = (mode: string) => {
+    // stateのモードと比較して同じならTrue
+
+    //info infoのみ
+    //main mainのみ
+    //detail detailのみ
+    //
+
+    return modeStatus == mode;
   };
 
   // useEffectでdispatch実行
@@ -363,60 +389,43 @@ const Main = () => {
     return result;
   };
 
-  const mainBlock = (
+  // エラー回避のためコンポで返す
+  const SearchAreaCompo = <>{searchPanel()}</>;
+
+  // メイン部分。Stateの状態とSwitch文で画面を切り替える
+  const mainBlock = () => {
+    switch (modeStatus) {
+      case "main":
+        return (
+          <>
+            <ImgHero></ImgHero>
+            {SearchAreaCompo}
+            <Itemlist>{arrayItemBox}</Itemlist>
+          </>
+        );
+      case "info":
+        return <InfomationComponent clickFunc={infoFlgFnc} />;
+      case "detail":
+        return (
+          <ItemDetailComponent
+            cakeData={itemDetail || {}}
+            clickFnction={infoFlgFnc}
+          />
+        );
+      case "cart":
+        return <CartComponent clickFnction={infoFlgFnc}></CartComponent>;
+    }
+  };
+
+  const cakePageLayout = (
     <>
       {/* <MainWrapper> */}
-      <Header fnc={infoFlgFnc} />
-      {!infoFlg ? "t" : <InfomationComponent fukflg={infoFlgFnc} />}
-      <ImgHero></ImgHero>
-      {/* <p>{status}</p> */}
-      {searchPanel()}
-      <Itemlist>{arrayItemBox}</Itemlist>
-      <button
-        onClick={() => {
-          showItemDetail(0);
-        }}
-      >
-        0**
-      </button>
-      <button onClick={fnc2}>{itemId}</button>
-      {itemId}
-      {itemDetail?.id == 0 ? (
-        " 0now"
-      ) : (
-        <ItemDetailComponent cakeData={itemDetail || {}} />
-      )}
-      {/* <ItemDetailComponent data={itemDetail} /> */}
-      <CartComponent></CartComponent>
-      {/* </MainWrapper> */}
+      <Header clickFunction={infoFlgFnc} />
+      {mainBlock()}
     </>
   );
 
-  return mainBlock;
-};
-
-// APIでデータ取得。この処理はuseEffect&Reduxと組み合わせて取得した方が良いさそう
-// APIの取得はRedux、表示はuseSelectorが参照して更新のタイミングでuseEffectでこんぽ作成
-const responceData = async () => {
-  console.log("fetch!");
-  const requestUrl = "http://localhost:3000/api/hello?q=%22qq%22";
-
-  const result = await fetch(requestUrl)
-    .then((responce) => {
-      // console.log("fetch responce");
-      // console.log(responce);
-      return responce.json();
-    })
-    .then((data) => {
-      // console.log("fetch data");
-      // console.log(data);
-      return data;
-    })
-    .catch(() => {
-      return "error";
-    });
-
-  return result;
+  return cakePageLayout;
 };
 
 // export testftype;

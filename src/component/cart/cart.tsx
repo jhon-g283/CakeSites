@@ -12,10 +12,16 @@ import CartItem from "./cartItem";
 //
 //
 
-const CartComponent = () => {
+//Props 引数の型
+interface Props {
+  clickFnction: (mode: string) => void; // ()=>void
+}
+
+const CartComponent = ({ clickFnction }: Props) => {
   const cartList = (
     <>
       <CartItem />
+      <button onClick={() => clickFnction("main")}> 戻る</button>
     </>
   );
 

@@ -12,8 +12,8 @@ import jsonData from "./stbdata/sample.json";
 //
 
 interface dataList {
-  itemlist?: {
-    id?: string;
+  itemlist: {
+    id?: number;
     itemName?: any;
     imageUrl?: any;
     priceHole?: any;
@@ -21,7 +21,6 @@ interface dataList {
     kcal?: any;
     code?: string;
   }[];
-  status?: string;
 }
 
 export default function searchCakesData(

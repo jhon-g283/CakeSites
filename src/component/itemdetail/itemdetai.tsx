@@ -25,6 +25,7 @@ import { AppDispatch } from "../../store"; //方で怒られるので入れた
 //Props 引数の型
 interface Props {
   cakeData: cakeDetailData;
+  clickFnction: (mode: string) => void; // ()=>void
 }
 
 //To Do
@@ -32,7 +33,7 @@ interface Props {
 //
 
 // 商品詳細のメイン部分
-const ItemDetailComponent = ({ cakeData }: Props) => {
+const ItemDetailComponent = ({ cakeData, clickFnction }: Props) => {
   // const dispatch = useDispatch<AppDispatch>(); //dispatch設定
   const itemDetail = useSelector(
     (state: { detailreducer: cakeDetail }) => state.detailreducer.cakeData
@@ -41,16 +42,14 @@ const ItemDetailComponent = ({ cakeData }: Props) => {
 
   const [ingnmber, changeimgnumber] = useState(0); //ピース数
 
-  const pPrice =
-    itemDetail?.pricePieace != undefined ? itemDetail.pricePieace : "???";
+  const pPrice = itemDetail?.pricePieace || "???";
+  const hPrice = itemDetail?.priceHole || "???";
+  const cakeName = itemDetail?.itemName || "???";
 
   useEffect(() => {
-    // dispatch(fetchItems(1));
     console.log("change! detail");
     console.log(itemDetail);
     console.log(itemDetail?.id);
-
-    // changeimgnumber(0);
 
     console.log("hoaaaa");
   }, [itemDetail]);
@@ -98,18 +97,12 @@ const ItemDetailComponent = ({ cakeData }: Props) => {
     // justify-content: space-around;
   `;
 
-  const fnc = () => {
-    console.log("click ^^-");
-    // fetchDetails(1);
-    // dispatch(fetchDetails(1));
-    changeimgnumber(0);
-  };
-
   const imageArea = (
     <>
       {/* ここを縦にする */}
-      <p>{itemDetail?.id}</p>
-      <ImageDiv onClick={fnc}>
+
+      <ImageDiv>
+        <p>{cakeName}</p>
         <DetailImageDiv>
           <div>
             <Image
@@ -146,7 +139,7 @@ const ItemDetailComponent = ({ cakeData }: Props) => {
         </FlexBlock>
         <FlexBlock>
           <Image src={Cake2.src} width={23} height={23} alt="My avatar"></Image>
-          <PriseHole>Hole:200¥</PriseHole>
+          <PriseHole>Hole:¥{hPrice}</PriseHole>
         </FlexBlock>
         <ShopName>Cake Tokyo</ShopName>
         <ExpreinDiv>
@@ -186,13 +179,23 @@ const ItemDetailComponent = ({ cakeData }: Props) => {
     // opacity: 1;
   `;
 
-  const EditButtonWrapper = styled.div``;
+  const CartButtonWrapper = styled.div``;
 
-  const EditButton = (
+  const BackButtonWrapper = styled.div``;
+
+  const CartButton = (
     <>
-      <EditButtonWrapper>
-        <MenuButton>Edit</MenuButton>
-      </EditButtonWrapper>
+      <CartButtonWrapper>
+        <MenuButton>カートへ</MenuButton>
+      </CartButtonWrapper>
+    </>
+  );
+
+  const BackButton = (
+    <>
+      <BackButtonWrapper>
+        <MenuButton onClick={() => clickFnction("main")}>戻る</MenuButton>
+      </BackButtonWrapper>
     </>
   );
 
@@ -203,8 +206,8 @@ const ItemDetailComponent = ({ cakeData }: Props) => {
   const UnderButtonArea = (
     <>
       <UnderButtonAreaWrapper>
-        {EditButton}
-        {EditButton}
+        {BackButton}
+        {CartButton}
       </UnderButtonAreaWrapper>
     </>
   );
@@ -226,11 +229,5 @@ const ItemDetailComponent = ({ cakeData }: Props) => {
 
   return DetailArea;
 };
-
-// const fnc = () => {
-//   console.log("click ^^-");
-//   fetchDetails(1);
-
-// };
 
 export default ItemDetailComponent;

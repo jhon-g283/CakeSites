@@ -4,10 +4,10 @@ import CartImagePath from "../../../public/img/cart.png";
 
 //Props 引数の型
 interface Props {
-  fnc: (flg: boolean) => void; // ()=>void
+  clickFunction: (mode: string) => void; // ()=>void
 }
 
-const Header = ({ fnc }: Props) => {
+const Header = ({ clickFunction }: Props) => {
   // styled-componentsの変数は大文字スタート
 
   // ヘッダー全体
@@ -99,9 +99,9 @@ const Header = ({ fnc }: Props) => {
         <TitleLogo>Peace Of Cake</TitleLogo>
 
         <Left>
-          <Nav1 onClick={() => fnc(true)}>お知らせ</Nav1>
+          <Nav1 onClick={() => clickFunction("info")}>お知らせ</Nav1>
           <Nav2>ヘルプ</Nav2>
-          <ImgCart></ImgCart>
+          <ImgCart onClick={() => clickFunction("cart")}> </ImgCart>
           {/* <nav>
             <li>a</li>
             <li>a</li>

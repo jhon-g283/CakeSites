@@ -82,7 +82,7 @@ export interface cakeDetailArray {
       option2?: { name: string; param: any };
       option3?: { name: string; param: any };
     };
-  }[];
+  };
   // status?: string;
 }
 
