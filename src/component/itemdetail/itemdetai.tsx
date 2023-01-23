@@ -225,8 +225,10 @@ const ItemDetailComponent = ({ cakeData, clickFnction }: Props) => {
         {expreinArea}
         {/* </GridBlock> */}
       </DetailAreaDiv>
-      {EditComponent()}
-      {EditModeComponent()}
+      <EditComponent />
+      <EditModeComponent />
+      {/* {EditComponent()} */}
+      {/* {EditModeComponent()} */}
 
       {UnderButtonArea}
     </>

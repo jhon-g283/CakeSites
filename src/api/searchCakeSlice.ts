@@ -40,14 +40,14 @@ const initialState: dataList = {
 };
 
 //問合せURL
-const domain = process.env.NEXT_PUBLIC_TEST || "http://localhost:3000/"; //環境変数鵜より取得
+const domain = process.env.NEXT_PUBLIC_HOST || "http://localhost:3000/"; //環境変数鵜より取得
 const ulr: string = domain + "api/searchCakeApi?q=%22qq%22";
 console.log("process.env.NEXT_PUBLIC_HOST:" + process.env.NEXT_PUBLIC_HOST);
+console.log("process.env.NEXT_PUBLIC_PROD:" + process.env.NEXT_PUBLIC_PROD);
 // APIへの問い合わせ関数（fetchで取得する部分）
 const getItems = async (url: string) => {
-  console.log("fetch! reducer!");
   const requestUrl = ulr;
-
+  console.log("fetch! cake reducer! " + ulr);
   const result = await fetch(requestUrl)
     .then((responce) => {
       // console.log("fetch responce reducer");
