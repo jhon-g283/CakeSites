@@ -11,6 +11,7 @@ import { itemData, dataList, cakeDetail, cakeDetailData } from "../../types";
 import { useSelector, useDispatch } from "react-redux"; //Redux,useSelectorとdispatchの読み込み
 import { fetchItems } from "../../api/searchCakeSlice";
 import { AppDispatch } from "../../store"; //方で怒られるので入れた
+import { useRouter } from "next/router";
 
 import { fetchDetails } from "../../api/getItemDetail";
 
@@ -50,7 +51,6 @@ const Main = () => {
   const cartMode = "cart";
   const infoMode = "info";
 
-  const [infoFlg, changeInfoFlg] = useState<boolean>(false); //お知らせ画面の表示切り替え用のフラグ
   const [modeStatus, changeModeSttatus] = useState<string>(mainMode); //お知らせ画面の表示切り替え用のフラグ
 
   // お知らせフラグを変更させる関数,戻り値がないのでvoidにする
@@ -58,13 +58,6 @@ const Main = () => {
     // changeInfoFlg(flg);
     console.log("mode:" + modeStatus + "=>" + mode);
     changeModeSttatus(mode); //モードを詳細画面にする
-
-    // 引数がTrueの時はお知らせ画面表示
-    // if (mode==infoMode) {
-    //   changeModeSttatus(infoMode); //モードを詳細画面にする
-    // } else if(mode==) {
-    //   changeModeSttatus(mainMode); //モードを詳細画面にする
-    // }
   };
 
   // 詳細画面表示用画面
@@ -75,16 +68,7 @@ const Main = () => {
   };
 
   // モードチェック用関数
-  const modeCeckFunction = (mode: string) => {
-    // stateのモードと比較して同じならTrue
-
-    //info infoのみ
-    //main mainのみ
-    //detail detailのみ
-    //
-
-    return modeStatus == mode;
-  };
+  const root = useRouter();
 
   // useEffectでdispatch実行
   useEffect(() => {

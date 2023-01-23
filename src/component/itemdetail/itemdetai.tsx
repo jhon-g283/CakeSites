@@ -38,13 +38,18 @@ const ItemDetailComponent = ({ cakeData, clickFnction }: Props) => {
   const itemDetail = useSelector(
     (state: { detailreducer: cakeDetail }) => state.detailreducer.cakeData
   );
-  console.log("data");
 
   const [ingnmber, changeimgnumber] = useState(0); //ピース数
+  const [editFlag, changeEditFlag] = useState<boolean>(false); //
 
   const pPrice = itemDetail?.pricePieace || "???";
   const hPrice = itemDetail?.priceHole || "???";
   const cakeName = itemDetail?.itemName || "???";
+
+  // 編集モード切り替え
+  const changeEditMode = () => {
+    changeEditFlag(!editFlag);
+  };
 
   useEffect(() => {
     console.log("change! detail");

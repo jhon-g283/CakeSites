@@ -7,11 +7,12 @@ import Cake2 from "../../../public/img/cake2.png";
 
 // ToDo　カートへの登録機能
 // Reduxを使用
-//
+//ß
 
-// Todo
-// 別ファイルにコンポーネントとして作り直す
-//
+//Props 引数の型
+interface Props {
+  clickFnction: () => void; // ()=>void
+}
 
 // 編集コンポーネント
 const EditComponent = () => {
@@ -42,12 +43,21 @@ const EditComponent = () => {
   `;
 
   const EditButtonWrapper = styled.div``;
+  const CartButtonWrapper = styled.div``;
 
   const EditButton = (
     <>
       <EditButtonWrapper>
         <MenuButton>Edit</MenuButton>
       </EditButtonWrapper>
+    </>
+  );
+
+  const CartButton = (
+    <>
+      <CartButtonWrapper>
+        <MenuButton>カートへ</MenuButton>
+      </CartButtonWrapper>
     </>
   );
 
@@ -79,7 +89,7 @@ const EditComponent = () => {
     <RightPanelWrapper>
       <NameText>1 Peace 200¥</NameText>
       {EditButton}
-      {EditButton}
+      {CartButton}
     </RightPanelWrapper>
   );
 
