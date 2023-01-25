@@ -1,15 +1,16 @@
 // 商品詳細画面のコンポーネント
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import Image from "next/image"; //Imageコンポーネント
-import Cake1 from "../../../public/img/cake1.png";
-import Cake2 from "../../../public/img/cake2.png";
-import EditModeComponent from "./editModeComponent";
-import EditComponent from "./editComponent";
-import { cakeDetail, cakeDetailData } from "../../types";
-import { useSelector, useDispatch } from "react-redux"; //Redux,useSelectorとdispatchの読み込み
-import { fetchDetails } from "../../api/getItemDetail";
-import { AppDispatch } from "../../store"; //方で怒られるので入れた
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import Image from 'next/image'; //Imageコンポーネント
+import Cake1 from '../../../public/img/cake1.png';
+import Cake2 from '../../../public/img/cake2.png';
+import EditModeComponent from './editModeComponent';
+import EditComponent from './editComponent';
+import { cakeDetail, cakeDetailData, editOptions } from '../../types';
+import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
+import { fetchDetails } from '../../api/getItemDetail';
+import { AppDispatch } from '../../store'; //方で怒られるので入れた
+import { Console } from 'console';
 // ToDo idを引数などから取得しデータを取得する機能
 //
 //
@@ -20,6 +21,10 @@ import { AppDispatch } from "../../store"; //方で怒られるので入れた
 
 // ToDo　カートへの登録機能
 // Reduxを使用
+//
+
+//ToDo 買い物を続ける機能の追加
+//
 //
 
 //Props 引数の型
@@ -40,23 +45,29 @@ const ItemDetailComponent = ({ cakeData, clickFnction }: Props) => {
   );
 
   const [ingnmber, changeimgnumber] = useState(0); //ピース数
-  const [editFlag, changeEditFlag] = useState<boolean>(false); //
+  const [editFlag, changeEditFlag] = useState<boolean>(false); //編集モードの切り替え
 
-  const pPrice = itemDetail?.pricePieace || "???";
-  const hPrice = itemDetail?.priceHole || "???";
-  const cakeName = itemDetail?.itemName || "???";
+  const pPrice = itemDetail?.pricePieace || '???';
+  const hPrice = itemDetail?.priceHole || '???';
+  const cakeName = itemDetail?.itemName || '???';
 
-  // 編集モード切り替え
+  const optionList: editOptions[] =
+    itemDetail?.options != undefined
+      ? itemDetail.options
+      : [{ name: '', param: '' }];
+
+  // 編集モード切り替え用の関数（引数で渡す）
   const changeEditMode = () => {
+    console.log('edit mode :' + editFlag + ' => ' + !editFlag);
     changeEditFlag(!editFlag);
   };
 
   useEffect(() => {
-    console.log("change! detail");
+    console.log('change! detail');
     console.log(itemDetail);
     console.log(itemDetail?.id);
 
-    console.log("hoaaaa");
+    console.log('hoaaaa');
   }, [itemDetail]);
 
   const DetailAreaDiv = styled.div`
@@ -131,7 +142,7 @@ const ItemDetailComponent = ({ cakeData, clickFnction }: Props) => {
     </>
   );
 
-  console.log("imageArea");
+  console.log('imageArea');
   console.log(cakeData.id);
 
   const expreinArea = (
@@ -199,7 +210,7 @@ const ItemDetailComponent = ({ cakeData, clickFnction }: Props) => {
   const BackButton = (
     <>
       <BackButtonWrapper>
-        <MenuButton onClick={() => clickFnction("main")}>戻る</MenuButton>
+        <MenuButton onClick={() => clickFnction('main')}>戻る</MenuButton>
       </BackButtonWrapper>
     </>
   );
@@ -225,8 +236,12 @@ const ItemDetailComponent = ({ cakeData, clickFnction }: Props) => {
         {expreinArea}
         {/* </GridBlock> */}
       </DetailAreaDiv>
-      <EditComponent />
-      <EditModeComponent />
+      {editFlag ? (
+        <EditModeComponent clickFnction={changeEditMode} options={optionList} />
+      ) : (
+        <EditComponent clickFnction={changeEditMode} />
+      )}
+
       {/* {EditComponent()} */}
       {/* {EditModeComponent()} */}
 

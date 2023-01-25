@@ -11,11 +11,11 @@
       "code": "1A",
       "discription": "",
       "shopname": "",
-      "options": {
-        "option1": { "name": "name1", "param": "200" },
-        "option2": { "name": "name2", "param": "300" },
-        "option3": { "name": "name3", "param": "400" }
-      }
+      "options": [
+        { "name": "name1", "param": 200 },
+        { "name": "name2", "param": 300 },
+        { "name": "name3", "param": 400 }
+      ]
     },
     {
       "id": 2,
@@ -28,11 +28,11 @@
       "code": "1A",
       "discription": "",
       "shopname": "",
-      "options": {
-        "option1": { "name": "name1", "param": "200" },
-        "option2": { "name": "name2", "param": "300" },
-        "option3": { "name": "name3", "param": "400" }
-      }
+      "options": [
+        { "name": "name1", "param": "200" },
+        { "name": "name2", "param": "300" },
+        { "name": "name3", "param": "400" }
+      ]
     },
     {
       "id": 3,
@@ -45,11 +45,11 @@
       "code": "1A",
       "discription": "",
       "shopname": "",
-      "options": {
-        "option1": { "name": "name1", "param": "200" },
-        "option2": { "name": "name2", "param": "300" },
-        "option3": { "name": "name3", "param": "400" }
-      }
+      "options": [
+        { "name": "name1", "param": "200" },
+        { "name": "name2", "param": "300" },
+        { "name": "name3", "param": "400" }
+      ]
     }
   ]
 }

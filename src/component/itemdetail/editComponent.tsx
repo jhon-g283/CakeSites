@@ -1,9 +1,9 @@
 // 商品詳細画面のコンポーネント
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import Image from "next/image"; //Imageコンポーネント
-import Cake1 from "../../../public/img/cake1.png";
-import Cake2 from "../../../public/img/cake2.png";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import Image from 'next/image'; //Imageコンポーネント
+import Cake1 from '../../../public/img/cake1.png';
+import Cake2 from '../../../public/img/cake2.png';
 
 // ToDo　カートへの登録機能
 // Reduxを使用
@@ -15,7 +15,7 @@ interface Props {
 }
 
 // 編集コンポーネント
-const EditComponent = () => {
+const EditComponent = ({ clickFnction }: Props) => {
   //   const [ingnmber, changeimgnumber] = useState(1);
 
   const NameText = styled.p``;
@@ -48,7 +48,7 @@ const EditComponent = () => {
   const EditButton = (
     <>
       <EditButtonWrapper>
-        <MenuButton>Edit</MenuButton>
+        <MenuButton onClick={clickFnction}>Edit</MenuButton>
       </EditButtonWrapper>
     </>
   );

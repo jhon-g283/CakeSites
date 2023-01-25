@@ -1,15 +1,59 @@
 // 商品詳細画面のコンポーネント
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import Image from "next/image"; //Imageコンポーネント
-import Cake1 from "../../../public/img/cake1.png";
-import Cake2 from "../../../public/img/cake2.png";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import Image from 'next/image'; //Imageコンポーネント
+import { editOptions } from '../../types';
+import Cake1 from '../../../public/img/cake1.png';
+import Cake2 from '../../../public/img/cake2.png';
 
 // ToDo
 // 合計の計算機能を配列を使って実装
 //
+
+// ToDo
+// 調整ボタンのStateの数値を配列を使って実装
+// 更新も配列とインデックスを組み合わせて実施する
+//
+
+// ToDo
+// 触った感じボタンの位置が微妙だからウィンドウのXボタンみたく固定にした方がいいかも。。
+//
+
+// ToDo
+// カートボタンのStore登録機能実装
+//
+
+// ToDo
+// 新規作成か、既存の修正でStoreから取るのかの出しわけ
+//
+
+//Props 引数の型
+interface Props {
+  clickFnction: () => void; // ()=>void
+  options?: editOptions[];
+}
+
+const optionArrayDefault: number[] = [0, 0, 0]; // オプション（トッピング）の数量、インデックスを指定して更新する
+
 // 編集モードのコンポーネント
-const EditModeComponent = () => {
+const EditModeComponent = ({ clickFnction, options }: Props) => {
+  const [optionArray, updateOption] = useState<number[]>(optionArrayDefault);
+
+  const upDateArray = (index: number, val: number) => {
+    console.log('index:' + index + ' val:' + val);
+    console.log(optionArray);
+    console.log(optionArray[index]);
+    // 引数の時点で＋、ーをかけておいて加算させる（０よりは小さくしない）
+    const newVal = optionArray[index] + val;
+    //インデックスを指定して更新
+    let tmp = optionArray.map((it, it_index) => {
+      return it + 1;
+    });
+
+    console.log(tmp);
+
+    updateOption(tmp);
+  };
   // 項目名
   const ItemText = styled.p``;
   const ItemTextWrapper = styled.div``;
@@ -26,14 +70,15 @@ const EditModeComponent = () => {
   const AddPriceText = styled.p``;
 
   // 引数で関数を入れる必要
-  const optionComponent = (n: number, addPrice: number) => {
+  const optionComponent = (index: number, addPrice: number) => {
+    const n = optionArray[index];
     const component = (
       <>
         <OptionWrapper>
-          <DownButton>-</DownButton>
+          <DownButton onClick={() => upDateArray(index, -1)}>-</DownButton>
           <CountNumber>{n}</CountNumber>
-          <UpButton>+</UpButton>
-
+          <UpButton onClick={() => upDateArray(index, 1)}>+</UpButton>
+          {/* オプション数※パラメータで金額表示 */}
           <AddPriceText> +{addPrice * n}</AddPriceText>
         </OptionWrapper>
       </>
@@ -41,6 +86,18 @@ const EditModeComponent = () => {
 
     return component;
   };
+
+  const optionCompoList = options?.map((it, index) => {
+    // index を取得して更新関数まで渡す
+    const result = (
+      <>
+        <ItemText>{it.name}</ItemText>
+        {optionComponent(index, it.param)}
+      </>
+    );
+
+    return result;
+  });
 
   const MenuButton = styled.button`
     width: 380px;
@@ -77,7 +134,7 @@ const EditModeComponent = () => {
   const QuitButton = (
     <>
       <EditButtonWrapper>
-        <MenuButton>Quit</MenuButton>
+        <MenuButton onClick={clickFnction}>止める</MenuButton>
       </EditButtonWrapper>
     </>
   );
@@ -151,12 +208,8 @@ const EditModeComponent = () => {
     <>
       <RightPanelWrapper>
         <ItemText>order change</ItemText>
-        {optionComponent(0, 0)}
-        <ItemText>topping</ItemText>
-        <ItemText>test</ItemText>
-        {optionComponent(1, 100)}
-        <ItemText>tes2</ItemText>
-        {optionComponent(2, 200)}
+        {optionCompoList}
+
         {CartButton}
       </RightPanelWrapper>
     </>

@@ -23,11 +23,27 @@ export interface cakeDetailData {
   kcal?: any;
   code?: string;
   discriotion?: string;
-  options?: {
-    option1?: { name: string; param: any };
-    option2?: { name: string; param: any };
-    option3?: { name: string; param: any };
-  };
+  options?: { name: string; param: any }[];
+}
+
+export interface editOptions {
+  // option1?:
+  //  {
+
+  name: string;
+  param: any;
+
+  // };
+
+  // option2?: {
+  //   name: string;
+  //   param: any;
+  // };
+
+  // option3?: {
+  //   name: string;
+  //   param: any;
+  // };
 }
 
 // Reduxの型の設定
@@ -57,10 +73,13 @@ export interface cakeDetail {
     code?: string;
     discriotion?: string;
     options?: {
-      option1?: { name: string; param: any };
-      option2?: { name: string; param: any };
-      option3?: { name: string; param: any };
-    };
+      // option1?: {
+      name: string;
+      param: any;
+      //   };
+      // option2?: { name: string; param: any };
+      // option3?: { name: string; param: any };
+    }[];
   };
   status?: string;
 }
@@ -77,11 +96,7 @@ export interface cakeDetailArray {
     kcal?: any;
     code?: string;
     discriotion?: string;
-    options?: {
-      option1?: { name: string; param: any };
-      option2?: { name: string; param: any };
-      option3?: { name: string; param: any };
-    };
+    options?: { name: string; param: any }[];
   };
   // status?: string;
 }
