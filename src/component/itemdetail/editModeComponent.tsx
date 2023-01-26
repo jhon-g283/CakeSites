@@ -5,15 +5,7 @@ import Image from 'next/image'; //Imageコンポーネント
 import { editOptions } from '../../types';
 import Cake1 from '../../../public/img/cake1.png';
 import Cake2 from '../../../public/img/cake2.png';
-
-// ToDo
-// 合計の計算機能を配列を使って実装
-//
-
-// ToDo
-// 調整ボタンのStateの数値を配列を使って実装
-// 更新も配列とインデックスを組み合わせて実施する
-//
+import { current } from '@reduxjs/toolkit';
 
 // ToDo
 // 触った感じボタンの位置が微妙だからウィンドウのXボタンみたく固定にした方がいいかも。。
@@ -27,39 +19,78 @@ import Cake2 from '../../../public/img/cake2.png';
 // 新規作成か、既存の修正でStoreから取るのかの出しわけ
 //
 
+// ToDo リセットボタンの実装
+//
+//
+
 //Props 引数の型
 interface Props {
-  clickFnction: () => void; // ()=>void
-  options?: editOptions[];
+  clickFnction: () => void; // クリック時の関数　()=>void
+  options?: editOptions[]; //トッピング
+  peacePrice: number;
+  holePrice: number;
+  //元々の価格
 }
 
 const optionArrayDefault: number[] = [0, 0, 0]; // オプション（トッピング）の数量、インデックスを指定して更新する
 
 // 編集モードのコンポーネント
-const EditModeComponent = ({ clickFnction, options }: Props) => {
-  const [optionArray, updateOption] = useState<number[]>(optionArrayDefault);
+const EditModeComponent = ({
+  clickFnction,
+  options,
+  peacePrice,
+  holePrice,
+}: Props) => {
+  const [optionArray, updateOption] = useState<number[]>(optionArrayDefault); //トッピングの個数管理
+  const [witdhOptionPrice, updateOptioPrice] = useState<number>(peacePrice);
+  const [peaceNumber, updatePeaceNumber] = useState<number>(1); //ピース数
+  const [cakePrice, updateCakePrice] = useState<number>(peacePrice); //ケーキの値段(ピース合計)
 
+  // トッピングの更新用の関数
   const upDateArray = (index: number, val: number) => {
-    console.log('index:' + index + ' val:' + val);
-    console.log(optionArray);
-    console.log(optionArray[index]);
-    // 引数の時点で＋、ーをかけておいて加算させる（０よりは小さくしない）
-    const newVal = optionArray[index] + val;
-    //インデックスを指定して更新
-    let tmp = optionArray.map((it, it_index) => {
-      return it + 1;
+    // ０よりは小さくしない
+    if (val < 0 && optionArray[index] == 0) {
+      return;
+    }
+
+    //インデックスを指定して更新配列を更新
+    const newArray = optionArray.map((it, it_index) => {
+      return it_index == index ? it + val : it;
     });
 
-    console.log(tmp);
-
-    updateOption(tmp);
+    updateOption(newArray);
   };
+
+  // 合計値更新　オプションの配列が更新された際に動く
+  useEffect(() => {
+    const sum: number =
+      options
+        ?.map((it, index) => {
+          return it.param * optionArray[index];
+        })
+        .reduce((pre, current) => {
+          return pre + current;
+        }) || 0;
+
+    const newPrice: number = sum + cakePrice;
+    updateOptioPrice(newPrice); //State更新
+
+    console.log('useEffect opptionArray');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [optionArray, cakePrice]);
+
   // 項目名
   const ItemText = styled.p``;
   const ItemTextWrapper = styled.div``;
 
-  const SubButton = styled.button``;
+  const SwitchingButton = styled.button``;
 
+  const SwitchButtonWrapper = styled.div`
+    display: flex;
+  `;
+  const PeaceWrapper = styled.div`
+    display: flex;
+  `;
   //   調整ボタンとそのテキスト類のエリア
   const OptionWrapper = styled.div`
     display: flex;
@@ -69,9 +100,55 @@ const EditModeComponent = ({ clickFnction, options }: Props) => {
   const CountNumber = styled.p``;
   const AddPriceText = styled.p``;
 
-  // 引数で関数を入れる必要
+  // ピース数を変化させた時の変効用関数
+  const addPeace = (n: number) => {
+    if (peaceNumber == 1 && n < 0) {
+      // ０以下にならないようにする
+
+      return;
+    } else if (peaceNumber >= 8 && n > 0) {
+      // ８以上にならないようにする
+      return;
+    } else if (n == 0) {
+      // ホール（８ピース）の時だけ１ピースに戻す
+      if (peaceNumber >= 8) {
+        updatePeaceNumber(1); //State更新
+        updateCakePrice(peacePrice); //State更新
+      }
+
+      return;
+    }
+
+    const updateNumber = n == 8 ? 8 : peaceNumber + n; //新しいピース数
+    const updatePrice = n == 8 ? holePrice : peacePrice * updateNumber; //新しい値段
+    updatePeaceNumber(updateNumber); //State更新
+    updateCakePrice(updatePrice); //State更新
+  };
+
+  // ピース数のエリア
+  const peaceHoleArea = (
+    <>
+      <SwitchButtonWrapper>
+        <SwitchingButton onClick={() => addPeace(0)}>
+          ピースで注文
+        </SwitchingButton>
+        <SwitchingButton onClick={() => addPeace(8)}>
+          ホールで注文
+        </SwitchingButton>
+      </SwitchButtonWrapper>
+      <PeaceWrapper>
+        <DownButton onClick={() => addPeace(-1)}>-</DownButton>
+        <CountNumber>{peaceNumber}</CountNumber>
+        <UpButton onClick={() => addPeace(1)}>+</UpButton>
+        {/* オプション数※パラメータで金額表示 */}
+        <AddPriceText></AddPriceText>
+      </PeaceWrapper>
+    </>
+  );
+
+  // オプション用のボタンコンポーネント
   const optionComponent = (index: number, addPrice: number) => {
-    const n = optionArray[index];
+    const n = optionArray[index]; //現在のトッピング数
     const component = (
       <>
         <OptionWrapper>
@@ -160,12 +237,12 @@ const EditModeComponent = ({ clickFnction, options }: Props) => {
 
   const PriceWrapper = styled.div``;
 
-  const beforePrice = () => {
+  const beforePrice = (price: number) => {
     const component = (
       <>
         <PriceWrapper>
           <PriceSubText>Before</PriceSubText>
-          <PriceLabel>¥100</PriceLabel>
+          <PriceLabel>¥{price}</PriceLabel>
         </PriceWrapper>
       </>
     );
@@ -173,17 +250,29 @@ const EditModeComponent = ({ clickFnction, options }: Props) => {
     return component;
   };
 
+  const afterPrice = (price: number) => {
+    const component = (
+      <>
+        <PriceWrapper>
+          <PriceSubText>Before</PriceSubText>
+          <PriceLabel>¥{price}</PriceLabel>
+        </PriceWrapper>
+      </>
+    );
+    return component;
+  };
+
   const PricePanel = (
     <>
       <PricePanelWrapper>
-        {beforePrice()}
+        {beforePrice(peacePrice)}
         <Image
           src="/img/arrow.png"
           width={48}
           height={42}
           alt="My avatar"
         ></Image>
-        {beforePrice()}
+        {afterPrice(witdhOptionPrice)}
       </PricePanelWrapper>
       {QuitButton}
     </>
@@ -207,6 +296,7 @@ const EditModeComponent = ({ clickFnction, options }: Props) => {
   const RightPanel = (
     <>
       <RightPanelWrapper>
+        {peaceHoleArea}
         <ItemText>order change</ItemText>
         {optionCompoList}
 

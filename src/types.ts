@@ -71,7 +71,8 @@ export interface cakeDetail {
     pricePieace?: any;
     kcal?: any;
     code?: string;
-    discriotion?: string;
+    discription?: string;
+    shopname?: string;
     options?: {
       // option1?: {
       name: string;
@@ -95,7 +96,7 @@ export interface cakeDetailArray {
     pricePieace?: any;
     kcal?: any;
     code?: string;
-    discriotion?: string;
+    discription?: string;
     options?: { name: string; param: any }[];
   };
   // status?: string;

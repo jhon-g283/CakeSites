@@ -50,6 +50,8 @@ const ItemDetailComponent = ({ cakeData, clickFnction }: Props) => {
   const pPrice = itemDetail?.pricePieace || '???';
   const hPrice = itemDetail?.priceHole || '???';
   const cakeName = itemDetail?.itemName || '???';
+  const shopName = itemDetail?.shopname || '???'; //店名
+  const itemDiscription = itemDetail?.discription || '???'; //店名
 
   const optionList: editOptions[] =
     itemDetail?.options != undefined
@@ -92,7 +94,26 @@ const ItemDetailComponent = ({ cakeData, clickFnction }: Props) => {
   `;
 
   const OptionDiv = styled.div``; //オプション
-  const OptionList = styled.p``; //オプション
+  const OptionText = styled.p``; //オプション
+
+  // オプションの配列の数要素を作成
+  const optionLists = optionList.map((it, index) => {
+    return (
+      <OptionText key={'optionlists_' + index}>
+        {it.name} +¥{it.param}
+      </OptionText>
+    );
+  });
+
+  // オプション用の表示部分
+  const optionArea = (
+    <>
+      <OptionDiv>
+        <OptionText>注文時に調節できるもの</OptionText>
+        {optionLists}
+      </OptionDiv>
+    </>
+  );
 
   // アイコンと値段を並べる用
   const FlexBlock = styled.div`
@@ -157,17 +178,18 @@ const ItemDetailComponent = ({ cakeData, clickFnction }: Props) => {
           <Image src={Cake2.src} width={23} height={23} alt="My avatar"></Image>
           <PriseHole>Hole:¥{hPrice}</PriseHole>
         </FlexBlock>
-        <ShopName>Cake Tokyo</ShopName>
+        <ShopName>{shopName}</ShopName>
         <ExpreinDiv>
-          <Exprein>eeeeeeeeeeeeeeeeeeeeeeeeee</Exprein>
+          <Exprein>{itemDiscription}</Exprein>
 
           <p>-----------------------------</p>
-          <OptionDiv>
-            <Exprein>Option menu is </Exprein>
+          {optionArea}
+          {/* <OptionDiv> */}
+          {/* <Exprein>Option menu is </Exprein> */}
+          {/* <OptionList>Option1</OptionList>
             <OptionList>Option1</OptionList>
-            <OptionList>Option1</OptionList>
-            <OptionList>Option1</OptionList>
-          </OptionDiv>
+            <OptionList>Option1</OptionList> */}
+          {/* </OptionDiv> */}
         </ExpreinDiv>
       </TextArea>
     </>
@@ -237,7 +259,12 @@ const ItemDetailComponent = ({ cakeData, clickFnction }: Props) => {
         {/* </GridBlock> */}
       </DetailAreaDiv>
       {editFlag ? (
-        <EditModeComponent clickFnction={changeEditMode} options={optionList} />
+        <EditModeComponent
+          clickFnction={changeEditMode}
+          options={optionList}
+          peacePrice={pPrice}
+          holePrice={hPrice}
+        />
       ) : (
         <EditComponent clickFnction={changeEditMode} />
       )}

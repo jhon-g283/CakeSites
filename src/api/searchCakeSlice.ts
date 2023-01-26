@@ -1,5 +1,5 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { itemData, dataList } from "../types";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { itemData, dataList } from '../types';
 
 // ToDo方の宣言（Interface）を１まとめにする
 //
@@ -20,34 +20,33 @@ type dataListType = {
 
 const test: dataList = {
   itemlist: [
-    { itemName: "", imageUrl: "", priceHole: "", pricePieace: "", kcal: "" },
+    { itemName: '', imageUrl: '', priceHole: '', pricePieace: '', kcal: '' },
   ],
-  status: "",
+  status: '',
 };
 
 // State初期値の設定
 const initialState: dataList = {
   itemlist: [
     {
-      itemName: "**",
-      imageUrl: "",
-      priceHole: "",
-      pricePieace: "",
-      kcal: "",
+      itemName: '**',
+      imageUrl: '',
+      priceHole: '',
+      pricePieace: '',
+      kcal: '',
     },
   ],
-  status: "***",
+  status: '***',
 };
 
 //問合せURL
-const domain = process.env.NEXT_PUBLIC_HOST || "http://localhost:3000/"; //環境変数鵜より取得
-const ulr: string = domain + "api/searchCakeApi?q=%22qq%22";
-console.log("process.env.NEXT_PUBLIC_HOST:" + process.env.NEXT_PUBLIC_HOST);
-console.log("process.env.NEXT_PUBLIC_PROD:" + process.env.NEXT_PUBLIC_PROD);
+const domain = process.env.NEXT_PUBLIC_HOST || 'http://localhost:3000/'; //環境変数鵜より取得
+const ulr: string = domain + 'api/searchCakeApi?q=%22qq%22';
+
 // APIへの問い合わせ関数（fetchで取得する部分）
 const getItems = async (url: string) => {
   const requestUrl = ulr;
-  console.log("fetch! cake reducer! " + ulr);
+  console.log('fetch! cake reducer! ' + ulr);
   const result = await fetch(requestUrl)
     .then((responce) => {
       // console.log("fetch responce reducer");
@@ -62,7 +61,7 @@ const getItems = async (url: string) => {
     })
     .catch(() => {
       // エラー発生時
-      return { status: "error" };
+      return { status: 'error' };
     });
 
   return result;
@@ -72,7 +71,7 @@ const getItems = async (url: string) => {
 // 第１引数：返り値の型
 // 第２引数：受け渡す引数の型
 export const fetchItems = createAsyncThunk<dataList>(
-  "fetchItem_Cake",
+  'fetchItem_Cake',
   async (arg, thunkAPI) => {
     const result = getItems(ulr); // API問い合わせ
     return result;
@@ -82,15 +81,15 @@ export const fetchItems = createAsyncThunk<dataList>(
 //https:future-architect.github.io/articles/20200501/
 
 const getCakeDetailSlice = createSlice({
-  name: "cakeDetailData",
+  name: 'cakeDetailData',
   initialState: initialState, //初期のStateセット
   reducers: {},
   extraReducers: (builder) => {
     // 通信中
     builder.addCase(fetchItems.pending, (state, action) => {
-      state.status = "pending";
+      state.status = 'pending';
 
-      console.log("pending--cake");
+      console.log('pending--cake');
       console.log(state);
       console.log(state.status);
     });
@@ -102,13 +101,13 @@ const getCakeDetailSlice = createSlice({
 
       // console.log("payload");
 
-      console.log("success--cake");
+      console.log('success--cake');
 
       if (item != undefined) {
         state.itemlist = item;
       }
 
-      state.status = "success";
+      state.status = 'success';
 
       // console.log(action.payload);
       // console.log(state.itemlist);
@@ -117,7 +116,7 @@ const getCakeDetailSlice = createSlice({
 
     // 通信失敗
     builder.addCase(fetchItems.rejected, (state, action) => {
-      state.status = "error";
+      state.status = 'error';
     });
   },
 });
