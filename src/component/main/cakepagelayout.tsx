@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import Header from "../header/header"; //ヘッダーコンポーネント
-import Hero from "../../../public/img/hero.png";
-import ItemBox from "../common/item"; //商品コンポーネント
-import Image from "next/image"; //Imageコンポーネント
-import InfomationComponent from "../infopage/infomation";
-import ItemDetailComponent from "../itemdetail/itemdetai";
-import CartComponent from "../cart/cart";
-import { itemData, dataList, cakeDetail, cakeDetailData } from "../../types";
-import { useSelector, useDispatch } from "react-redux"; //Redux,useSelectorとdispatchの読み込み
-import { fetchItems } from "../../api/searchCakeSlice";
-import { AppDispatch } from "../../store"; //方で怒られるので入れた
-import { useRouter } from "next/router";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import Header from '../header/header'; //ヘッダーコンポーネント
+import Hero from '../../../public/img/hero.png';
+import ItemBox from '../common/item'; //商品コンポーネント
+import Image from 'next/image'; //Imageコンポーネント
+import InfomationComponent from '../infopage/infomation';
+import ItemDetailComponent from '../itemdetail/itemdetai';
+import CartComponent from '../cart/cart';
+import { itemData, dataList, cakeDetail, cakeDetailData } from '../../types';
+import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
+import { fetchItems } from '../../api/searchCakeSlice';
+import { AppDispatch } from '../../store'; //方で怒られるので入れた
+import { useRouter } from 'next/router';
 
-import { fetchDetails } from "../../api/getItemDetail";
+import { fetchDetails } from '../../api/getItemDetail';
 
 const Main = () => {
   //Reduxの設定
@@ -22,7 +22,7 @@ const Main = () => {
     state.cakereducer?.itemlist ? state.cakereducer.itemlist : []
   ); //商品リスト取得
   const status: string = useSelector((state: { cakereducer: dataList }) =>
-    state.cakereducer?.status ? state.cakereducer.status : ""
+    state.cakereducer?.status ? state.cakereducer.status : ''
   ); //ステータス取得
 
   // ダミー用のデータ
@@ -46,23 +46,23 @@ const Main = () => {
   const st: any = useSelector((state: { reducer: any }) => state); //ステータス取得
 
   // 定数
-  const mainMode = "main";
-  const detailMode = "detail";
-  const cartMode = "cart";
-  const infoMode = "info";
+  const mainMode = 'main';
+  const detailMode = 'detail';
+  const cartMode = 'cart';
+  const infoMode = 'info';
 
   const [modeStatus, changeModeSttatus] = useState<string>(mainMode); //お知らせ画面の表示切り替え用のフラグ
 
   // お知らせフラグを変更させる関数,戻り値がないのでvoidにする
   const infoFlgFnc = (mode: string): void => {
     // changeInfoFlg(flg);
-    console.log("mode:" + modeStatus + "=>" + mode);
+    console.log('mode:' + modeStatus + '=>' + mode);
     changeModeSttatus(mode); //モードを詳細画面にする
   };
 
   // 詳細画面表示用画面
   const showItemDetail = (id: number) => {
-    console.log("get item detail id:" + id);
+    console.log('get item detail id:' + id);
     dispatch(fetchDetails(id)); //詳細画面のデータ取得のActionをDispatch
     changeModeSttatus(detailMode); //モードを詳細画面にする
   };
@@ -73,22 +73,22 @@ const Main = () => {
   // useEffectでdispatch実行
   useEffect(() => {
     dispatch(fetchItems());
-    console.log("dispatch! items");
+    console.log('dispatch! items');
   }, [dispatch]);
 
   const [stateItemDetail, upDateItemDetail] = useState(itemDetail);
   // useEffectでdispatch実行
   useEffect(() => {
-    console.log("useEffect itemDetail");
+    console.log('useEffect itemDetail');
     console.log(itemDetail);
     // upDateItemDetail(itemDetail);
   }, [itemDetail]);
 
-  console.log("st");
+  console.log('st');
   console.log(st);
 
   useEffect(() => {
-    console.log("itemlist　usestate");
+    console.log('itemlist　usestate');
     console.log(st);
   }, [st]);
 
@@ -132,7 +132,7 @@ const Main = () => {
   //
   //
 
-  console.log("Connecting..." + status);
+  console.log('Connecting...' + status);
 
   // メニューボタン。Propsで画像を変える
   const MenuButton = styled.button``;
@@ -166,7 +166,7 @@ const Main = () => {
     left: 48px;
     width: 1240px;
     height: 475px;
-    background: transparent url("img/24883663_s.png") 0% 0% no-repeat
+    background: transparent url('img/24883663_s.png') 0% 0% no-repeat
       padding-box;
     opacity: 1;
     background-image: url(${Hero.src});
@@ -203,7 +203,7 @@ const Main = () => {
   // ];
 
   // 取得したJsonデータから商品コンポーネントのリストを作成
-  const arrayItemBox = itemlist.map((item) => {
+  const arrayItemBox = itemlist.map((item, index) => {
     const result = (
       <ItemBox
         id={item.id}
@@ -213,7 +213,7 @@ const Main = () => {
         pricePieace={item.pricePieace}
         kcal={item.kcal}
         clickFunction={showItemDetail}
-        // ::::::::::::::::
+        key={'key_itembox_' + item.id + '_' + index}
       />
     );
     return result;
@@ -347,19 +347,19 @@ const Main = () => {
         <PanelDiv>
           <p>search panel</p>
           <BtnList>
-            {searchBtn("/img/cupcake.png", "カップ", 1)}
-            {searchBtn("/img/cupcake.png", "ss", 1)}
-            {searchBtn("/img/cupcake.png", "ss", 1)}
-            {searchBtn("/img/cupcake.png", "ss", 1)}
-            {searchBtn("/img/cupcake.png", "ss", 1)}
-            {searchBtn("/img/cupcake.png", "ss", 1)}
-            {searchBtn("/img/cupcake.png", "ss", 1)}
-            {searchBtn("/img/cupcake.png", "ss", 1)}
-            {searchBtn("/img/cupcake.png", "ss", 1)}
-            {searchBtn("/img/cupcake.png", "ss", 1)}
-            {searchBtn("/img/cupcake.png", "ss", 1)}
-            {searchBtn("/img/cupcake.png", "ss", 1)}
-            {searchBtn("/img/cupcake.png", "ss", 1)}
+            {searchBtn('/img/cupcake.png', 'カップ', 1)}
+            {searchBtn('/img/cupcake.png', 'ss', 1)}
+            {searchBtn('/img/cupcake.png', 'ss', 1)}
+            {searchBtn('/img/cupcake.png', 'ss', 1)}
+            {searchBtn('/img/cupcake.png', 'ss', 1)}
+            {searchBtn('/img/cupcake.png', 'ss', 1)}
+            {searchBtn('/img/cupcake.png', 'ss', 1)}
+            {searchBtn('/img/cupcake.png', 'ss', 1)}
+            {searchBtn('/img/cupcake.png', 'ss', 1)}
+            {searchBtn('/img/cupcake.png', 'ss', 1)}
+            {searchBtn('/img/cupcake.png', 'ss', 1)}
+            {searchBtn('/img/cupcake.png', 'ss', 1)}
+            {searchBtn('/img/cupcake.png', 'ss', 1)}
           </BtnList>
 
           {priceArea()}
@@ -379,7 +379,7 @@ const Main = () => {
   // メイン部分。Stateの状態とSwitch文で画面を切り替える
   const mainBlock = () => {
     switch (modeStatus) {
-      case "main":
+      case 'main':
         return (
           <>
             <ImgHero></ImgHero>
@@ -387,16 +387,16 @@ const Main = () => {
             <Itemlist>{arrayItemBox}</Itemlist>
           </>
         );
-      case "info":
+      case 'info':
         return <InfomationComponent clickFunc={infoFlgFnc} />;
-      case "detail":
+      case 'detail':
         return (
           <ItemDetailComponent
             cakeData={itemDetail || {}}
             clickFnction={infoFlgFnc}
           />
         );
-      case "cart":
+      case 'cart':
         return <CartComponent clickFnction={infoFlgFnc}></CartComponent>;
     }
   };

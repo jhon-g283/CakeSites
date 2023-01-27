@@ -1,14 +1,14 @@
-import React from "react";
-import styled from "styled-components";
-import Image from "next/image";
-import Cake1 from "../../../public/img/cake1.png";
-import Cake2 from "../../../public/img/cake2.png";
-import { itemData } from "../../types";
+import React from 'react';
+import styled from 'styled-components';
+import Image from 'next/image';
+import Cake1 from '../../../public/img/cake1.png';
+import Cake2 from '../../../public/img/cake2.png';
+import { itemData } from '../../types';
 
 // ////
-import { useSelector, useDispatch } from "react-redux"; //Redux,useSelectorとdispatchの読み込み
-import { fetchDetails } from "../../api/getItemDetail";
-import { AppDispatch } from "../../store"; //方で怒られるので入れた
+import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
+import { fetchDetails } from '../../api/getItemDetail';
+import { AppDispatch } from '../../store'; //方で怒られるので入れた
 // ////
 
 // 引数
@@ -22,13 +22,6 @@ import { AppDispatch } from "../../store"; //方で怒られるので入れた
 // 販売店名のリンク
 //
 
-// interface itemData {
-//   itemName?: any;
-//   imageUrl?: any;
-//   priceHole?: any;
-//   pricePieace?: any;
-//   kcal?: any;
-// }
 const itemBox = ({
   id,
   itemName,
@@ -44,10 +37,6 @@ const itemBox = ({
   // 外枠の作成
   //
   //
-
-  // console.log("itemName");
-  // console.log(itemName);
-  // console.log("imageUrl");
 
   // ToDo コンポーネント化して引数の設定
   //
@@ -178,7 +167,7 @@ const itemBox = ({
 };
 
 const fnc = () => {
-  console.log("click");
+  console.log('click');
   // fetchDetails(1);
 };
 

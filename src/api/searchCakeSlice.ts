@@ -41,12 +41,12 @@ const initialState: dataList = {
 
 //問合せURL
 const domain = process.env.NEXT_PUBLIC_HOST || 'http://localhost:3000/'; //環境変数鵜より取得
-const ulr: string = domain + 'api/searchCakeApi?q=%22qq%22';
+const baseulr: string = domain + 'api/searchCakeApi?q=%22qq%22';
 
 // APIへの問い合わせ関数（fetchで取得する部分）
 const getItems = async (url: string) => {
-  const requestUrl = ulr;
-  console.log('fetch! cake reducer! ' + ulr);
+  const requestUrl = url;
+  console.log('fetch! cake reducer! ' + url);
   const result = await fetch(requestUrl)
     .then((responce) => {
       // console.log("fetch responce reducer");
@@ -73,7 +73,7 @@ const getItems = async (url: string) => {
 export const fetchItems = createAsyncThunk<dataList>(
   'fetchItem_Cake',
   async (arg, thunkAPI) => {
-    const result = getItems(ulr); // API問い合わせ
+    const result = getItems(baseulr); // API問い合わせ
     return result;
   }
 );

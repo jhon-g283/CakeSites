@@ -37,7 +37,9 @@ const initialState: cakeDetail = {
 };
 
 //問合せURL
-const baseUrl: string = 'http://localhost:3000/api/getitemDetailApi?';
+const domain = process.env.NEXT_PUBLIC_HOST || 'http://localhost:3000/'; //環境変数鵜より取得
+const baseulr: string = domain + 'api/getitemDetailApi?';
+// const baseUrl: string = 'http://localhost:3000/api/getitemDetailApi?';
 
 // APIへの問い合わせ関数（fetchで取得する部分）
 const getItems = async (requestUrl: string) => {
@@ -68,7 +70,7 @@ const getItems = async (requestUrl: string) => {
 export const fetchDetails = createAsyncThunk<cakeDetail, number>(
   'fetchItem_Cake',
   async (n: number, thunkAPI) => {
-    const requesrUrl: string = baseUrl + 'id=' + n.toString() + '&';
+    const requesrUrl: string = baseulr + 'id=' + n.toString() + '&';
 
     const result = await getItems(requesrUrl); // API問い合わせ
     return result;

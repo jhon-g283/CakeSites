@@ -102,22 +102,42 @@ export interface cakeDetailArray {
   // status?: string;
 }
 
-// "cakeData": [
-//   {
-//     "id": "1",
-//     "itemName": "モンブランs",
-//     "imageUrl": "imageUrl",
-//     "imageUrl2": "imageUrl",
-//     "priceHole": "priceHole",
-//     "pricePieace": "pricePieace",
-//     "kcal": "kcal",
-//     "code": "1A",
-//     "discription": "",
-//     "shopname": "",
-//     "options": {
-//       "option1": { "name": "name1", "param": "200" },
-//       "option2": { "name": "name2", "param": "300" },
-//       "option3": { "name": "name3", "param": "400" }
-//     }
-//   }
-// ]
+// API用：ケーキの商品情報取得
+export interface cartDataArray {
+  data?: {
+    cartId?: number;
+    itemId?: number;
+    itemName?: any;
+    imageUrl?: any;
+    imageUr2?: any;
+    price?: number;
+    peaceCount?: number;
+
+    code?: string;
+    discription?: string;
+    options?: { name: string; param: number; count: number }[];
+
+    // status?: string;
+  }[];
+  status: string;
+}
+
+// {
+//   cartId: 0,
+//   itemnId: 0,
+//   itemName: '---',
+//   imageUrl: '---',
+//   imageUr2: '---',
+//   price: 100,
+//   peaceCount: 1,
+//   // priceHole: '---',
+//   // pricePieace: '---',
+//   // kcal: '---',
+//   code: '---',
+//   // discription: '--',
+//   options: [
+//     { name: '--', param: '--', count: 1 },
+//     { name: '--', param: '--', count: 1 },
+//     { name: '--', param: '--', count: 1 },
+//   ],
+// },

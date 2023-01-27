@@ -1,9 +1,11 @@
-import React from "react";
-import styled from "styled-components";
-import Image from "next/image"; //Imageコンポーネント
-import InPutForm from "./inputForm";
-import Cake1 from "../../../public/img/cake1.png";
-import gaberge from "../../../public/img/gaberge.png";
+import React from 'react';
+import styled from 'styled-components';
+import Image from 'next/image'; //Imageコンポーネント
+import InPutForm from './inputForm';
+import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
+import { AppDispatch } from '../../store'; //方で怒られるので入れた
+import Cake1 from '../../../public/img/cake1.png';
+import gaberge from '../../../public/img/gaberge.png';
 
 // ToDo Reduxで保持したデータから情報を取得
 //
@@ -18,6 +20,10 @@ import gaberge from "../../../public/img/gaberge.png";
 //
 
 const CartItem = () => {
+  const dispatch = useDispatch<AppDispatch>(); //dispatch設定
+  // const itemlist = useSelector((state: { cakereducer: dataList }) =>
+  //   state.cakereducer?.itemlist ? state.cakereducer.itemlist : []
+  // ); //商品リスト取得
   const ItemWrapper = styled.div`
     display: flex;
     background: #ffffff 0% 0% no-repeat padding-box;

@@ -1,43 +1,37 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { cakeDetail } from '../../src/types';
-// Stateの型の設定
-export interface dataList {
-  itemlist?: {
-    id?: string;
-    itemName?: any;
-    imageUrl?: any;
-    priceHole?: any;
-    pricePieace?: any;
-    kcal?: any;
-    code?: string;
-  }[];
-  status: string;
-}
+import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
+import { cartDataArray } from '../../src/types';
 
 // State初期値の設定
-const initialState: cakeDetail = {
-  cakeData: {
-    id: 0,
-    itemName: '---',
-    imageUrl: '---',
-    imageUr2: '---',
-    priceHole: '---',
-    pricePieace: '---',
-    kcal: '---',
-    code: '---',
-    discription: '--',
-    options: [
-      { name: '--', param: '--' },
-      { name: '--', param: '--' },
-      { name: '--', param: '--' },
-    ],
-  },
-
-  status: '***',
+const initialState: cartDataArray = {
+  data: [
+    {
+      cartId: 0,
+      itemId: 0,
+      itemName: '---',
+      imageUrl: '---',
+      imageUr2: '---',
+      price: 100,
+      peaceCount: 1,
+      // priceHole: '---',
+      // pricePieace: '---',
+      // kcal: '---',
+      code: '---',
+      // discription: '--',
+      options: [
+        { name: '--', param: 0, count: 1 },
+        { name: '--', param: 0, count: 1 },
+        { name: '--', param: 0, count: 1 },
+      ],
+    },
+  ],
+  status: 'load',
 };
 
 //問合せURL
-const baseUrl: string = 'http://localhost:3000/api/getitemDetailApi?';
+
+//問合せURL
+const domain = process.env.NEXT_PUBLIC_HOST || 'http://localhost:3000/'; //環境変数鵜より取得
+const baseulr: string = domain + 'api/searchCakeApi?q=%22qq%22';
 
 // APIへの問い合わせ関数（fetchで取得する部分）
 const getItems = async (requestUrl: string) => {
@@ -45,11 +39,9 @@ const getItems = async (requestUrl: string) => {
 
   const result = await fetch(requestUrl)
     .then((responce) => {
-      // console.log("fetch responce reducer");
-      // console.log(responce);
       return responce.json();
     })
-    .then((data: cakeDetail) => {
+    .then((data: cartDataArray) => {
       // console.log("fetch data reducer");
 
       return data;
@@ -65,10 +57,10 @@ const getItems = async (requestUrl: string) => {
 // Thunk
 // 第１引数：返り値の型
 // 第２引数：受け渡す引数の型
-export const fetchDetails = createAsyncThunk<cakeDetail, number>(
+export const pushCartData = createAsyncThunk<cartDataArray, number>(
   'fetchItem_Cake',
   async (n: number, thunkAPI) => {
-    const requesrUrl: string = baseUrl + 'id=' + n.toString() + '&';
+    const requesrUrl: string = baseulr + 'id=' + n.toString() + '&';
 
     const result = await getItems(requesrUrl); // API問い合わせ
     return result;
@@ -77,49 +69,49 @@ export const fetchDetails = createAsyncThunk<cakeDetail, number>(
 
 //https:future-architect.github.io/articles/20200501/
 
-const getItemDetailSlice = createSlice({
-  name: 'cakeList',
+const addCartSlicer = createSlice({
+  name: 'cartList',
   initialState: initialState, //初期のStateセット
-  reducers: {},
+  reducers: {
+    addCart(state, action) {
+      // カートボタンで追加した時の処理
+      console.log('action addCart ');
+
+      const pushData = action.payload?.data; //追加するデータ
+      const stateData = current(state.data)?.concat(pushData); //現在のStateに追加する
+      console.log(stateData);
+
+      state.data = stateData; //State更新
+    },
+    removeCart(state, action) {
+      if (action.payload == 'test') {
+      }
+    },
+    editCart(state, action) {},
+  },
   extraReducers: (builder) => {
     // 通信中
-    builder.addCase(fetchDetails.pending, (state, action) => {
-      state.status = 'pending';
-
-      console.log('pending--');
-
-      console.log(state.status);
+    builder.addCase(pushCartData.pending, (state, action) => {
+      // state.status = 'pending';
     });
 
     // 通信完了
-    builder.addCase(fetchDetails.fulfilled, (state, action) => {
-      // state.loading = true;
-      const item = action.payload.cakeData; //payloadから取得したデータを取り出す
-
-      console.log('payload sucess detail');
-      console.log(item);
-
-      if (item != undefined) {
-        state.cakeData = item;
-      }
-
-      state.status = 'success';
-
-      console.log(action.payload);
-      // console.log(state.itemlist);
-      // console.log(state.status);
+    builder.addCase(pushCartData.fulfilled, (state, action) => {
+      // state.status = 'success';
     });
 
     // 通信失敗
-    builder.addCase(fetchDetails.rejected, (state, action) => {
-      state.status = 'error';
+    builder.addCase(pushCartData.rejected, (state, action) => {
+      // state.status = 'error';
     });
   },
 });
 
 // selectorをエクスポート
-export const searchResultOfCake = (cakeList: cakeDetail) => cakeList;
+// export const searchResultOfCake = (cakeList: cakeDetail) => cakeList;
+export const addCartData = (cartList: cartDataArray) => cartList;
+export const { addCart } = addCartSlicer.actions; // Action Createrをエクスポート
 
 // Reducerをエクスポート
 // 読み込み時にはuseSelectで[state.設定したreducer名.State名]で読み込む
-export default getItemDetailSlice.reducer;
+export default addCartSlicer.reducer;

@@ -1,8 +1,10 @@
 // 商品詳細画面のコンポーネント
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
 import Image from 'next/image'; //Imageコンポーネント
 import { editOptions } from '../../types';
+import { addCart } from '../../api/addCartData';
 import Cake1 from '../../../public/img/cake1.png';
 import Cake2 from '../../../public/img/cake2.png';
 import { current } from '@reduxjs/toolkit';
@@ -20,6 +22,10 @@ import { current } from '@reduxjs/toolkit';
 //
 
 // ToDo リセットボタンの実装
+//
+//
+
+// ToDo カート追加後のリセットやページ遷移
 //
 //
 
@@ -45,6 +51,8 @@ const EditModeComponent = ({
   const [witdhOptionPrice, updateOptioPrice] = useState<number>(peacePrice);
   const [peaceNumber, updatePeaceNumber] = useState<number>(1); //ピース数
   const [cakePrice, updateCakePrice] = useState<number>(peacePrice); //ケーキの値段(ピース合計)
+
+  const dispatch = useDispatch();
 
   // トッピングの更新用の関数
   const upDateArray = (index: number, val: number) => {
@@ -99,6 +107,17 @@ const EditModeComponent = ({
   const DownButton = styled.button``;
   const CountNumber = styled.p``;
   const AddPriceText = styled.p``;
+
+  //
+  const addCartFunction = () => {
+    // optionArray
+    const pushData = {
+      data: { price: witdhOptionPrice },
+    };
+
+    console.log('dispatch addCart!!');
+    dispatch(addCart(pushData));
+  };
 
   // ピース数を変化させた時の変効用関数
   const addPeace = (n: number) => {
@@ -203,7 +222,7 @@ const EditModeComponent = ({
   const CartButton = (
     <>
       <EditButtonWrapper>
-        <MenuButton>Cart</MenuButton>
+        <MenuButton onClick={addCartFunction}>Cart</MenuButton>
       </EditButtonWrapper>
     </>
   );
