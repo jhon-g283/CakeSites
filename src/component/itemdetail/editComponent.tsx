@@ -56,7 +56,7 @@ const EditComponent = ({ clickFnction }: Props) => {
   const CartButton = (
     <>
       <CartButtonWrapper>
-        <MenuButton>カートへ</MenuButton>
+        <MenuButton>カートへ追加</MenuButton>
       </CartButtonWrapper>
     </>
   );

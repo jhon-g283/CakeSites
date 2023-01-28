@@ -6,12 +6,11 @@ import ItemBox from '../common/item'; //商品コンポーネント
 import Image from 'next/image'; //Imageコンポーネント
 import InfomationComponent from '../infopage/infomation';
 import ItemDetailComponent from '../itemdetail/itemdetai';
-import CartComponent from '../cart/cart';
+import CartComponent from '../cart/cart'; //カートコンポーネント
 import { itemData, dataList, cakeDetail, cakeDetailData } from '../../types';
 import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
 import { fetchItems } from '../../api/searchCakeSlice';
 import { AppDispatch } from '../../store'; //方で怒られるので入れた
-import { useRouter } from 'next/router';
 
 import { fetchDetails } from '../../api/getItemDetail';
 
@@ -54,7 +53,7 @@ const Main = () => {
   const [modeStatus, changeModeSttatus] = useState<string>(mainMode); //お知らせ画面の表示切り替え用のフラグ
 
   // お知らせフラグを変更させる関数,戻り値がないのでvoidにする
-  const infoFlgFnc = (mode: string): void => {
+  const changePageState = (mode: string): void => {
     // changeInfoFlg(flg);
     console.log('mode:' + modeStatus + '=>' + mode);
     changeModeSttatus(mode); //モードを詳細画面にする
@@ -66,9 +65,6 @@ const Main = () => {
     dispatch(fetchDetails(id)); //詳細画面のデータ取得のActionをDispatch
     changeModeSttatus(detailMode); //モードを詳細画面にする
   };
-
-  // モードチェック用関数
-  const root = useRouter();
 
   // useEffectでdispatch実行
   useEffect(() => {
@@ -84,21 +80,10 @@ const Main = () => {
     // upDateItemDetail(itemDetail);
   }, [itemDetail]);
 
-  console.log('st');
-  console.log(st);
-
   useEffect(() => {
     console.log('itemlist　usestate');
     console.log(st);
   }, [st]);
-
-  // useEffect(() => {
-  //   console.log("flg:" + flg);
-  // }, [flg]);
-
-  //ToDo mapからコンポーネントの配列を作成するとき固有のキーを作成する
-  //
-  // ・・
 
   // ToDo　検索条件を作る検索ボックスを作成
   //
@@ -116,20 +101,8 @@ const Main = () => {
   //
   //
 
-  // ToDo お知らせ画面の作成
-  //　　useState`をPropsにして渡す？
-  //
-
   // ToDo ヘルプ画面（モーダル）の作成
   //　useState`をPropsにして渡す？
-  //
-
-  // ToDo 詳細画面の表示機能実装
-  //
-  //
-
-  // カート画面の実装
-  //
   //
 
   console.log('Connecting...' + status);
@@ -184,23 +157,6 @@ const Main = () => {
     display: flex;
     flex-wrap: wrap;
   `;
-
-  // const testData: Array<itemData> = [
-  //   {
-  //     itemName: "モンブランs",
-  //     imageUrl: "imageUrl",
-  //     priceHole: "priceHole",
-  //     pricePieace: "pricePieace",
-  //     kcal: "kcal",
-  //   },
-  //   {
-  //     itemName: "モンブランa",
-  //     imageUrl: "imageUrl",
-  //     priceHole: "priceHole",
-  //     pricePieace: "pricePieace",
-  //     kcal: "kcal",
-  //   },
-  // ];
 
   // 取得したJsonデータから商品コンポーネントのリストを作成
   const arrayItemBox = itemlist.map((item, index) => {
@@ -388,23 +344,23 @@ const Main = () => {
           </>
         );
       case 'info':
-        return <InfomationComponent clickFunc={infoFlgFnc} />;
+        return <InfomationComponent changePageFunc={changePageState} />;
       case 'detail':
         return (
           <ItemDetailComponent
             cakeData={itemDetail || {}}
-            clickFnction={infoFlgFnc}
+            changePageFunc={changePageState}
           />
         );
       case 'cart':
-        return <CartComponent clickFnction={infoFlgFnc}></CartComponent>;
+        return <CartComponent changePageFunc={changePageState}></CartComponent>;
     }
   };
 
   const cakePageLayout = (
     <>
       {/* <MainWrapper> */}
-      <Header clickFunction={infoFlgFnc} />
+      <Header changePageFunc={changePageState} />
       {mainBlock()}
     </>
   );

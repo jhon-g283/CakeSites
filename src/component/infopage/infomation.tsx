@@ -1,13 +1,13 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 //Props 引数の型
 interface Props {
-  clickFunc: (mode: string) => void; // ()=>void
+  changePageFunc: (mode: string) => void; //モードの切り替え用関数 ()=>void
 }
 
 //　お知らせ用の画面のコンポーネント
-const InfomationComponent = ({ clickFunc }: Props) => {
+const InfomationComponent = ({ changePageFunc }: Props) => {
   //ページのタイトル部分
   const Title = styled.p`
     //   top: 212px;
@@ -170,7 +170,7 @@ const InfomationComponent = ({ clickFunc }: Props) => {
       </TabDiv>
 
       {InfoArea()}
-      <BackButton onClick={() => clickFunc("main")}>戻る</BackButton>
+      <BackButton onClick={() => changePageFunc('main')}>戻る</BackButton>
     </>
   );
 

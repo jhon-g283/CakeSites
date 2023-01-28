@@ -8,9 +8,7 @@ import EditModeComponent from './editModeComponent';
 import EditComponent from './editComponent';
 import { cakeDetail, cakeDetailData, editOptions } from '../../types';
 import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
-import { fetchDetails } from '../../api/getItemDetail';
-import { AppDispatch } from '../../store'; //方で怒られるので入れた
-import { Console } from 'console';
+
 // ToDo idを引数などから取得しデータを取得する機能
 //
 //
@@ -30,7 +28,7 @@ import { Console } from 'console';
 //Props 引数の型
 interface Props {
   cakeData: cakeDetailData;
-  clickFnction: (mode: string) => void; // ()=>void
+  changePageFunc: (mode: string) => void; //モードの切り替え用関数 ()=>void
 }
 
 //To Do
@@ -38,7 +36,7 @@ interface Props {
 //
 
 // 商品詳細のメイン部分
-const ItemDetailComponent = ({ cakeData, clickFnction }: Props) => {
+const ItemDetailComponent = ({ cakeData, changePageFunc }: Props) => {
   // const dispatch = useDispatch<AppDispatch>(); //dispatch設定
   const itemDetail = useSelector(
     (state: { detailreducer: cakeDetail }) => state.detailreducer.cakeData
@@ -224,7 +222,7 @@ const ItemDetailComponent = ({ cakeData, clickFnction }: Props) => {
   const CartButton = (
     <>
       <CartButtonWrapper>
-        <MenuButton>カートへ</MenuButton>
+        <MenuButton onClick={() => changePageFunc('cart')}>カートへ</MenuButton>
       </CartButtonWrapper>
     </>
   );
@@ -232,7 +230,7 @@ const ItemDetailComponent = ({ cakeData, clickFnction }: Props) => {
   const BackButton = (
     <>
       <BackButtonWrapper>
-        <MenuButton onClick={() => clickFnction('main')}>戻る</MenuButton>
+        <MenuButton onClick={() => changePageFunc('main')}>戻る</MenuButton>
       </BackButtonWrapper>
     </>
   );

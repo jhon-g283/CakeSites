@@ -4,6 +4,7 @@ import Image from 'next/image'; //Imageコンポーネント
 import InPutForm from './inputForm';
 import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
 import { AppDispatch } from '../../store'; //方で怒られるので入れた
+import { cartDataArray } from '../../types';
 import Cake1 from '../../../public/img/cake1.png';
 import gaberge from '../../../public/img/gaberge.png';
 
@@ -20,9 +21,9 @@ import gaberge from '../../../public/img/gaberge.png';
 //
 
 const CartItem = () => {
-  const dispatch = useDispatch<AppDispatch>(); //dispatch設定
-  // const itemlist = useSelector((state: { cakereducer: dataList }) =>
-  //   state.cakereducer?.itemlist ? state.cakereducer.itemlist : []
+  // const dispatch = useDispatch<AppDispatch>(); //dispatch設定
+  // const cartData = useSelector((state: { cartreducer: cartDataArray }) =>
+  //   state.cartreducer?.data ? state.cartreducer.data : []
   // ); //商品リスト取得
   const ItemWrapper = styled.div`
     display: flex;
@@ -144,9 +145,9 @@ const CartItem = () => {
         {orderInfo}
         {ButtonArea}
       </ItemWrapper>
-      <InPutForm />
+      {/* <InPutForm />
       <GuideText>Check Your Order</GuideText>
-      <ConfButton>Confirm</ConfButton>
+      <ConfButton>Confirm</ConfButton> */}
     </>
   );
 

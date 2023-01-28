@@ -1,13 +1,17 @@
-import React from "react";
-import styled from "styled-components";
-import CartImagePath from "../../../public/img/cart.png";
+import React from 'react';
+import styled from 'styled-components';
+import CartImagePath from '../../../public/img/cart.png';
+
+// ToDo ヘッダーのカート数の実装
+//
+//
 
 //Props 引数の型
 interface Props {
-  clickFunction: (mode: string) => void; // ()=>void
+  changePageFunc: (mode: string) => void; // ()=>void
 }
 
-const Header = ({ clickFunction }: Props) => {
+const Header = ({ changePageFunc }: Props) => {
   // styled-componentsの変数は大文字スタート
 
   // ヘッダー全体
@@ -99,9 +103,9 @@ const Header = ({ clickFunction }: Props) => {
         <TitleLogo>Peace Of Cake</TitleLogo>
 
         <Left>
-          <Nav1 onClick={() => clickFunction("info")}>お知らせ</Nav1>
+          <Nav1 onClick={() => changePageFunc('info')}>お知らせ</Nav1>
           <Nav2>ヘルプ</Nav2>
-          <ImgCart onClick={() => clickFunction("cart")}> </ImgCart>
+          <ImgCart onClick={() => changePageFunc('cart')}> </ImgCart>
           {/* <nav>
             <li>a</li>
             <li>a</li>

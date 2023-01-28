@@ -31,18 +31,18 @@ import { current } from '@reduxjs/toolkit';
 
 //Props 引数の型
 interface Props {
-  clickFnction: () => void; // クリック時の関数　()=>void
+  clickFnction: () => void; // //モードの切り替え用関数　()=>void
   options?: editOptions[]; //トッピング
   peacePrice: number;
   holePrice: number;
-  //元々の価格
+  //Next ここにカートへ進むボタンを実装する（道に迷った。。コメント大事。。）
 }
 
 const optionArrayDefault: number[] = [0, 0, 0]; // オプション（トッピング）の数量、インデックスを指定して更新する
 
 // 編集モードのコンポーネント
 const EditModeComponent = ({
-  clickFnction,
+  clickFnction, //モードの切り替え用
   options,
   peacePrice,
   holePrice,
