@@ -23,6 +23,24 @@ npm install react-redux
 https://zenn.dev/nbr41to/articles/c0c691653e3d55
 https://dev.classmethod.jp/articles/react-typescript-redux-toolkit/
 
+-----------------------------------
+[design][CMD]
+ npm install swiper    
+ npm install @types/swiper
+=>https://zenn.dev/yuki_tu/articles/f6f8568bede8e2
+=>https://swiperjs.com/swiper-api
+
+npm install react-intersection-observer 
+=>https://akiblog10.com/react-scroll-animation/
+=>https://www.npmjs.com/package/react-intersection-observer
+
+npm install react-intersection-observer   
+npm install @types/react-transition-group
+=>https://penpen-dev.com/blog/react-transition-group/
+=>https://www.npmjs.com/package/react-transition-group
+=>https://reactcommunity.org/react-transition-group/
+------------------------------------
+
 
 【調べる機能など】
 json読み取り

@@ -1,0 +1,27 @@
+/* Next GlobalCSSしか読まれてないっぽいのでつらたん　次修正する*/
+
+.opacity-0 {
+  opacity: 0;
+}
+.fadeIn {
+  animation: fadeIn 600ms linear both;
+}
+/* フェードイン用のアニメーションスタイル */
+@keyframes fadeIn {
+  0% {
+    background-color: rgb(226, 226, 237);
+    opacity: 0;
+    /* transform: translateY(30px); */
+    transform: translateX(550px);
+  }
+
+  50% {
+    opacity: 0.6;
+  }
+
+  100% {
+    background-color: rgb(0, 162, 255);
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
