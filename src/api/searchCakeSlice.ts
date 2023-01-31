@@ -9,10 +9,6 @@ import { itemData, dataList } from '../types';
 //
 //
 
-// ToDo 問合せ先のURLをENVに設定する
-//
-//
-
 type dataListType = {
   List?: itemData;
   status?: string;

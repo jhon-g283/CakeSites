@@ -52,6 +52,19 @@ const Main = () => {
 
   const [modeStatus, changeModeSttatus] = useState<string>(mainMode); //お知らせ画面の表示切り替え用のフラグ
 
+  const [searchCode, updateCode] = useState<string>(''); //検索に使うコード文字列
+  const [queryParam, updateQuery] = useState<string>(''); //検索にクエリパラメータ
+
+  // コード文字列の更新用関数
+  const setSearchCode = (code: string) => {
+    // 引数の文字列がStateの文字列になければ追加し、あれば削除することで制御
+    if (searchCode.indexOf(code) < 0) {
+      updateCode(searchCode + code);
+    } else {
+      updateCode(searchCode.replace(code, ''));
+    }
+  };
+
   // お知らせフラグを変更させる関数,戻り値がないのでvoidにする
   const changePageState = (mode: string): void => {
     // changeInfoFlg(flg);
@@ -72,13 +85,12 @@ const Main = () => {
     console.log('dispatch! items');
   }, [dispatch]);
 
-  const [stateItemDetail, upDateItemDetail] = useState(itemDetail);
-  // useEffectでdispatch実行
+  // クエリパラメータに関するStateが更新されたタイミングでクエリ文字列を更新
   useEffect(() => {
-    console.log('useEffect itemDetail');
-    console.log(itemDetail);
-    // upDateItemDetail(itemDetail);
-  }, [itemDetail]);
+    //
+    const newQuery = '?code=' + searchCode;
+    updateQuery(newQuery);
+  }, [searchCode]);
 
   useEffect(() => {
     console.log('itemlist　usestate');
@@ -189,7 +201,7 @@ const Main = () => {
   // 画像Url
   // ボタン名
   // ボタンの押下時の関数に関連する設定値
-  const searchBtn = (btnImageUrl: string, name: string, num: number) => {
+  const searchBtn = (btnImageUrl: string, name: string, code: string) => {
     // Propsで画像を変更できるようにする
     // const Btn = styled.button``;
 
@@ -218,13 +230,11 @@ const Main = () => {
             width={113}
             height={82}
             alt="My avatar"
-            onClick={() => {
-              clickFunction(num);
-            }}
+            onClick={() => setSearchCode(code)}
           ></Image>
           <BtnName>
             {name}
-            {num}
+            {code}
           </BtnName>
         </BtnDiv>
       </>
@@ -301,21 +311,20 @@ const Main = () => {
     const result = (
       <>
         <PanelDiv>
-          <p>search panel</p>
+          <p>search panel {searchCode}</p>
           <BtnList>
-            {searchBtn('/img/cupcake.png', 'カップ', 1)}
-            {searchBtn('/img/cupcake.png', 'ss', 1)}
-            {searchBtn('/img/cupcake.png', 'ss', 1)}
-            {searchBtn('/img/cupcake.png', 'ss', 1)}
-            {searchBtn('/img/cupcake.png', 'ss', 1)}
-            {searchBtn('/img/cupcake.png', 'ss', 1)}
-            {searchBtn('/img/cupcake.png', 'ss', 1)}
-            {searchBtn('/img/cupcake.png', 'ss', 1)}
-            {searchBtn('/img/cupcake.png', 'ss', 1)}
-            {searchBtn('/img/cupcake.png', 'ss', 1)}
-            {searchBtn('/img/cupcake.png', 'ss', 1)}
-            {searchBtn('/img/cupcake.png', 'ss', 1)}
-            {searchBtn('/img/cupcake.png', 'ss', 1)}
+            {searchBtn('/img/cupcake.png', 'カップ', 'A')}
+            {searchBtn('/img/cupcake.png', 'ss', 'B')}
+            {searchBtn('/img/cupcake.png', 'ss', 'B')}
+            {searchBtn('/img/cupcake.png', 'ss', 'B')}
+            {searchBtn('/img/cupcake.png', 'ss', 'B')}
+            {searchBtn('/img/cupcake.png', 'ss', 'B')}
+            {searchBtn('/img/cupcake.png', 'ss', 'B')}
+            {searchBtn('/img/cupcake.png', 'ss', 'B')}
+            {searchBtn('/img/cupcake.png', 'ss', 'B')}
+            {searchBtn('/img/cupcake.png', 'ss', 'B')}
+            {searchBtn('/img/cupcake.png', 'ss', 'B')}
+            {searchBtn('/img/cupcake.png', 'ss', 'B')}
           </BtnList>
 
           {priceArea()}
