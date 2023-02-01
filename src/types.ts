@@ -119,6 +119,7 @@ export interface cartDataArray {
 
     // status?: string;
   }[];
+  count?: number;
   status: string;
 }
 

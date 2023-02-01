@@ -24,6 +24,7 @@ const initialState: cartDataArray = {
       ],
     },
   ],
+  count: 0,
   status: 'load',
 };
 
@@ -79,9 +80,10 @@ const addCartSlicer = createSlice({
 
       const pushData = action.payload?.data; //追加するデータ
       const stateData = current(state.data)?.concat(pushData); //現在のStateに追加する
-      console.log(stateData);
+      const newCount: number = state?.count != undefined ? state?.count + 1 : 0;
 
       state.data = stateData; //State更新
+      state.count = newCount;
     },
     removeCart(state, action) {
       if (action.payload == 'test') {

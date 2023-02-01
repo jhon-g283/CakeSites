@@ -218,10 +218,6 @@ const Main = () => {
       margin: 10px;
     `;
 
-    // クリック時の関数
-    const clickFunction = (n: number) => {
-      console.log(n);
-    };
     const BtnComponent = (
       <>
         <BtnDiv>
@@ -292,6 +288,13 @@ const Main = () => {
   // 探すボタン
   const SearchButton = styled.button``;
 
+  // 検索実行関数
+  const searchFunction = () => {
+    console.log('queryParam:' + queryParam);
+
+    // dispatch
+  };
+
   // 閉じるボタン
   const CloseButton = styled.p``;
 
@@ -329,7 +332,7 @@ const Main = () => {
 
           {priceArea()}
           {kcalArea()}
-          <SearchButton>探す</SearchButton>
+          <SearchButton onClick={searchFunction}>探す</SearchButton>
           <CloseButton>X Close</CloseButton>
         </PanelDiv>
       </>

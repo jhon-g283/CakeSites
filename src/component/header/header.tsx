@@ -1,10 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import CartImagePath from '../../../public/img/cart.png';
-
-// ToDo ヘッダーのカート数の実装
-//
-//
+import { useSelector } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
+import { cartDataArray } from '../../types';
 
 //Props 引数の型
 interface Props {
@@ -12,6 +10,9 @@ interface Props {
 }
 
 const Header = ({ changePageFunc }: Props) => {
+  const cartCount = useSelector((state: { cartreducer: cartDataArray }) =>
+    state.cartreducer?.count ? state.cartreducer.count : 0
+  ); //商品リスト取得
   // styled-componentsの変数は大文字スタート
 
   // ヘッダー全体
@@ -106,11 +107,7 @@ const Header = ({ changePageFunc }: Props) => {
           <Nav1 onClick={() => changePageFunc('info')}>お知らせ</Nav1>
           <Nav2>ヘルプ</Nav2>
           <ImgCart onClick={() => changePageFunc('cart')}> </ImgCart>
-          {/* <nav>
-            <li>a</li>
-            <li>a</li>
-            <li>a</li>
-          </nav> */}
+          <a>{cartCount}</a>
         </Left>
       </Header>
     </>
