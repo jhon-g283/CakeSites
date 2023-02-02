@@ -81,7 +81,7 @@ const Main = () => {
 
   // useEffectでdispatch実行
   useEffect(() => {
-    dispatch(fetchItems());
+    dispatch(fetchItems(''));
     console.log('dispatch! items');
   }, [dispatch]);
 
@@ -292,7 +292,7 @@ const Main = () => {
   const searchFunction = () => {
     console.log('queryParam:' + queryParam);
 
-    // dispatch
+    dispatch(fetchItems(queryParam));
   };
 
   // 閉じるボタン
