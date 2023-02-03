@@ -37,7 +37,7 @@ const initialState: dataList = {
 
 //問合せURL
 const domain = process.env.NEXT_PUBLIC_HOST || 'http://localhost:3000/'; //環境変数鵜より取得
-const baseulr: string = domain + 'api/searchCakeApi?q=%22qq%22';
+const baseulr: string = domain + 'api/searchCakeApi?';
 
 // APIへの問い合わせ関数（fetchで取得する部分）
 const getItems = async (url: string) => {

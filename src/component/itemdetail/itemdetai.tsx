@@ -9,18 +9,6 @@ import EditComponent from './editComponent';
 import { cakeDetail, cakeDetailData, editOptions } from '../../types';
 import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
 
-// ToDo idを引数などから取得しデータを取得する機能
-//
-//
-
-// ToDoコンポーネントに必要になる画像のパスや商品データの取得機能
-// 引数か通信で取得か
-//
-
-// ToDo　カートへの登録機能
-// Reduxを使用
-//
-
 //ToDo 買い物を続ける機能の追加
 //
 //

@@ -88,7 +88,7 @@ const Main = () => {
   // クエリパラメータに関するStateが更新されたタイミングでクエリ文字列を更新
   useEffect(() => {
     //
-    const newQuery = '?code=' + searchCode;
+    const newQuery = 'code=' + searchCode;
     updateQuery(newQuery);
   }, [searchCode]);
 
