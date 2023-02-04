@@ -1,6 +1,10 @@
 import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
 import { cartDataArray } from '../../src/types';
 
+// ToDo カート情報の全量分の追加（Id連番含む）
+//
+//
+
 // State初期値の設定
 const initialState: cartDataArray = {
   data: [
@@ -81,9 +85,12 @@ const addCartSlicer = createSlice({
       const pushData = action.payload?.data; //追加するデータ
       const stateData = current(state.data)?.concat(pushData); //現在のStateに追加する
       const newCount: number = state?.count != undefined ? state?.count + 1 : 0;
+      //
 
       state.data = stateData; //State更新
       state.count = newCount;
+
+      console.log(stateData);
     },
     removeCart(state, action) {
       if (action.payload == 'test') {

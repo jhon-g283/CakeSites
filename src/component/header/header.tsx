@@ -6,10 +6,11 @@ import { cartDataArray } from '../../types';
 
 //Props 引数の型
 interface Props {
-  changePageFunc: (mode: string) => void; // ()=>void
+  changePageFunc: (mode: string) => void; // ()=>void ページ変更用
+  changeHelpModalFnc: () => void; //お知らせモーダル用
 }
 
-const Header = ({ changePageFunc }: Props) => {
+const Header = ({ changePageFunc, changeHelpModalFnc }: Props) => {
   const cartCount = useSelector((state: { cartreducer: cartDataArray }) =>
     state.cartreducer?.count ? state.cartreducer.count : 0
   ); //商品リスト取得
@@ -105,7 +106,7 @@ const Header = ({ changePageFunc }: Props) => {
 
         <Left>
           <Nav1 onClick={() => changePageFunc('info')}>お知らせ</Nav1>
-          <Nav2>ヘルプ</Nav2>
+          <Nav2 onClick={changeHelpModalFnc}>ヘルプ</Nav2>
           <ImgCart onClick={() => changePageFunc('cart')}> </ImgCart>
           <a>{cartCount}</a>
         </Left>

@@ -4,9 +4,10 @@ import Header from '../header/header'; //ヘッダーコンポーネント
 import Hero from '../../../public/img/hero.png';
 import ItemBox from '../common/item'; //商品コンポーネント
 import Image from 'next/image'; //Imageコンポーネント
-import InfomationComponent from '../infopage/infomation';
+import InfomationComponent from '../infopage/infomation'; //お知らせコンポーネント
 import ItemDetailComponent from '../itemdetail/itemdetai';
 import CartComponent from '../cart/cart'; //カートコンポーネント
+import HelpModal from '../helppage/help';
 import { itemData, dataList, cakeDetail, cakeDetailData } from '../../types';
 import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
 import { fetchItems } from '../../api/searchCakeSlice';
@@ -54,6 +55,13 @@ const Main = () => {
 
   const [searchCode, updateCode] = useState<string>(''); //検索に使うコード文字列
   const [queryParam, updateQuery] = useState<string>(''); //検索にクエリパラメータ
+  const [helpFlg, changeHelpFlg] = useState<boolean>(false); //ヘルプ画面(モーダル)切り替え用
+
+  //Next モーダルの実装：：：：こいつは詰まることはない。。多分
+  const helpModalFnc = () => {
+    console.log('helpFlg ' + helpFlg + '=>' + !helpFlg);
+    changeHelpFlg(!helpFlg);
+  };
 
   // コード文字列の更新用関数
   const setSearchCode = (code: string) => {
@@ -372,7 +380,12 @@ const Main = () => {
   const cakePageLayout = (
     <>
       {/* <MainWrapper> */}
-      <Header changePageFunc={changePageState} />
+      <Header
+        changePageFunc={changePageState}
+        changeHelpModalFnc={helpModalFnc}
+      />
+      {helpFlg ? <HelpModal changeFlg={helpModalFnc} /> : <></>}
+      {/* <HelpModal></HelpModal> */}
       {mainBlock()}
     </>
   );

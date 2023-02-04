@@ -110,13 +110,14 @@ const EditModeComponent = ({
 
   //
   const addCartFunction = () => {
-    // optionArray
+    // optionArrayなどからデータを作ってプッシュする
     const pushData = {
       data: { price: witdhOptionPrice },
     };
 
     console.log('dispatch addCart!!');
     dispatch(addCart(pushData));
+    // ここでカート追加用のフラグ（モード）の切り替えと、Propsの引き渡しを行う
   };
 
   // ピース数を変化させた時の変効用関数
@@ -222,7 +223,7 @@ const EditModeComponent = ({
   const CartButton = (
     <>
       <EditButtonWrapper>
-        <MenuButton onClick={addCartFunction}>Cart</MenuButton>
+        <MenuButton onClick={addCartFunction}>Cartへ追加</MenuButton>
       </EditButtonWrapper>
     </>
   );

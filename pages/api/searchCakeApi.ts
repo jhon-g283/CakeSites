@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
+import { type } from 'os';
 import { itemData } from '../../src/types';
 import jsonData from './stbdata/sample.json';
 // type Data = Array<itemData>;
@@ -12,15 +13,17 @@ import jsonData from './stbdata/sample.json';
 //
 
 interface dataList {
-  itemlist: {
-    id: number;
-    itemName: any;
-    imageUrl: any;
-    priceHole: any;
-    pricePieace: any;
-    kcal: any;
-    code: string;
-  }[];
+  itemlist: data[];
+}
+
+interface data {
+  id: number;
+  itemName: any;
+  imageUrl: any;
+  priceHole: any;
+  pricePieace: any;
+  kcal: any;
+  code: string;
 }
 
 export default function searchCakesData(
@@ -32,25 +35,30 @@ export default function searchCakesData(
   // console.log('jsonData');
   // console.log(jsonData);
 
-  const queryCode = req.query['code'] || '';
+  // const queryCode:string = req.query['code'] || '' as string;
 
-  const requestCode = queryCode.includes('code') ? queryCode : '';
+  const requestCode: string =
+    req.query['code'] != undefined && typeof req.query['code'] == 'string'
+      ? req.query['code']
+      : '';
+
+  // const requestCode = queryCode.includes('code') ? queryCode : '';
   console.log('queryCode');
-  console.log(queryCode);
+  console.log(requestCode);
 
-  var result: dataList = queryCode != '' ? { itemlist: [] } : jsonData;
+  const d = jsonData.itemlist != undefined ? jsonData.itemlist : [];
 
-  const data =
-    jsonData.itemlist.length > 0
-      ? jsonData.itemlist.map((x) => {
-          if (x.code == requestCode) {
-            result.itemlist.push(x);
-            // return x;
-          }
-        })
-      : [];
-  // result.itemlist = jsonData.itemlist!=undefined ? data : [];
-  // console.log('result');
+  var result: dataList =
+    requestCode == ''
+      ? jsonData
+      : {
+          itemlist: jsonData.itemlist.filter((x) => {
+            if (x.code.includes(requestCode)) {
+              return x;
+            }
+          }),
+        };
+
   // console.log(result);
 
   res.status(200).json(result);
