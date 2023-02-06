@@ -250,6 +250,11 @@ const ItemDetailComponent = ({ cakeData, changePageFunc }: Props) => {
           options={optionList}
           peacePrice={pPrice}
           holePrice={hPrice}
+          itemInfoName={cakeName}
+          itemInfoShopName={shopName}
+
+          // const cakeName
+          // const shopName
         />
       ) : (
         <EditComponent clickFnction={changeEditMode} />

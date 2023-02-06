@@ -7,7 +7,8 @@ import Image from 'next/image'; //Imageコンポーネント
 import InfomationComponent from '../infopage/infomation'; //お知らせコンポーネント
 import ItemDetailComponent from '../itemdetail/itemdetai';
 import CartComponent from '../cart/cart'; //カートコンポーネント
-import HelpModal from '../helppage/help';
+import HelpModal from '../helppage/help'; //
+import AddedItem from '../addedItem/added'; //
 import { itemData, dataList, cakeDetail, cakeDetailData } from '../../types';
 import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
 import { fetchItems } from '../../api/searchCakeSlice';
@@ -119,10 +120,6 @@ const Main = () => {
 
   // ToDo検索０件時や失敗した時の処理
   //
-  //
-
-  // ToDo ヘルプ画面（モーダル）の作成
-  //　useState`をPropsにして渡す？
   //
 
   console.log('Connecting...' + status);

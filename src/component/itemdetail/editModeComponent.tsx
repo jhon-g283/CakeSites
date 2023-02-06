@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
 import Image from 'next/image'; //Imageコンポーネント
-import { editOptions } from '../../types';
+import { editOptions, cartData } from '../../types';
 import { addCart } from '../../api/addCartData';
 import Cake1 from '../../../public/img/cake1.png';
 import Cake2 from '../../../public/img/cake2.png';
@@ -29,12 +29,18 @@ import { current } from '@reduxjs/toolkit';
 //
 //
 
+// ToDo 引数で不足してるパラメータをもらう
+//
+//
+
 //Props 引数の型
 interface Props {
   clickFnction: () => void; // //モードの切り替え用関数　()=>void
   options?: editOptions[]; //トッピング
   peacePrice: number;
   holePrice: number;
+  itemInfoName?: string;
+  itemInfoShopName?: string;
   //Next ここにカートへ進むボタンを実装する（道に迷った。。コメント大事。。）
 }
 
@@ -43,9 +49,11 @@ const optionArrayDefault: number[] = [0, 0, 0]; // オプション（トッピ�
 // 編集モードのコンポーネント
 const EditModeComponent = ({
   clickFnction, //モードの切り替え用
-  options,
-  peacePrice,
-  holePrice,
+  options, //トッピング
+  peacePrice, //ピース値段
+  holePrice, //ホール値段
+  itemInfoName, //商品名
+  itemInfoShopName, //店名
 }: Props) => {
   const [optionArray, updateOption] = useState<number[]>(optionArrayDefault); //トッピングの個数管理
   const [witdhOptionPrice, updateOptioPrice] = useState<number>(peacePrice);
@@ -110,9 +118,43 @@ const EditModeComponent = ({
 
   //
   const addCartFunction = () => {
-    // optionArrayなどからデータを作ってプッシュする
+    // optionArrayと引数のトッピング情報などからデータを作ってプッシュする
+
+    const optionsData = options?.map((it, index) => {
+      const result = {
+        name: it.name,
+        param: it.param,
+        count: optionArray[index],
+      };
+
+      return result;
+    });
+
+    const test: cartData = {
+      price: witdhOptionPrice,
+      itemName: itemInfoName,
+      imageUrl: '',
+      imageUr2: '',
+      // price?: number;
+      // peaceCount?: number;
+
+      // code?: string;
+      // discription?: string;
+      options: optionsData,
+    };
     const pushData = {
-      data: { price: witdhOptionPrice },
+      data: {
+        price: witdhOptionPrice,
+        itemName: itemInfoName,
+        imageUrl: '',
+        imageUr2: '',
+        // price?: number;
+        // peaceCount?: number;
+
+        // code?: string;
+        // discription?: string;
+        options: optionsData,
+      },
     };
 
     console.log('dispatch addCart!!');

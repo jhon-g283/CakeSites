@@ -123,6 +123,20 @@ export interface cartDataArray {
   status: string;
 }
 
+export interface cartData {
+  cartId?: number;
+  itemId?: number;
+  itemName?: any;
+  imageUrl?: any;
+  imageUr2?: any;
+  price?: number;
+  peaceCount?: number;
+
+  code?: string;
+  discription?: string;
+  options?: { name: string; param: number; count: number }[];
+}
+
 // {
 //   cartId: 0,
 //   itemnId: 0,
