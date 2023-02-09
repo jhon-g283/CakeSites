@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読�
 import Image from 'next/image'; //Imageコンポーネント
 import { editOptions, cartData } from '../../types';
 import { addCart } from '../../api/addCartData';
+import AddedItem from '../addedItem/added';
 import Cake1 from '../../../public/img/cake1.png';
 import Cake2 from '../../../public/img/cake2.png';
 import { current } from '@reduxjs/toolkit';
@@ -33,6 +34,8 @@ import { current } from '@reduxjs/toolkit';
 //
 //
 
+// next:引数の設定、、、このエラーの解決面倒
+
 //Props 引数の型
 interface Props {
   clickFnction: () => void; // //モードの切り替え用関数　()=>void
@@ -41,7 +44,9 @@ interface Props {
   holePrice: number;
   itemInfoName?: string;
   itemInfoShopName?: string;
-  //Next ここにカートへ進むボタンを実装する（道に迷った。。コメント大事。。）
+  visibleAddedFunction: () => void; //カート画面の表示用関数
+  propImageUrl1: string;
+  propImageUrl2: string;
 }
 
 const optionArrayDefault: number[] = [0, 0, 0]; // オプション（トッピング）の数量、インデックスを指定して更新する
@@ -54,11 +59,15 @@ const EditModeComponent = ({
   holePrice, //ホール値段
   itemInfoName, //商品名
   itemInfoShopName, //店名
+  visibleAddedFunction,
+  propImageUrl1, //Url1
+  propImageUrl2, //Url2
 }: Props) => {
   const [optionArray, updateOption] = useState<number[]>(optionArrayDefault); //トッピングの個数管理
   const [witdhOptionPrice, updateOptioPrice] = useState<number>(peacePrice);
-  const [peaceNumber, updatePeaceNumber] = useState<number>(1); //ピース数
+  const [countOfPeace, updateCountOfPeace] = useState<number>(1); //ピース数
   const [cakePrice, updateCakePrice] = useState<number>(peacePrice); //ケーキの値段(ピース合計)
+  const [addFlg, chyangeAddFlg] = useState<boolean>(false); //カート追加完了モーダルの表示フラグ
 
   const dispatch = useDispatch();
 
@@ -136,7 +145,7 @@ const EditModeComponent = ({
       imageUrl: '',
       imageUr2: '',
       // price?: number;
-      // peaceCount?: number;
+      peaceCount: countOfPeace,
 
       // code?: string;
       // discription?: string;
@@ -146,10 +155,10 @@ const EditModeComponent = ({
       data: {
         price: witdhOptionPrice,
         itemName: itemInfoName,
-        imageUrl: '',
-        imageUr2: '',
+        imageUrl: propImageUrl1,
+        imageUr2: propImageUrl2,
         // price?: number;
-        // peaceCount?: number;
+        peaceCount: countOfPeace,
 
         // code?: string;
         // discription?: string;
@@ -158,32 +167,38 @@ const EditModeComponent = ({
     };
 
     console.log('dispatch addCart!!');
-    dispatch(addCart(pushData));
+    dispatch(addCart(pushData)); //dispatch カートへ追加
+    visibleAddedFunction(); //カート追加画面表示
+
+    chyangeAddFlg(true);
     // ここでカート追加用のフラグ（モード）の切り替えと、Propsの引き渡しを行う
+    //
+    //
+    // next ここに追加、、モーダルの方がいいか？？
   };
 
   // ピース数を変化させた時の変効用関数
   const addPeace = (n: number) => {
-    if (peaceNumber == 1 && n < 0) {
+    if (countOfPeace == 1 && n < 0) {
       // ０以下にならないようにする
 
       return;
-    } else if (peaceNumber >= 8 && n > 0) {
+    } else if (countOfPeace >= 8 && n > 0) {
       // ８以上にならないようにする
       return;
     } else if (n == 0) {
       // ホール（８ピース）の時だけ１ピースに戻す
-      if (peaceNumber >= 8) {
-        updatePeaceNumber(1); //State更新
+      if (countOfPeace >= 8) {
+        updateCountOfPeace(1); //State更新
         updateCakePrice(peacePrice); //State更新
       }
 
       return;
     }
 
-    const updateNumber = n == 8 ? 8 : peaceNumber + n; //新しいピース数
+    const updateNumber = n == 8 ? 8 : countOfPeace + n; //新しいピース数
     const updatePrice = n == 8 ? holePrice : peacePrice * updateNumber; //新しい値段
-    updatePeaceNumber(updateNumber); //State更新
+    updateCountOfPeace(updateNumber); //State更新
     updateCakePrice(updatePrice); //State更新
   };
 
@@ -200,7 +215,7 @@ const EditModeComponent = ({
       </SwitchButtonWrapper>
       <PeaceWrapper>
         <DownButton onClick={() => addPeace(-1)}>-</DownButton>
-        <CountNumber>{peaceNumber}</CountNumber>
+        <CountNumber>{countOfPeace}</CountNumber>
         <UpButton onClick={() => addPeace(1)}>+</UpButton>
         {/* オプション数※パラメータで金額表示 */}
         <AddPriceText></AddPriceText>
@@ -373,6 +388,8 @@ const EditModeComponent = ({
         {LeftPanel}
         {RightPanel}
       </PanelWrapper>
+      {/* フラグでモーダル表示 引数で表示管理するようにすること 　後で消しとく*/}
+      {/* {addFlg ? <AddedItem></AddedItem> : <></>} */}
     </>
   );
 

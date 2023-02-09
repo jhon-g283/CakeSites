@@ -6,14 +6,6 @@ import cartList from '../api/addCartData';
 
 export type AppDispatch = typeof store.dispatch; // dispatchの方で怒られるので追加
 
-// ToDo カート機能の商品保持用の Store実装
-//
-//
-
-// ToDo 詳細画面用のスライサー（モックでデータを取るならReduxなしでデータ保持はいらないはず）
-//
-//
-
 export const store = configureStore({
   reducer: {
     // reducer名：インポートしたReducerファイル(XX.reducer)

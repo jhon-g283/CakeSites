@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
-import { cartDataArray } from '../../src/types';
+import { cartDataArray, cartData } from '../../src/types';
 
 // ToDo カート情報の全量分の追加（Id連番含む）
 //
@@ -82,10 +82,14 @@ const addCartSlicer = createSlice({
       // カートボタンで追加した時の処理
       console.log('action addCart ');
 
-      const pushData = action.payload?.data; //追加するデータ
+      const newCount: number = state?.count != undefined ? state?.count + 1 : 0; //カート数をインクリメント
+
+      //追加するデータ
+      const pushData: cartData = Object.assign(
+        { cartId: newCount }, //cartIdを追加する（Idはカート数から番号を作る）
+        action.payload?.data
+      );
       const stateData = current(state.data)?.concat(pushData); //現在のStateに追加する
-      const newCount: number = state?.count != undefined ? state?.count + 1 : 0;
-      //
 
       state.data = stateData; //State更新
       state.count = newCount;
@@ -93,6 +97,7 @@ const addCartSlicer = createSlice({
       console.log(stateData);
     },
     removeCart(state, action) {
+      // filterで削除する
       if (action.payload == 'test') {
       }
     },
@@ -117,9 +122,8 @@ const addCartSlicer = createSlice({
 });
 
 // selectorをエクスポート
-// export const searchResultOfCake = (cakeList: cakeDetail) => cakeList;
 export const addCartData = (cartList: cartDataArray) => cartList;
-export const { addCart } = addCartSlicer.actions; // Action Createrをエクスポート
+export const { addCart, removeCart } = addCartSlicer.actions; // Action Createrをエクスポート
 
 // Reducerをエクスポート
 // 読み込み時にはuseSelectで[state.設定したreducer名.State名]で読み込む

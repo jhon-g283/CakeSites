@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image'; //Imageコンポーネント
+import AddedItem from '../addedItem/added'; //カート追加画面
 import Cake1 from '../../../public/img/cake1.png';
 import Cake2 from '../../../public/img/cake2.png';
 import EditModeComponent from './editModeComponent';
@@ -32,12 +33,15 @@ const ItemDetailComponent = ({ cakeData, changePageFunc }: Props) => {
 
   const [ingnmber, changeimgnumber] = useState(0); //ピース数
   const [editFlag, changeEditFlag] = useState<boolean>(false); //編集モードの切り替え
+  const [addFlg, chyangeAddFlg] = useState<boolean>(false); //カート追加完了モーダルの表示フラグ
 
   const pPrice = itemDetail?.pricePieace || '???';
   const hPrice = itemDetail?.priceHole || '???';
   const cakeName = itemDetail?.itemName || '???';
   const shopName = itemDetail?.shopname || '???'; //店名
   const itemDiscription = itemDetail?.discription || '???'; //店名
+  const imageUrl1 = itemDetail?.imageUrl || './noImage';
+  const imageUrl2 = itemDetail?.imageUr2 || './noImage';
 
   const optionList: editOptions[] =
     itemDetail?.options != undefined
@@ -48,6 +52,12 @@ const ItemDetailComponent = ({ cakeData, changePageFunc }: Props) => {
   const changeEditMode = () => {
     console.log('edit mode :' + editFlag + ' => ' + !editFlag);
     changeEditFlag(!editFlag);
+  };
+
+  // カート追加完了切り替え用の関数（引数で渡す）
+  const visibleAdded = () => {
+    console.log('visible added');
+    chyangeAddFlg(true);
   };
 
   useEffect(() => {
@@ -252,7 +262,9 @@ const ItemDetailComponent = ({ cakeData, changePageFunc }: Props) => {
           holePrice={hPrice}
           itemInfoName={cakeName}
           itemInfoShopName={shopName}
-
+          visibleAddedFunction={visibleAdded}
+          propImageUrl1={imageUrl1}
+          propImageUrl2={imageUrl2}
           // const cakeName
           // const shopName
         />
@@ -260,8 +272,7 @@ const ItemDetailComponent = ({ cakeData, changePageFunc }: Props) => {
         <EditComponent clickFnction={changeEditMode} />
       )}
 
-      {/* {EditComponent()} */}
-      {/* {EditModeComponent()} */}
+      {addFlg ? <AddedItem clickFnction={changePageFunc}></AddedItem> : <></>}
 
       {UnderButtonArea}
     </>

@@ -5,10 +5,11 @@ import InPutForm from './inputForm';
 import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
 import { AppDispatch } from '../../store'; //方で怒られるので入れた
 import { cartDataArray } from '../../types';
+import { removeCart } from '../../api/addCartData'; //カート削除機能
 import Cake1 from '../../../public/img/cake1.png';
 import gaberge from '../../../public/img/gaberge.png';
 
-// ToDo Reduxで保持したデータから情報を取得
+// ToDo 引数をもらってくる
 //
 //
 
@@ -100,6 +101,13 @@ const CartItem = () => {
     opacity: 1;
   `;
 
+  // 削除ボタン押下時の関数
+  const clickDeletefnc = () => {
+    // id取得してそれを元に
+    removeCart('');
+  };
+
+  // 削除ボタン
   const ButtonArea = (
     <>
       <ButtonPanelWrapper>

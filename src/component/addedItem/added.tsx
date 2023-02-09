@@ -1,18 +1,20 @@
+// カートへ追加ずみの画面
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
 import { cartDataArray } from '../../types';
 
-// ToDo カートのストアから一番新しいデータをとってくる（挙動不安だけどこれが一番手っ取りバやそう）
-//
-//
+//Props 引数の型
+interface Props {
+  clickFnction: (mode: string) => void; // ()=>void トップページへの切り替え用
+}
 
-const AddedItem = () => {
+const AddedItem = ({ clickFnction }: Props) => {
   const cartData = useSelector((state: { cartreducer: cartDataArray }) =>
     state.cartreducer?.data ? state.cartreducer.data : []
   ); //商品リスト取得
 
-  const data = cartData[0];
+  const data = cartData.slice(-1)[0]; //配列の最後尾取得
   const name = data.itemName;
   const prise = data.price;
 
@@ -20,7 +22,14 @@ const AddedItem = () => {
     <>
       <p>{name}</p>
       <p>{prise}</p>
-      <button>トップへ</button>
+      <button
+        onClick={() => {
+          console.log('go to top page');
+          clickFnction('main');
+        }}
+      >
+        トップへ
+      </button>
     </>
   );
 };
