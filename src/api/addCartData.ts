@@ -98,7 +98,19 @@ const addCartSlicer = createSlice({
     },
     removeCart(state, action) {
       // filterで削除する
-      if (action.payload == 'test') {
+      console.log('remove cart id:' + action.payload);
+      if (action.payload != '') {
+        const removeId = action.payload;
+        const newCount: number =
+          state?.count != undefined ? state?.count - 1 : 0; //カート数をインクリメント
+
+        // 削除するId以外にフィルタリングし直してセット
+        const stateData = current(state.data)?.filter((it) => {
+          return it.cartId != removeId;
+        });
+
+        state.data = stateData; //State更新
+        state.count = newCount;
       }
     },
     editCart(state, action) {},

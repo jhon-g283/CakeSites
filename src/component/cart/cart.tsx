@@ -6,7 +6,7 @@ import CartItem from './cartItem';
 import InPutForm from './inputForm';
 import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
 import { AppDispatch } from '../../store'; //方で怒られるので入れた
-import { cartDataArray } from '../../types';
+import { cartDataArray, cartData } from '../../types';
 // ToDo Reduxで保持したデータから情報を取得
 //
 //
@@ -22,8 +22,9 @@ interface Props {
 
 const CartComponent = ({ changePageFunc }: Props) => {
   const dispatch = useDispatch<AppDispatch>(); //dispatch設定
-  const cartData = useSelector((state: { cartreducer: cartDataArray }) =>
-    state.cartreducer?.data ? state.cartreducer.data : []
+  const cartData: cartData[] = useSelector(
+    (state: { cartreducer: cartDataArray }) =>
+      state.cartreducer?.data ? state.cartreducer.data : []
   ); //商品リスト取得
 
   const GuideText = styled.p``;
@@ -46,10 +47,11 @@ const CartComponent = ({ changePageFunc }: Props) => {
     opacity: 1;
   `;
 
-  const cartItemList = cartData.map((it) => {
+  const cartItemList = cartData.map((it: cartData, index) => {
     return (
       <>
-        <CartItem />
+        {/* next 引数をまとめてセットする */}
+        <CartItem propsCartData={it} />
       </>
     );
   });

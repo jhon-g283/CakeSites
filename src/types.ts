@@ -104,21 +104,7 @@ export interface cakeDetailArray {
 
 // API用：ケーキの商品情報取得
 export interface cartDataArray {
-  data?: {
-    cartId?: number;
-    itemId?: number;
-    itemName?: any;
-    imageUrl?: any;
-    imageUr2?: any;
-    price?: number;
-    peaceCount?: number;
-
-    code?: string;
-    discription?: string;
-    options?: { name: string; param: number; count: number }[];
-
-    // status?: string;
-  }[];
+  data?: cartData[];
   count?: number;
   status: string;
 }
