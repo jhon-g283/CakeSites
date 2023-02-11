@@ -27,11 +27,12 @@ import gaberge from '../../../public/img/gaberge.png';
 
 interface Props {
   propsCartData: cartData;
+  propsSetIdFunc: (id: number) => void; //
 }
 
-const CartItem = ({ propsCartData }: Props) => {
+const CartItem = ({ propsCartData, propsSetIdFunc }: Props) => {
   const dispatch = useDispatch<AppDispatch>(); //dispatch設定
-  const cartId = propsCartData.cartId || '??'; //
+  const cartId = propsCartData.cartId || 0; //
   const name = propsCartData.itemName || '??'; //
   const price = propsCartData.price || 0; //
   const peace = propsCartData.peaceCount || 0; //
@@ -169,7 +170,9 @@ const CartItem = ({ propsCartData }: Props) => {
           {/* <Itemtext>Topping:nuts+2</Itemtext>
           <Itemtext>Size:S</Itemtext> */}
           {/*  */}
-          <ReOptionButton>ReOption</ReOptionButton>
+          <ReOptionButton onClick={() => propsSetIdFunc(cartId)}>
+            ReOption
+          </ReOptionButton>
         </OptionlPanel>
       </OrderInfoWapper>
     </>

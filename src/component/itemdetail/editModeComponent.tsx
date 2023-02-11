@@ -34,11 +34,9 @@ import { current } from '@reduxjs/toolkit';
 //
 //
 
-// next:引数の設定、、、このエラーの解決面倒
-
 //Props 引数の型
 interface Props {
-  clickFnction: () => void; // //モードの切り替え用関数　()=>void
+  clickFnction?: () => void; // //モードの切り替え用関数　()=>void
   options?: editOptions[]; //トッピング
   peacePrice: number;
   holePrice: number;
@@ -67,7 +65,7 @@ const EditModeComponent = ({
   const [witdhOptionPrice, updateOptioPrice] = useState<number>(peacePrice);
   const [countOfPeace, updateCountOfPeace] = useState<number>(1); //ピース数
   const [cakePrice, updateCakePrice] = useState<number>(peacePrice); //ケーキの値段(ピース合計)
-  const [addFlg, chyangeAddFlg] = useState<boolean>(false); //カート追加完了モーダルの表示フラグ
+  // const [addFlg, chyangeAddFlg] = useState<boolean>(false); //カート追加完了モーダルの表示フラグ
 
   const dispatch = useDispatch();
 
@@ -125,7 +123,7 @@ const EditModeComponent = ({
   const CountNumber = styled.p``;
   const AddPriceText = styled.p``;
 
-  //
+  //カートへの追加実行の関数
   const addCartFunction = () => {
     // optionArrayと引数のトッピング情報などからデータを作ってプッシュする
 
@@ -139,18 +137,6 @@ const EditModeComponent = ({
       return result;
     });
 
-    const test: cartData = {
-      price: witdhOptionPrice,
-      itemName: itemInfoName,
-      imageUrl: '',
-      imageUr2: '',
-      // price?: number;
-      peaceCount: countOfPeace,
-
-      // code?: string;
-      // discription?: string;
-      options: optionsData,
-    };
     const pushData = {
       data: {
         price: witdhOptionPrice,
@@ -170,11 +156,7 @@ const EditModeComponent = ({
     dispatch(addCart(pushData)); //dispatch カートへ追加
     visibleAddedFunction(); //カート追加画面表示
 
-    chyangeAddFlg(true);
-    // ここでカート追加用のフラグ（モード）の切り替えと、Propsの引き渡しを行う
-    //
-    //
-    // next ここに追加、、モーダルの方がいいか？？
+    // chyangeAddFlg(true);
   };
 
   // ピース数を変化させた時の変効用関数
@@ -241,6 +223,7 @@ const EditModeComponent = ({
     return component;
   };
 
+  // オプションボタンコンポーネントをオプションの配列分作成する
   const optionCompoList = options?.map((it, index) => {
     // index を取得して更新関数まで渡す
     const result = (

@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image'; //Imageコンポーネント
 import Cake1 from '../../../public/img/cake1.png';
 import CartItem from './cartItem';
 import InPutForm from './inputForm';
+import ReEditComponent from './reEditComponent';
 import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
 import { AppDispatch } from '../../store'; //方で怒られるので入れた
 import { cartDataArray, cartData } from '../../types';
-// ToDo Reduxで保持したデータから情報を取得
+// ToDo 編集中Id実装
 //
 //
 
-// ToDo カートない商品の商品ボックス作成
+// ToDo 編集画面読み込み
 //
 //
 
@@ -21,11 +22,20 @@ interface Props {
 }
 
 const CartComponent = ({ changePageFunc }: Props) => {
-  const dispatch = useDispatch<AppDispatch>(); //dispatch設定
+  // const dispatch = useDispatch<AppDispatch>(); //dispatch設定
   const cartData: cartData[] = useSelector(
     (state: { cartreducer: cartDataArray }) =>
       state.cartreducer?.data ? state.cartreducer.data : []
   ); //商品リスト取得
+
+  const [editId, setEditId] = useState(0); //編集中のカートId
+
+  const editCartItem: cartData = cartData[editId]; //編集中のカートアイテム
+
+  const setEditCartId = (id: number) => {
+    console.log('edit Id is ' + id);
+    setEditId(id);
+  };
 
   const GuideText = styled.p``;
 
@@ -50,8 +60,7 @@ const CartComponent = ({ changePageFunc }: Props) => {
   const cartItemList = cartData.map((it: cartData, index) => {
     return (
       <>
-        {/* next 引数をまとめてセットする */}
-        <CartItem propsCartData={it} />
+        <CartItem propsCartData={it} propsSetIdFunc={setEditCartId} />
       </>
     );
   });
@@ -64,6 +73,7 @@ const CartComponent = ({ changePageFunc }: Props) => {
       <GuideText>Check Your Order</GuideText>
       <ConfButton>Confirm</ConfButton>
       <button onClick={() => changePageFunc('main')}> 戻る</button>
+      {editId != 0 ? <ReEditComponent propsCartData={editCartItem} /> : <></>}
     </>
   );
 
