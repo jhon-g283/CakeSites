@@ -14,6 +14,10 @@ import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdi
 //
 //
 
+// ToDo被ってしまったデータの引数の整理
+//
+//
+
 //Props 引数の型
 interface Props {
   cakeData: cakeDetailData;
@@ -27,8 +31,9 @@ interface Props {
 // 商品詳細のメイン部分
 const ItemDetailComponent = ({ cakeData, changePageFunc }: Props) => {
   // const dispatch = useDispatch<AppDispatch>(); //dispatch設定
-  const itemDetail = useSelector(
-    (state: { detailreducer: cakeDetail }) => state.detailreducer.cakeData
+  const itemDetail: cakeDetailData = useSelector(
+    (state: { detailreducer: cakeDetail }) =>
+      state.detailreducer.cakeData ? state.detailreducer.cakeData : {}
   );
 
   const [ingnmber, changeimgnumber] = useState(0); //ピース数
@@ -180,12 +185,6 @@ const ItemDetailComponent = ({ cakeData, changePageFunc }: Props) => {
 
           <p>-----------------------------</p>
           {optionArea}
-          {/* <OptionDiv> */}
-          {/* <Exprein>Option menu is </Exprein> */}
-          {/* <OptionList>Option1</OptionList>
-            <OptionList>Option1</OptionList>
-            <OptionList>Option1</OptionList> */}
-          {/* </OptionDiv> */}
         </ExpreinDiv>
       </TextArea>
     </>
@@ -265,6 +264,7 @@ const ItemDetailComponent = ({ cakeData, changePageFunc }: Props) => {
           visibleAddedFunction={visibleAdded}
           propImageUrl1={imageUrl1}
           propImageUrl2={imageUrl2}
+          propsDetailData={itemDetail}
           // const cakeName
           // const shopName
         />

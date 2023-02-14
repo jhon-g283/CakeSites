@@ -22,6 +22,7 @@ export interface cakeDetailData {
   pricePieace?: any;
   kcal?: any;
   code?: string;
+  shopname?: string;
   discriotion?: string;
   options?: { name: string; param: any }[];
 }
@@ -87,19 +88,23 @@ export interface cakeDetail {
 
 // API用：ケーキの商品情報取得
 export interface cakeDetailArray {
-  cakeData: {
-    id?: number;
-    itemName?: any;
-    imageUrl?: any;
-    imageUr2?: any;
-    priceHole?: any;
-    pricePieace?: any;
-    kcal?: any;
-    code?: string;
-    discription?: string;
-    options?: { name: string; param: any }[];
-  };
+  cakeData: cakeDetailData;
   // status?: string;
+}
+
+// next katateigi is kuso
+//
+export interface cakeDetailData {
+  id?: number;
+  itemName?: any;
+  imageUrl?: any;
+  imageUr2?: any;
+  priceHole?: any;
+  pricePieace?: any;
+  kcal?: any;
+  code?: string;
+  discription?: string;
+  options?: { name: string; param: any }[];
 }
 
 // API用：ケーキの商品情報取得
@@ -117,7 +122,8 @@ export interface cartData {
   imageUr2?: any;
   price?: number;
   peaceCount?: number;
-
+  priceHole?: number;
+  pricePieace?: number;
   code?: string;
   discription?: string;
   options?: { name: string; param: number; count: number }[];

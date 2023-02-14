@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
 import Image from 'next/image'; //Imageコンポーネント
-import { editOptions, cartData } from '../../types';
+import { editOptions, cakeDetailData } from '../../types';
 import { addCart } from '../../api/addCartData';
 import AddedItem from '../addedItem/added';
 import Cake1 from '../../../public/img/cake1.png';
@@ -45,6 +45,7 @@ interface Props {
   visibleAddedFunction: () => void; //カート画面の表示用関数
   propImageUrl1: string;
   propImageUrl2: string;
+  propsDetailData?: cakeDetailData;
 }
 
 const optionArrayDefault: number[] = [0, 0, 0]; // オプション（トッピング）の数量、インデックスを指定して更新する
@@ -60,6 +61,7 @@ const EditModeComponent = ({
   visibleAddedFunction,
   propImageUrl1, //Url1
   propImageUrl2, //Url2
+  propsDetailData,
 }: Props) => {
   const [optionArray, updateOption] = useState<number[]>(optionArrayDefault); //トッピングの個数管理
   const [witdhOptionPrice, updateOptioPrice] = useState<number>(peacePrice);
