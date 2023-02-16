@@ -64,9 +64,13 @@ const EditModeComponent = ({
   propsDetailData,
 }: Props) => {
   const [optionArray, updateOption] = useState<number[]>(optionArrayDefault); //トッピングの個数管理
-  const [witdhOptionPrice, updateOptioPrice] = useState<number>(peacePrice);
+  const [witdhOptionPrice, updateOptioPrice] = useState<number>(
+    propsDetailData?.pricePieace || 0
+  );
   const [countOfPeace, updateCountOfPeace] = useState<number>(1); //ピース数
-  const [cakePrice, updateCakePrice] = useState<number>(peacePrice); //ケーキの値段(ピース合計)
+  const [cakePrice, updateCakePrice] = useState<number>(
+    propsDetailData?.pricePieace || 0
+  ); //ケーキの値段(ピース合計)
   // const [addFlg, chyangeAddFlg] = useState<boolean>(false); //カート追加完了モーダルの表示フラグ
 
   const dispatch = useDispatch();
@@ -144,14 +148,26 @@ const EditModeComponent = ({
         price: witdhOptionPrice,
         itemName: itemInfoName,
         imageUrl: propImageUrl1,
-        imageUr2: propImageUrl2,
-        // price?: number;
+        imageUrl2: propImageUrl2,
+        priceHole: propsDetailData?.priceHole,
+        pricePieace: propsDetailData?.pricePieace,
         peaceCount: countOfPeace,
 
         // code?: string;
         // discription?: string;
         options: optionsData,
       },
+      // id?: number;
+      // itemName?: any;
+      // imageUrl?: any;
+      // imageUrl2?: any;
+      // priceHole?: any;
+      // pricePieace?: any;
+      // kcal?: any;
+      // code?: string;
+      // shopname?: string;
+      // discriotion?: string;
+      // options?: { name: string; param: any }[];
     };
 
     console.log('dispatch addCart!!');

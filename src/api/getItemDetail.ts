@@ -20,7 +20,7 @@ const initialState: cakeDetail = {
     id: 0,
     itemName: '---',
     imageUrl: '---',
-    imageUr2: '---',
+    imageUrl2: '---',
     priceHole: '---',
     pricePieace: '---',
     kcal: '---',

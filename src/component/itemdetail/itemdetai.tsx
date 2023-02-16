@@ -36,7 +36,7 @@ const ItemDetailComponent = ({ cakeData, changePageFunc }: Props) => {
       state.detailreducer.cakeData ? state.detailreducer.cakeData : {}
   );
 
-  const [ingnmber, changeimgnumber] = useState(0); //ピース数
+  // const [ingnmber, changeimgnumber] = useState(0); //ピース数
   const [editFlag, changeEditFlag] = useState<boolean>(false); //編集モードの切り替え
   const [addFlg, chyangeAddFlg] = useState<boolean>(false); //カート追加完了モーダルの表示フラグ
 
@@ -46,7 +46,7 @@ const ItemDetailComponent = ({ cakeData, changePageFunc }: Props) => {
   const shopName = itemDetail?.shopname || '???'; //店名
   const itemDiscription = itemDetail?.discription || '???'; //店名
   const imageUrl1 = itemDetail?.imageUrl || './noImage';
-  const imageUrl2 = itemDetail?.imageUr2 || './noImage';
+  const imageUrl2 = itemDetail?.imageUrl2 || './noImage';
 
   const optionList: editOptions[] =
     itemDetail?.options != undefined

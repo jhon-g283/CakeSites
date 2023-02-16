@@ -1,6 +1,7 @@
 // 再編集用のコンポーネント
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import Image from 'next/image'; //Imageコンポーネント
 import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
 import { AppDispatch } from '../../store'; //方で怒られるので入れた
 import { cartDataArray, cartData } from '../../types';
@@ -25,8 +26,13 @@ interface Props {
 const ReEditComponent = ({ propsCartData }: Props) => {
   const price = propsCartData.price || 0;
   const peaceCount = propsCartData.peaceCount || 0;
+  const pricePieace = propsCartData.pricePieace || 0;
+  const priceHole = propsCartData.priceHole || 0;
   const cartId = propsCartData.cartId;
   const options = propsCartData.options || [];
+  const iteName = propsCartData.itemName || '??';
+  const imageUrl1 = propsCartData.imageUrl || '??';
+  const imageUrl2 = propsCartData.imageUrl2 || '??';
 
   const [newPeaceCount, setNewPeaceCount] = useState(peaceCount);
   //   const [optionArray, updateOption] = useState<number[]>(options); //トッピングの個数管理
@@ -35,7 +41,9 @@ const ReEditComponent = ({ propsCartData }: Props) => {
   // 4
   const [witdhOptionPrice, updateOptioPrice] = useState<number>(price);
   const [countOfPeace, updateCountOfPeace] = useState<number>(peaceCount); //ピース数
-  // const [cakePrice, updateCakePrice] = useState<number>(peacePrice); //ケーキの値段(ピース合計)
+  const [cakePrice, updateCakePrice] = useState<number>(
+    pricePieace * peaceCount
+  ); //ケーキの値段(ピース合計)
 
   // ・・・・・・・・・・・・・・・・・・・・
   // 項目名
@@ -99,12 +107,12 @@ const ReEditComponent = ({ propsCartData }: Props) => {
 
     const pushData = {
       data: {
-        // price: witdhOptionPrice,
-        // itemName: itemInfoName,
-        // imageUrl: propImageUrl1,
-        // imageUr2: propImageUrl2,
+        price: witdhOptionPrice,
+        itemName: iteName,
+        imageUrl: imageUrl1,
+        imageUrl2: imageUrl2,
         // price?: number;
-        // peaceCount: countOfPeace,
+        peaceCount: countOfPeace,
 
         // code?: string;
         // discription?: string;
@@ -123,55 +131,54 @@ const ReEditComponent = ({ propsCartData }: Props) => {
   };
   // ・・・・・・・・・・・・・・・・・・・・・・・
 
-  //   ・・・・・・・・・・・・・・・・・・・・・・
-  // ピース数のエリア
-  //   const peaceHoleArea = (
-  //     <>
-  //       <SwitchButtonWrapper>
-  //         <SwitchingButton onClick={() => addPeace(0)}>
-  //           ピースで注文
-  //         </SwitchingButton>
-  //         <SwitchingButton onClick={() => addPeace(8)}>
-  //           ホールで注文
-  //         </SwitchingButton>
-  //       </SwitchButtonWrapper>
-  //       <PeaceWrapper>
-  //         <DownButton onClick={() => addPeace(-1)}>-</DownButton>
-  //         <CountNumber>{countOfPeace}</CountNumber>
-  //         <UpButton onClick={() => addPeace(1)}>+</UpButton>
-  //         {/* オプション数※パラメータで金額表示 */}
-  //         <AddPriceText></AddPriceText>
-  //       </PeaceWrapper>
-  //     </>
-  //   );
-  // ・・・・・・・・・・・・・・・・・・・・・・・
-
   //   ////////
   //   // ピース数を変化させた時の変効用関数
-  //   const addPeace = (n: number) => {
-  //     if (countOfPeace == 1 && n < 0) {
-  //       // ０以下にならないようにする
+  const addPeace = (n: number) => {
+    if (countOfPeace == 1 && n < 0) {
+      // ０以下にならないようにする
 
-  //       return;
-  //     } else if (countOfPeace >= 8 && n > 0) {
-  //       // ８以上にならないようにする
-  //       return;
-  //     } else if (n == 0) {
-  //       // ホール（８ピース）の時だけ１ピースに戻す
-  //       if (countOfPeace >= 8) {
-  //         updateCountOfPeace(1); //State更新
-  //         updateCakePrice(peacePrice); //State更新
-  //       }
+      return;
+    } else if (countOfPeace >= 8 && n > 0) {
+      // ８以上にならないようにする
+      return;
+    } else if (n == 0) {
+      // ホール（８ピース）の時だけ１ピースに戻す
+      if (countOfPeace >= 8) {
+        updateCountOfPeace(1); //State更新
+        updateCakePrice(pricePieace); //State更新
+      }
 
-  //       return;
-  //     }
+      return;
+    }
 
-  //     const updateNumber = n == 8 ? 8 : countOfPeace + n; //新しいピース数
-  //     const updatePrice = n == 8 ? holePrice : peacePrice * updateNumber; //新しい値段
-  //     updateCountOfPeace(updateNumber); //State更新
-  //     updateCakePrice(updatePrice); //State更新
-  //   };
+    const updateNumber = n == 8 ? 8 : countOfPeace + n; //新しいピース数
+    const updatePrice = n == 8 ? priceHole : pricePieace * updateNumber; //新しい値段
+    updateCountOfPeace(updateNumber); //State更新
+    updateCakePrice(updatePrice); //State更新
+  };
   // ////////////////
+  //   ・・・・・・・・・・・・・・・・・・・・・・
+  // ピース数のエリア
+  const peaceHoleArea = (
+    <>
+      <SwitchButtonWrapper>
+        <SwitchingButton onClick={() => addPeace(0)}>
+          ピースで注文
+        </SwitchingButton>
+        <SwitchingButton onClick={() => addPeace(8)}>
+          ホールで注文
+        </SwitchingButton>
+      </SwitchButtonWrapper>
+      <PeaceWrapper>
+        <DownButton onClick={() => addPeace(-1)}>-</DownButton>
+        <CountNumber>{countOfPeace}</CountNumber>
+        <UpButton onClick={() => addPeace(1)}>+</UpButton>
+        {/* オプション数※パラメータで金額表示 */}
+        <AddPriceText></AddPriceText>
+      </PeaceWrapper>
+    </>
+  );
+  // ・・・・・・・・・・・・・・・・・・・・・・・
 
   //   ////////////////
   //    // オプション用のボタンコンポーネント
@@ -207,6 +214,150 @@ const ReEditComponent = ({ propsCartData }: Props) => {
     return result;
   });
   // ・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・・
+
+  const MenuButton = styled.button`
+    width: 380px;
+    height: 84px;
+    background: #310202 0% 0% no-repeat padding-box;
+    border: 1px solid #707070;
+    border-radius: 33px;
+    opacity: 1;
+
+    // テキスト部分
+    // width: 273px;
+    // height: 39px;
+    font: var(--unnamed-font-style-normal) normal normal 39px/67px Hiragino Kaku
+      Gothic ProN;
+    letter-spacing: var(--unnamed-character-spacing-0);
+    // text-align: left;
+    text-align: center;
+    font: normal normal normal 39px/67px Hiragino Kaku Gothic ProN;
+    letter-spacing: 0px;
+    color: #ffffff;
+    // opacity: 1;
+  `;
+
+  const EditButtonWrapper = styled.div``;
+
+  const CartButton = (
+    <>
+      <EditButtonWrapper>
+        <MenuButton onClick={addCartFunction}>Cartへ追加</MenuButton>
+      </EditButtonWrapper>
+    </>
+  );
+
+  const QuitButton = (
+    <>
+      <EditButtonWrapper>
+        <MenuButton onClick={() => {}}>止める</MenuButton>
+      </EditButtonWrapper>
+    </>
+  );
+
+  const LeftPanelWrapper = styled.div``;
+  const RightPanelWrapper = styled.div`
+    display: block;
+  `;
+  const PanelWrapper = styled.div`
+    display: flex;
+
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border-radius: 62px;
+  `;
+
+  const PricePanelWrapper = styled.div`
+    display: flex;
+  `;
+
+  const PriceSubText = styled.p``;
+
+  const PriceLabel = styled.p``;
+
+  const PriceWrapper = styled.div``;
+
+  const beforePrice = (price: number) => {
+    const component = (
+      <>
+        <PriceWrapper>
+          <PriceSubText>Before</PriceSubText>
+          <PriceLabel>¥{price}</PriceLabel>
+        </PriceWrapper>
+      </>
+    );
+
+    return component;
+  };
+
+  const afterPrice = (price: number) => {
+    const component = (
+      <>
+        <PriceWrapper>
+          <PriceSubText>Before</PriceSubText>
+          <PriceLabel>¥{price}</PriceLabel>
+        </PriceWrapper>
+      </>
+    );
+    return component;
+  };
+
+  const PricePanel = (
+    <>
+      <PricePanelWrapper>
+        {beforePrice(price)}
+        <Image
+          src="/img/arrow.png"
+          width={48}
+          height={42}
+          alt="My avatar"
+        ></Image>
+        {afterPrice(witdhOptionPrice)}
+      </PricePanelWrapper>
+      {QuitButton}
+    </>
+  );
+
+  const LeftPanel = (
+    <LeftPanelWrapper>
+      <Image
+        src="/img/test.png"
+        width={448}
+        height={260}
+        alt="My avatar"
+      ></Image>
+      {PricePanel}
+    </LeftPanelWrapper>
+  );
+
+  const WrapDiv = styled.div`
+    display: block;
+  `;
+  const RightPanel = (
+    <>
+      <RightPanelWrapper>
+        {peaceHoleArea}
+        <ItemText>order change</ItemText>
+        {optionCompoList}
+
+        {CartButton}
+      </RightPanelWrapper>
+    </>
+  );
+
+  const multiPeace = (
+    <>
+      <PanelWrapper>
+        {LeftPanel}
+        {RightPanel}
+      </PanelWrapper>
+      {/* フラグでモーダル表示 引数で表示管理するようにすること 　後で消しとく*/}
+      {/* {addFlg ? <AddedItem></AddedItem> : <></>} */}
+    </>
+  );
+
+  const editArea = <>{multiPeace}</>;
+
+  return editArea;
 
   // 編集用のボタンコンポ
   //

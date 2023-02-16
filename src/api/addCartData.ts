@@ -13,7 +13,7 @@ const initialState: cartDataArray = {
       itemId: 0,
       itemName: '---',
       imageUrl: '---',
-      imageUr2: '---',
+      imageUrl2: '---',
       price: 100,
       peaceCount: 1,
       priceHole: 0,

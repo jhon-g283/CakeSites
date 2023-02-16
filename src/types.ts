@@ -17,7 +17,7 @@ export interface cakeDetailData {
   id?: number;
   itemName?: any;
   imageUrl?: any;
-  imageUr2?: any;
+  imageUrl2?: any;
   priceHole?: any;
   pricePieace?: any;
   kcal?: any;
@@ -67,7 +67,7 @@ export interface cakeDetail {
     id?: number;
     itemName?: any;
     imageUrl?: any;
-    imageUr2?: any;
+    imageUrl2?: any;
     priceHole?: any;
     pricePieace?: any;
     kcal?: any;
@@ -98,7 +98,7 @@ export interface cakeDetailData {
   id?: number;
   itemName?: any;
   imageUrl?: any;
-  imageUr2?: any;
+  imageUrl2?: any;
   priceHole?: any;
   pricePieace?: any;
   kcal?: any;
@@ -119,7 +119,7 @@ export interface cartData {
   itemId?: number;
   itemName?: any;
   imageUrl?: any;
-  imageUr2?: any;
+  imageUrl2?: any;
   price?: number;
   peaceCount?: number;
   priceHole?: number;
@@ -134,7 +134,7 @@ export interface cartData {
 //   itemnId: 0,
 //   itemName: '---',
 //   imageUrl: '---',
-//   imageUr2: '---',
+//   imageUrl2: '---',
 //   price: 100,
 //   peaceCount: 1,
 //   // priceHole: '---',
