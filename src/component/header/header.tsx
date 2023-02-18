@@ -94,14 +94,10 @@ const Header = ({ changePageFunc, changeHelpModalFnc }: Props) => {
     float: right;
   `;
 
-  // console.log("CartImagePath");
-  // console.log(CartImagePath);
-  // console.log(ImgCart);
 
   const headerMenu = (
     <>
       <Header>
-        {/* <StyledLink>Peace Of Cake</StyledLink> */}
         <TitleLogo>Peace Of Cake</TitleLogo>
 
         <Left>

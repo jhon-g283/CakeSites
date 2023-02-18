@@ -13,41 +13,27 @@ export interface itemData {
 [];
 
 //
-export interface cakeDetailData {
-  id?: number;
-  itemName?: any;
-  imageUrl?: any;
-  imageUrl2?: any;
-  priceHole?: any;
-  pricePieace?: any;
-  kcal?: any;
-  code?: string;
-  shopname?: string;
-  discriotion?: string;
-  options?: { name: string; param: any }[];
-}
+// export interface cakeDetailData {
+//   id?: number;
+//   itemName?: any;
+//   imageUrl?: any;
+//   imageUrl2?: any;
+//   priceHole?: any;
+//   pricePieace?: any;
+//   kcal?: any;
+//   code?: string;
+//   shopname?: string;
+//   discriotion?: string;
+//   options?: { name: string; param: any }[];
+// }
 
+// 編集画面のトッピング用の配列
 export interface editOptions {
-  // option1?:
-  //  {
-
   name: string;
   param: any;
-
-  // };
-
-  // option2?: {
-  //   name: string;
-  //   param: any;
-  // };
-
-  // option3?: {
-  //   name: string;
-  //   param: any;
-  // };
 }
 
-// Reduxの型の設定
+// Reduxの型の設定　商品一覧
 export interface dataList {
   itemlist?: {
     id?: number;
@@ -61,7 +47,7 @@ export interface dataList {
   status: string;
 }
 
-// Reduxの型の設定
+// Reduxの型の設定　商品詳細
 export interface cakeDetail {
   cakeData?: {
     id?: number;
@@ -75,12 +61,8 @@ export interface cakeDetail {
     discription?: string;
     shopname?: string;
     options?: {
-      // option1?: {
       name: string;
       param: any;
-      //   };
-      // option2?: { name: string; param: any };
-      // option3?: { name: string; param: any };
     }[];
   };
   status?: string;
@@ -89,62 +71,40 @@ export interface cakeDetail {
 // API用：ケーキの商品情報取得
 export interface cakeDetailArray {
   cakeData: cakeDetailData;
-  // status?: string;
 }
 
-// next katateigi is kuso
-//
+//ケーキの商品情報
 export interface cakeDetailData {
-  id?: number;
-  itemName?: any;
-  imageUrl?: any;
-  imageUrl2?: any;
-  priceHole?: any;
-  pricePieace?: any;
-  kcal?: any;
-  code?: string;
-  discription?: string;
-  options?: { name: string; param: any }[];
+  id?: number; //商品ID
+  itemName?: any; //商品名
+  imageUrl?: any; //画像Url1
+  imageUrl2?: any; //画像Url2
+  priceHole?: any; //ホール値段
+  pricePieace?: any; //ピース値段
+  kcal?: any; //カロリー
+  code?: string; //商品コード
+  discription?: string; //説明
+  options?: { name: string; param: any }[]; //設定できるトッピング
 }
 
 // API用：ケーキの商品情報取得
 export interface cartDataArray {
-  data?: cartData[];
-  count?: number;
+  data?: cartData[]; //カートのデータ配列
+  count?: number; //カート数
   status: string;
 }
 
 export interface cartData {
-  cartId?: number;
-  itemId?: number;
-  itemName?: any;
-  imageUrl?: any;
-  imageUrl2?: any;
-  price?: number;
-  peaceCount?: number;
-  priceHole?: number;
-  pricePieace?: number;
-  code?: string;
-  discription?: string;
-  options?: { name: string; param: number; count: number }[];
+  cartId?: number; //カートID
+  itemId?: number; //商品ID
+  itemName?: any; //商品名
+  imageUrl?: any; //画像Url１
+  imageUrl2?: any; //画像Url２
+  price?: number; //価格
+  peaceCount?: number; //ピース数
+  priceHole?: number; //ホール値段
+  pricePieace?: number; //ピース値段
+  code?: string; //アイテムコード
+  discription?: string; //説明
+  options?: { name: string; param: number; count: number }[]; //トッピング
 }
-
-// {
-//   cartId: 0,
-//   itemnId: 0,
-//   itemName: '---',
-//   imageUrl: '---',
-//   imageUrl2: '---',
-//   price: 100,
-//   peaceCount: 1,
-//   // priceHole: '---',
-//   // pricePieace: '---',
-//   // kcal: '---',
-//   code: '---',
-//   // discription: '--',
-//   options: [
-//     { name: '--', param: '--', count: 1 },
-//     { name: '--', param: '--', count: 1 },
-//     { name: '--', param: '--', count: 1 },
-//   ],
-// },

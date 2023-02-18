@@ -15,8 +15,18 @@ const AddedItem = ({ clickFnction }: Props) => {
   ); //商品リスト取得
 
   const data = cartData.slice(-1)[0]; //配列の最後尾取得
-  const name = data.itemName;
-  const prise = data.price;
+  const name = data.itemName; //商品名
+  const prise = data.price; //価格
+  const imageUrl = data.imageUrl; //
+  // imageUrl?: any;
+  // imageUrl2?: any;
+  // price?: number;
+  // peaceCount?: number;
+  // priceHole?: number;
+  // pricePieace?: number;
+  // code?: string;
+  // discription?: string;
+  // options?: { name: string; param: number; count: number }[];
 
   return (
     <>
