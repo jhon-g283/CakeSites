@@ -297,7 +297,7 @@ const Main = () => {
   const searchFunction = () => {
     console.log('queryParam:' + queryParam);
 
-    dispatch(fetchItems(queryParam));
+    dispatch(fetchItems(queryParam)); //fetchItemsをDispatch
   };
 
   // 閉じるボタン
@@ -376,13 +376,12 @@ const Main = () => {
 
   const cakePageLayout = (
     <>
-      {/* <MainWrapper> */}
       <Header
         changePageFunc={changePageState}
         changeHelpModalFnc={helpModalFnc}
       />
       {helpFlg ? <HelpModal changeFlg={helpModalFnc} /> : <></>}
-      {/* <HelpModal></HelpModal> */}
+
       {mainBlock()}
     </>
   );
@@ -390,5 +389,4 @@ const Main = () => {
   return cakePageLayout;
 };
 
-// export testftype;
 export default Main;

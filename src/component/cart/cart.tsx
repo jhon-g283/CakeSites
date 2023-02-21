@@ -32,6 +32,7 @@ const CartComponent = ({ changePageFunc }: Props) => {
 
   const editCartItem: cartData = cartData[editId]; //編集中のカートアイテム
 
+  // 現在編集中のカートIDをセットする関数
   const setEditCartId = (id: number) => {
     console.log('edit Id is ' + id);
     setEditId(id);
@@ -57,11 +58,12 @@ const CartComponent = ({ changePageFunc }: Props) => {
     opacity: 1;
   `;
 
+  // カートリストのデータをもとににカート内商品を作成
   const cartItemList = cartData.map((it: cartData, index) => {
     return (
-      <>
+      <React.Fragment key={'cartItemList_key_' + index}>
         <CartItem propsCartData={it} propsSetIdFunc={setEditCartId} />
-      </>
+      </React.Fragment>
     );
   });
 

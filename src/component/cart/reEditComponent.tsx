@@ -28,7 +28,7 @@ const ReEditComponent = ({ propsCartData }: Props) => {
   const peaceCount = propsCartData.peaceCount || 0;
   const pricePieace = propsCartData.pricePieace || 0;
   const priceHole = propsCartData.priceHole || 0;
-  const cartId = propsCartData.cartId;
+  const cartId = propsCartData.cartId || 0;
   const options = propsCartData.options || [];
   const iteName = propsCartData.itemName || '??';
   const imageUrl1 = propsCartData.imageUrl || '??';
@@ -39,7 +39,7 @@ const ReEditComponent = ({ propsCartData }: Props) => {
   //   ２
   // ３
   // 4
-  const [witdhOptionPrice, updateOptioPrice] = useState<number>(price);
+  const [witdhOptionPrice, updateOptioPrice] = useState<number>(price); //オプション含む合計値段
   const [countOfPeace, updateCountOfPeace] = useState<number>(peaceCount); //ピース数
   const [cakePrice, updateCakePrice] = useState<number>(
     pricePieace * peaceCount
@@ -185,7 +185,7 @@ const ReEditComponent = ({ propsCartData }: Props) => {
   const optionComponent = (index: number, addPrice: number) => {
     const n = options[index].count; //現在のトッピング数
     const component = (
-      <>
+      <React.Fragment key={'optionCompoList_key_' + index}>
         <OptionWrapper>
           <DownButton onClick={() => upDateArray(index, -1)}>-</DownButton>
           <CountNumber>{n}</CountNumber>
@@ -193,7 +193,7 @@ const ReEditComponent = ({ propsCartData }: Props) => {
           {/* オプション数※パラメータで金額表示 */}
           <AddPriceText> +{addPrice * n}</AddPriceText>
         </OptionWrapper>
-      </>
+      </React.Fragment>
     );
 
     return component;
@@ -205,10 +205,10 @@ const ReEditComponent = ({ propsCartData }: Props) => {
   const optionCompoList = options?.map((it, index) => {
     // index を取得して更新関数まで渡す
     const result = (
-      <>
+      <React.Fragment key={'optionCompoList_key_' + index}>
         <ItemText>{it.name}</ItemText>
         {optionComponent(index, it.param)}
-      </>
+      </React.Fragment>
     );
 
     return result;

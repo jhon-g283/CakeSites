@@ -25,6 +25,10 @@ import gaberge from '../../../public/img/gaberge.png';
 //
 //
 
+// ToDoオプションの有無の判定
+//
+//
+
 interface Props {
   propsCartData: cartData;
   propsSetIdFunc: (id: number) => void; //
@@ -49,6 +53,7 @@ const CartItem = ({ propsCartData, propsSetIdFunc }: Props) => {
 
   const OrderInfoWapper = styled.div``;
 
+  // オプションの部分の枠
   const OptionlPanel = styled.div`
     background: #ffffff 0% 0% no-repeat padding-box;
     border: 1px solid #707070;
@@ -60,13 +65,13 @@ const CartItem = ({ propsCartData, propsSetIdFunc }: Props) => {
   const Itemtext = styled.p``;
 
   // トッピング情報
-  const optionsList = options?.map((it) => {
+  const optionsList = options?.map((it, index) => {
     const result = (
-      <>
+      <React.Fragment key={'optionsList_key_' + index}>
         <Itemtext>
           {it.name} {it.count}個 計{it.count * it.param}
         </Itemtext>
-      </>
+      </React.Fragment>
     );
 
     return result;
@@ -92,6 +97,8 @@ const CartItem = ({ propsCartData, propsSetIdFunc }: Props) => {
     color: #ffffff;
     opacity: 1;
   `;
+
+  // 編集ボタン
   const ReOptionButton = styled.button`
     width: 141px;
     height: 48px;
@@ -110,6 +117,8 @@ const CartItem = ({ propsCartData, propsSetIdFunc }: Props) => {
     color: #ffffff;
     opacity: 1;
   `;
+
+  // ボタン用のDiv
   const ButtonPanelWrapper = styled.div``;
 
   const GuideText = styled.p``;
@@ -154,6 +163,7 @@ const CartItem = ({ propsCartData, propsSetIdFunc }: Props) => {
     </>
   );
 
+  // カート内の注文情報
   const orderInfo = (
     <>
       <OrderInfoWapper>
@@ -165,11 +175,7 @@ const CartItem = ({ propsCartData, propsSetIdFunc }: Props) => {
           <Itemtext>Option:Yes</Itemtext>
           <Itemtext>ピース数:{peace}</Itemtext>
           {optionsList}
-          {/*  この部分をリスト化*/}
 
-          {/* <Itemtext>Topping:nuts+2</Itemtext>
-          <Itemtext>Size:S</Itemtext> */}
-          {/*  */}
           <ReOptionButton onClick={() => propsSetIdFunc(cartId)}>
             ReOption
           </ReOptionButton>
@@ -180,7 +186,6 @@ const CartItem = ({ propsCartData, propsSetIdFunc }: Props) => {
 
   const Item = (
     <>
-      {/* <GuideText>Caet Items</GuideText>   */}
       <ItemWrapper>
         <Image
           src="/img/test.png"
@@ -191,9 +196,6 @@ const CartItem = ({ propsCartData, propsSetIdFunc }: Props) => {
         {orderInfo}
         {ButtonArea}
       </ItemWrapper>
-      {/* <InPutForm />
-      <GuideText>Check Your Order</GuideText>
-      <ConfButton>Confirm</ConfButton> */}
     </>
   );
 

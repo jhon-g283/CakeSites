@@ -13,7 +13,7 @@ interface Props {
 const Header = ({ changePageFunc, changeHelpModalFnc }: Props) => {
   const cartCount = useSelector((state: { cartreducer: cartDataArray }) =>
     state.cartreducer?.count ? state.cartreducer.count : 0
-  ); //商品リスト取得
+  ); //商品リスト取得(カート数)
   // styled-componentsの変数は大文字スタート
 
   // ヘッダー全体
@@ -93,7 +93,6 @@ const Header = ({ changePageFunc, changeHelpModalFnc }: Props) => {
   const Left = styled.div`
     float: right;
   `;
-
 
   const headerMenu = (
     <>

@@ -227,7 +227,7 @@ const EditModeComponent = ({
   const optionComponent = (index: number, addPrice: number) => {
     const n = optionArray[index]; //現在のトッピング数
     const component = (
-      <>
+      <React.Fragment key={'optionComponent_key_' + index}>
         <OptionWrapper>
           <DownButton onClick={() => upDateArray(index, -1)}>-</DownButton>
           <CountNumber>{n}</CountNumber>
@@ -235,7 +235,7 @@ const EditModeComponent = ({
           {/* オプション数※パラメータで金額表示 */}
           <AddPriceText> +{addPrice * n}</AddPriceText>
         </OptionWrapper>
-      </>
+      </React.Fragment>
     );
 
     return component;
@@ -245,10 +245,10 @@ const EditModeComponent = ({
   const optionCompoList = options?.map((it, index) => {
     // index を取得して更新関数まで渡す
     const result = (
-      <>
+      <React.Fragment key={'optionCompoList_key_' + index}>
         <ItemText>{it.name}</ItemText>
         {optionComponent(index, it.param)}
-      </>
+      </React.Fragment>
     );
 
     return result;

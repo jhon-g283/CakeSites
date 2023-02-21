@@ -141,6 +141,7 @@ const InfomationComponent = ({ changePageFunc }: Props) => {
     return result;
   };
 
+  // 戻るボタン
   const BackButton = styled.button`
     // top: 2329px;
     // left: 1018px;

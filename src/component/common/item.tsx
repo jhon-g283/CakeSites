@@ -156,7 +156,7 @@ const itemBox = ({
 
           <ItemNameLabel>★★★</ItemNameLabel>
           <p>kcal 300~</p>
-          {/* <p>店の名前</p> */}
+
           <Shopname>shopname</Shopname>
         </TextGroup>
       </Box>
@@ -164,11 +164,6 @@ const itemBox = ({
   );
 
   return result;
-};
-
-const fnc = () => {
-  console.log('click');
-  // fetchDetails(1);
 };
 
 export default itemBox;
