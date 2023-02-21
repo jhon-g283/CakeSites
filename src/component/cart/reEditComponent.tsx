@@ -1,5 +1,5 @@
 // 再編集用のコンポーネント
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image'; //Imageコンポーネント
 import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
@@ -34,8 +34,9 @@ const ReEditComponent = ({ propsCartData }: Props) => {
   const imageUrl1 = propsCartData.imageUrl || '??';
   const imageUrl2 = propsCartData.imageUrl2 || '??';
 
-  const [newPeaceCount, setNewPeaceCount] = useState(peaceCount);
-  //   const [optionArray, updateOption] = useState<number[]>(options); //トッピングの個数管理
+  const [newPeaceCount, setNewPeaceCount] = useState<number>(peaceCount);
+
+  const [optionArray, updateOption] = useState(options); //トッピングの個数管理
   //   ２
   // ３
   // 4
@@ -44,6 +45,25 @@ const ReEditComponent = ({ propsCartData }: Props) => {
   const [cakePrice, updateCakePrice] = useState<number>(
     pricePieace * peaceCount
   ); //ケーキの値段(ピース合計)
+
+  // 合計値更新　オプションの配列が更新された際に動く
+  useEffect(() => {
+    //トッピングのStateから合計値生成
+    const sum: number =
+      optionArray
+        ?.map((it, index) => {
+          return it.param * it.count;
+        })
+        .reduce((pre, current) => {
+          return pre + current;
+        }) || 0;
+
+    const newPrice: number = sum + cakePrice;
+    updateOptioPrice(newPrice); //State更新
+
+    console.log('useEffect opptionArray');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [optionArray, cakePrice]);
 
   // ・・・・・・・・・・・・・・・・・・・・
   // 項目名
@@ -73,19 +93,19 @@ const ReEditComponent = ({ propsCartData }: Props) => {
   // トッピングの更新用の関数
   const upDateArray = (index: number, val: number) => {
     // ０よりは小さくしない
-    if (val < 0 && options[index].count == 0) {
+    if (val < 0 && optionArray[index].count == 0) {
       return;
     }
 
     //インデックスを指定して更新配列を更新
-    const newArray = options.map((it, it_index) => {
+    const newArray = optionArray.map((it, it_index) => {
       return it_index == index
         ? { name: it.name, param: it.param, count: it.count + val }
         : it;
     });
 
     // stateで更新実施
-    // updateOption(newArray);  書き換え！！！
+    updateOption(newArray);
   };
   // ..............]
 
@@ -93,17 +113,6 @@ const ReEditComponent = ({ propsCartData }: Props) => {
   //カートへの追加実行の関数
   const addCartFunction = () => {
     // optionArrayと引数のトッピング情報などからデータを作ってプッシュする
-
-    // カートのトッピング配列を使用するので不要な認識↓
-    // const optionsData = options?.map((it, index) => {
-    //   const result = {
-    //     name: it.name,
-    //     param: it.param,
-    //     count: optionArray[index],
-    //   };
-
-    //   return result;
-    // });
 
     const pushData = {
       data: {
@@ -183,7 +192,7 @@ const ReEditComponent = ({ propsCartData }: Props) => {
   //   ////////////////
   //    // オプション用のボタンコンポーネント
   const optionComponent = (index: number, addPrice: number) => {
-    const n = options[index].count; //現在のトッピング数
+    const n = optionArray[index].count; //現在のトッピング数(Stateから取得)
     const component = (
       <React.Fragment key={'optionCompoList_key_' + index}>
         <OptionWrapper>
@@ -202,7 +211,7 @@ const ReEditComponent = ({ propsCartData }: Props) => {
 
   //   ・・・・・・・・・・・・・・・・・・・・・・・・・・
   //    // オプションボタンコンポーネントをオプションの配列分作成する
-  const optionCompoList = options?.map((it, index) => {
+  const optionCompoList = optionArray?.map((it, index) => {
     // index を取得して更新関数まで渡す
     const result = (
       <React.Fragment key={'optionCompoList_key_' + index}>
@@ -362,18 +371,6 @@ const ReEditComponent = ({ propsCartData }: Props) => {
   // 編集用のボタンコンポ
   //
   //
-
-  // 更新用のuseState
-  //
-  //
-
-  const result = (
-    <>
-      <p> hennsyuutyuu///</p>
-    </>
-  );
-
-  return result;
 };
 
 export default ReEditComponent;
