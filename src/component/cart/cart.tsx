@@ -28,7 +28,7 @@ const CartComponent = ({ changePageFunc }: Props) => {
       state.cartreducer?.data ? state.cartreducer.data : []
   ); //商品リスト取得
 
-  const [editId, setEditId] = useState(0); //編集中のカートId
+  const [editId, setEditId] = useState(0); //編集中のカートID、IDがあることでモーダルの表示を切り替える
 
   const editCartItem: cartData = cartData[editId]; //編集中のカートアイテム
 
@@ -75,7 +75,14 @@ const CartComponent = ({ changePageFunc }: Props) => {
       <GuideText>Check Your Order</GuideText>
       <ConfButton>Confirm</ConfButton>
       <button onClick={() => changePageFunc('main')}> 戻る</button>
-      {editId != 0 ? <ReEditComponent propsCartData={editCartItem} /> : <></>}
+      {editId != 0 ? (
+        <ReEditComponent
+          propsCartData={editCartItem}
+          propsCloseModalFnc={setEditCartId}
+        />
+      ) : (
+        <></>
+      )}
     </>
   );
 

@@ -29,6 +29,10 @@ import gaberge from '../../../public/img/gaberge.png';
 //
 //
 
+// オプション配列の型を個数（あってもなくてもいい）？で修正しておく
+//
+//
+
 interface Props {
   propsCartData: cartData;
   propsSetIdFunc: (id: number) => void; //

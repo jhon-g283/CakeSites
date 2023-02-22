@@ -21,9 +21,10 @@ import { cartDataArray, cartData } from '../../types';
 
 interface Props {
   propsCartData: cartData; //カートデータ
+  propsCloseModalFnc: (id: number) => void; // モーダルクローズ用の関数
 }
 
-const ReEditComponent = ({ propsCartData }: Props) => {
+const ReEditComponent = ({ propsCartData, propsCloseModalFnc }: Props) => {
   const price = propsCartData.price || 0;
   const peaceCount = propsCartData.peaceCount || 0;
   const pricePieace = propsCartData.pricePieace || 0;
@@ -34,7 +35,7 @@ const ReEditComponent = ({ propsCartData }: Props) => {
   const imageUrl1 = propsCartData.imageUrl || '??';
   const imageUrl2 = propsCartData.imageUrl2 || '??';
 
-  const [newPeaceCount, setNewPeaceCount] = useState<number>(peaceCount);
+  // const [newPeaceCount, setNewPeaceCount] = useState<number>(peaceCount);
 
   const [optionArray, updateOption] = useState(options); //トッピングの個数管理
   //   ２
@@ -355,6 +356,7 @@ const ReEditComponent = ({ propsCartData }: Props) => {
 
   const multiPeace = (
     <>
+      <button onClick={() => propsCloseModalFnc(0)}>Close X</button>
       <PanelWrapper>
         {LeftPanel}
         {RightPanel}
@@ -364,7 +366,26 @@ const ReEditComponent = ({ propsCartData }: Props) => {
     </>
   );
 
-  const editArea = <>{multiPeace}</>;
+  const EditAreaBox = styled.div`
+    top: 5%;
+    left: 10%;
+    right: 10%;
+    bottom: 5%;
+    padding: 0px;
+    background-color: white;
+    position: fixed;
+    z-index: 1020;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 3px solid #707070;
+    border-radius: 20px;
+    opacity: 1;
+  `;
+
+  const editArea = (
+    <>
+      <EditAreaBox>{multiPeace}</EditAreaBox>
+    </>
+  );
 
   return editArea;
 
