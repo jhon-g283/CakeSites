@@ -119,10 +119,11 @@ const addCartSlicer = createSlice({
       console.log('edit cart id:' + action.payload);
 
       //追加するデータ
-      //  const pushData: cartData = Object.assign(
-      //   // { cartId: newCount }, //cartIdを追加する（Idはカート数から番号を作る）
-      //   action.payload?.data
-      // );
+      const pushData: cartData = action.payload?.data;
+      // filter(id!=XX) & concat newdata
+      //sort
+
+      // next　フィルターと合体とソート・・・これしかないか？？
       if (action.payload != '') {
       }
     },
