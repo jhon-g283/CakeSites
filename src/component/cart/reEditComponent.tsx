@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image'; //Imageコンポーネント
 import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
+import { editCart } from '../../api/addCartData';
 import { AppDispatch } from '../../store'; //方で怒られるので入れた
 import { cartDataArray, cartData } from '../../types';
 
@@ -46,6 +47,8 @@ const ReEditComponent = ({ propsCartData, propsCloseModalFnc }: Props) => {
   const [cakePrice, updateCakePrice] = useState<number>(
     pricePieace * peaceCount
   ); //ケーキの値段(ピース合計)
+
+  const dispatch = useDispatch();
 
   // 合計値更新　オプションの配列が更新された際に動く
   useEffect(() => {
@@ -117,22 +120,39 @@ const ReEditComponent = ({ propsCartData, propsCloseModalFnc }: Props) => {
 
     const pushData = {
       data: {
-        price: witdhOptionPrice,
+        cartId: cartId,
         itemName: iteName,
         imageUrl: imageUrl1,
         imageUrl2: imageUrl2,
-        // price?: number;
+        price: witdhOptionPrice,
         peaceCount: countOfPeace,
+        priceHole: priceHole,
+        pricePieace: pricePieace,
 
         // code?: string;
         // discription?: string;
-        options: options,
+        options: optionArray,
       },
     };
 
+    //   cartId?: number; //カートID
+    // itemId?: number; //商品ID
+    // itemName?: any; //商品名
+    // imageUrl?: any; //画像Url１
+    // imageUrl2?: any; //画像Url２
+    // price?: number; //価格
+    // peaceCount?: number; //ピース数
+    // priceHole?: number; //ホール値段
+    // pricePieace?: number; //ピース値段
+    // code?: string; //アイテムコード
+    // discription?: string; //説明
+    // options?: { name: string; param: number; count: number }[]; //トッピング
+
     // ここでDispatch実行と編集モーダルとじる機能実装
 
-    // console.log('dispatch addCart!!');
+    console.log('dispatch editCart!!' + cartId);
+    // カートIDじゃなくてデータ丸ごと投げる
+    dispatch(editCart(pushData));
 
     // dispatch(addCart(pushData)); //dispatch カートへ追加
     // visibleAddedFunction(); //カート追加画面表示

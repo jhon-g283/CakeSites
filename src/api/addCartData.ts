@@ -8,25 +8,25 @@ import { cartDataArray, cartData } from '../../src/types';
 // State初期値の設定
 const initialState: cartDataArray = {
   data: [
-    {
-      cartId: 0,
-      itemId: 0,
-      itemName: '---',
-      imageUrl: '---',
-      imageUrl2: '---',
-      price: 100,
-      peaceCount: 1,
-      priceHole: 0,
-      pricePieace: 0,
-      // kcal: '---',
-      code: '---',
-      // discription: '--',
-      options: [
-        { name: '--', param: 0, count: 1 },
-        { name: '--', param: 0, count: 1 },
-        { name: '--', param: 0, count: 1 },
-      ],
-    },
+    // {
+    //   cartId: 0,
+    //   itemId: 0,
+    //   itemName: '---',
+    //   imageUrl: '---',
+    //   imageUrl2: '---',
+    //   price: 100,
+    //   peaceCount: 1,
+    //   priceHole: 0,
+    //   pricePieace: 0,
+    //   // kcal: '---',
+    //   code: '---',
+    //   // discription: '--',
+    //   options: [
+    //     { name: '--', param: 0, count: 1 },
+    //     { name: '--', param: 0, count: 1 },
+    //     { name: '--', param: 0, count: 1 },
+    //   ],
+    // },
   ],
   count: 0,
   status: 'load',
@@ -116,16 +116,24 @@ const addCartSlicer = createSlice({
     },
     editCart(state, action) {
       // カートの編集
-      console.log('edit cart id:' + action.payload);
+      console.log('edit cart :' + action.payload);
 
       //追加するデータ
       const pushData: cartData = action.payload?.data;
-      // filter(id!=XX) & concat newdata
-      //sort
 
-      // next　フィルターと合体とソート・・・これしかないか？？
-      if (action.payload != '') {
-      }
+      const currentData = current(state.data);
+      const editCartId = pushData.cartId;
+      const stateData = currentData?.map((it: cartData) => {
+        // 編集IDと同じだったら入れ替える
+        if (it.cartId == editCartId) {
+          console.log('update cart!');
+          return pushData;
+        } else {
+          return it;
+        }
+      });
+
+      state.data = stateData; //State更新
     },
   },
   extraReducers: (builder) => {
@@ -148,7 +156,8 @@ const addCartSlicer = createSlice({
 
 // selectorをエクスポート
 export const addCartData = (cartList: cartDataArray) => cartList;
-export const { addCart, removeCart } = addCartSlicer.actions; // Action Createrをエクスポート
+export const { addCart, removeCart, editCart } = addCartSlicer.actions; // Action Createrをエクスポート
+// next editCart追加・・・やｇはりＭａｐか。。。
 
 // Reducerをエクスポート
 // 読み込み時にはuseSelectで[state.設定したreducer名.State名]で読み込む

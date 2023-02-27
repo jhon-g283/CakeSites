@@ -207,9 +207,6 @@ const Main = () => {
   // ボタン名
   // ボタンの押下時の関数に関連する設定値
   const searchBtn = (btnImageUrl: string, name: string, code: string) => {
-    // Propsで画像を変更できるようにする
-    // const Btn = styled.button``;
-
     const BtnName = styled.p`
       // margin: auto;
       position: relative;
@@ -242,6 +239,23 @@ const Main = () => {
     );
     return BtnComponent;
   };
+
+  // ボタン作成用のリスト
+  const btnSettingList = [
+    { url: '/img/cupcake.png', name: 'カップ', code: 'A' },
+    { url: '/img/ice.png', name: 'アイス', code: 'B' },
+    { url: '/img/role.png', name: 'ロール', code: 'C' },
+    { url: '/img/nats.png', name: 'ナッツ', code: 'D' },
+    { url: '/img/choco.png', name: 'チョコ', code: 'E' },
+    { url: '/img/fruits.png', name: 'フルーツ', code: 'F' },
+    { url: '/img/birthday.png', name: 'バースデー', code: 'G' },
+    { url: '/img/pie.png', name: 'パイ', code: 'H' },
+  ];
+
+  // リストからボタンコンポーネントのリストを作成
+  const searchBtnList = btnSettingList.map((it) => {
+    return searchBtn(it.url, it.name, it.code);
+  });
 
   // 値段の入力欄
   const priceArea = () => {
@@ -321,7 +335,8 @@ const Main = () => {
         <PanelDiv>
           <p>search panel {searchCode}</p>
           <BtnList>
-            {searchBtn('/img/cupcake.png', 'カップ', 'A')}
+            {searchBtnList}
+            {/* {searchBtn('/img/cupcake.png', 'カップ', 'A')}
             {searchBtn('/img/cupcake.png', 'ss', 'B')}
             {searchBtn('/img/cupcake.png', 'ss', 'B')}
             {searchBtn('/img/cupcake.png', 'ss', 'B')}
@@ -332,7 +347,7 @@ const Main = () => {
             {searchBtn('/img/cupcake.png', 'ss', 'B')}
             {searchBtn('/img/cupcake.png', 'ss', 'B')}
             {searchBtn('/img/cupcake.png', 'ss', 'B')}
-            {searchBtn('/img/cupcake.png', 'ss', 'B')}
+            {searchBtn('/img/cupcake.png', 'ss', 'B')} */}
           </BtnList>
 
           {priceArea()}

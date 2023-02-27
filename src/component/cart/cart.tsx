@@ -30,7 +30,7 @@ const CartComponent = ({ changePageFunc }: Props) => {
 
   const [editId, setEditId] = useState(0); //編集中のカートID、IDがあることでモーダルの表示を切り替える
 
-  const editCartItem: cartData = cartData[editId]; //編集中のカートアイテム
+  const editCartItem: cartData = cartData[editId - 1]; //編集中のカートアイテム(idと配列数がずれるので調整)
 
   // 現在編集中のカートIDをセットする関数
   const setEditCartId = (id: number) => {
