@@ -7,27 +7,7 @@ import { cartDataArray, cartData } from '../../src/types';
 
 // State初期値の設定
 const initialState: cartDataArray = {
-  data: [
-    // {
-    //   cartId: 0,
-    //   itemId: 0,
-    //   itemName: '---',
-    //   imageUrl: '---',
-    //   imageUrl2: '---',
-    //   price: 100,
-    //   peaceCount: 1,
-    //   priceHole: 0,
-    //   pricePieace: 0,
-    //   // kcal: '---',
-    //   code: '---',
-    //   // discription: '--',
-    //   options: [
-    //     { name: '--', param: 0, count: 1 },
-    //     { name: '--', param: 0, count: 1 },
-    //     { name: '--', param: 0, count: 1 },
-    //   ],
-    // },
-  ],
+  data: [],
   count: 0,
   status: 'load',
 };

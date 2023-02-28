@@ -1,6 +1,7 @@
 // カートへ追加ずみの画面
 import React from 'react';
 import styled from 'styled-components';
+import Image from 'next/image'; //Imageコンポーネント
 import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
 import { cartDataArray } from '../../types';
 
@@ -28,18 +29,49 @@ const AddedItem = ({ clickFnction }: Props) => {
   // discription?: string;
   // options?: { name: string; param: number; count: number }[];
 
+  const AddedItemWraper = styled.div`
+    top: 5%;
+    left: 10%;
+    right: 10%;
+    bottom: 5%;
+    padding: 0px;
+    background-color: white;
+    position: fixed;
+    z-index: 1020;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 3px solid #707070;
+    border-radius: 20px;
+    opacity: 1;
+  `;
+
   return (
     <>
-      <p>{name}</p>
-      <p>{prise}</p>
-      <button
-        onClick={() => {
-          console.log('go to top page');
-          clickFnction('main');
-        }}
-      >
-        トップへ
-      </button>
+      <AddedItemWraper>
+        <Image
+          src="/img/test.png"
+          width={392}
+          height={351}
+          alt="My avatar"
+        ></Image>
+        <p>{name}</p>
+        <p>{prise}</p>
+        <button
+          onClick={() => {
+            console.log('go to top page');
+            clickFnction('main');
+          }}
+        >
+          トップへ
+        </button>
+        <button
+          onClick={() => {
+            console.log('go to cart page');
+            clickFnction('cart');
+          }}
+        >
+          カートへ
+        </button>
+      </AddedItemWraper>
     </>
   );
 };

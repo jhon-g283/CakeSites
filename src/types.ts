@@ -83,6 +83,7 @@ export interface cakeDetailData {
   pricePieace?: any; //ピース値段
   kcal?: any; //カロリー
   code?: string; //商品コード
+  shopname?: string; //店名
   discription?: string; //説明
   options?: { name: string; param: any }[]; //設定できるトッピング
 }

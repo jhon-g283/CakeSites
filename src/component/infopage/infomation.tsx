@@ -1,6 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
+// ToDoお知らせをAPIからしゅとくする
+//
+//
+
+// ToDoタブのクリックでお知らせの切り替え（フィルター的な動きでいいかも）
+//
+//
+
 //Props 引数の型
 interface Props {
   changePageFunc: (mode: string) => void; //モードの切り替え用関数 ()=>void
@@ -125,15 +133,48 @@ const InfomationComponent = ({ changePageFunc }: Props) => {
   //
 
   // ToDo データをAPIなどから取得して表示
+  //
+  //
+
+  const testdata = [
+    {
+      date: '2022/12/1',
+      title: 'お知らせ１',
+      message: 'メッセージの内容を表示する',
+    },
+    {
+      date: '2022/12/2',
+      title: 'お知らせ2',
+      message: '22メッセージの内容を表示する',
+    },
+  ];
+
+  const infoList = testdata?.map((it, index) => {
+    const result = (
+      <React.Fragment>
+        <DateText>{it.date}</DateText>
+        <InfoTitleText>{it.title}</InfoTitleText>
+        <MessageText>{it.message}</MessageText>
+      </React.Fragment>
+    );
+
+    return result;
+  });
+
+  const viewList = <InfoDiv>{infoList}</InfoDiv>;
 
   //   お知らせの内容
   const InfoArea = () => {
     const result = (
       <>
         <InfoDiv>
-          <DateText>2022/12/1</DateText>
+          {/* ---マップで表示 */}
+          {infoList}
+
+          {/* <DateText>2022/12/1</DateText>
           <InfoTitleText>お知らせのタイトルぶん</InfoTitleText>
-          <MessageText>メッセージのないよう</MessageText>
+          <MessageText>メッセージのないよう</MessageText> */}
+          {/* ------ */}
         </InfoDiv>
       </>
     );
