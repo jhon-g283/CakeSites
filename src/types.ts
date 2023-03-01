@@ -95,6 +95,7 @@ export interface cartDataArray {
   status: string;
 }
 
+// カート用のデータ
 export interface cartData {
   cartId?: number; //カートID
   itemId?: number; //商品ID
@@ -108,4 +109,12 @@ export interface cartData {
   code?: string; //アイテムコード
   discription?: string; //説明
   options?: { name: string; param: number; count: number }[]; //トッピング
+}
+
+// お知らせ情報
+export interface infoDataArray {
+  date: string; //日付（後でDateになおす）
+  title: string; //タイトル
+  message: string; //メッセージ
+  type: string; //お知らせのタイプ
 }

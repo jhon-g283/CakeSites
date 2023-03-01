@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
 
 // ToDoお知らせをAPIからしゅとくする
 //
@@ -16,6 +17,31 @@ interface Props {
 
 //　お知らせ用の画面のコンポーネント
 const InfomationComponent = ({ changePageFunc }: Props) => {
+  // あとで取得したデータに変更しておく
+  const testdata = [
+    {
+      date: '2022/12/1',
+      title: 'お知らせ１',
+      message: 'メッセージの内容を表示する',
+      type: '1',
+    },
+    {
+      date: '2022/12/2',
+      title: 'お知らせ2',
+      message: '22メッセージの内容を表示する',
+      type: '2',
+    },
+  ];
+
+  const [infoType, changeInfoType] = useState<string>('1'); //お知らせのタイプ
+  const [infoArray, changeInfoArray] = useState(testdata); //お知らせのタイプ
+
+  useEffect(() => {
+    const infomationList = testdata;
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [infoType]);
+
   //ページのタイトル部分
   const Title = styled.p`
     //   top: 212px;
@@ -136,22 +162,9 @@ const InfomationComponent = ({ changePageFunc }: Props) => {
   //
   //
 
-  const testdata = [
-    {
-      date: '2022/12/1',
-      title: 'お知らせ１',
-      message: 'メッセージの内容を表示する',
-    },
-    {
-      date: '2022/12/2',
-      title: 'お知らせ2',
-      message: '22メッセージの内容を表示する',
-    },
-  ];
-
-  const infoList = testdata?.map((it, index) => {
+  const infoList = infoArray?.map((it, index) => {
     const result = (
-      <React.Fragment>
+      <React.Fragment key={'infoList_key_' + index}>
         <DateText>{it.date}</DateText>
         <InfoTitleText>{it.title}</InfoTitleText>
         <MessageText>{it.message}</MessageText>
