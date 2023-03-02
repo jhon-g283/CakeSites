@@ -9,18 +9,6 @@ import { itemData, dataList } from '../types';
 //
 //
 
-type dataListType = {
-  List?: itemData;
-  status?: string;
-};
-
-const test: dataList = {
-  itemlist: [
-    { itemName: '', imageUrl: '', priceHole: '', pricePieace: '', kcal: '' },
-  ],
-  status: '',
-};
-
 // State初期値の設定
 const initialState: dataList = {
   itemlist: [

@@ -37,7 +37,12 @@ const InfomationComponent = ({ changePageFunc }: Props) => {
   const [infoArray, changeInfoArray] = useState(testdata); //お知らせのタイプ
 
   useEffect(() => {
-    const infomationList = testdata;
+    // 現在表示中のお知らせのタイプにフィルター
+    const infomationList = testdata?.filter((it) => {
+      return it.type == infoType;
+    });
+
+    changeInfoArray(infomationList); //State更新
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [infoType]);
@@ -219,9 +224,12 @@ const InfomationComponent = ({ changePageFunc }: Props) => {
   const infomation = (
     <>
       <Title>お知らせ一覧</Title>
+      <p>infoType:{infoType}</p>
       <TabDiv>
-        <InfoTab>*お知らせ</InfoTab>
-        <CampainTab>*キャンペーン</CampainTab>
+        <InfoTab onClick={() => changeInfoType('1')}>*お知らせ</InfoTab>
+        <CampainTab onClick={() => changeInfoType('2')}>
+          *キャンペーン
+        </CampainTab>
       </TabDiv>
 
       {InfoArea()}

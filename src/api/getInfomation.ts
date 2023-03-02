@@ -1,43 +1,27 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { itemData, dataList } from '../types';
-
-// ToDo方の宣言（Interface）を１まとめにする
-//
-//
+import { infoDataArray, dataList } from '../types';
 
 // ToDo検索失敗やエラー発生時のデフォルト値設定やペイロードの値チェック
 //
 //
 
-type dataListType = {
-  List?: itemData;
-  status?: string;
-};
-
-const test: dataList = {
-  itemlist: [
-    { itemName: '', imageUrl: '', priceHole: '', pricePieace: '', kcal: '' },
-  ],
-  status: '',
-};
-
 // State初期値の設定
-const initialState: dataList = {
-  itemlist: [
-    {
-      itemName: '**',
-      imageUrl: '',
-      priceHole: '',
-      pricePieace: '',
-      kcal: '',
-    },
+const initialState: infoDataArray = {
+  data: [
+    // {
+    //   itemName: '**',
+    //   imageUrl: '',
+    //   priceHole: '',
+    //   pricePieace: '',
+    //   kcal: '',
+    // },
   ],
   status: '***',
 };
 
 //問合せURL
 const domain = process.env.NEXT_PUBLIC_HOST || 'http://localhost:3000/'; //環境変数鵜より取得
-const baseulr: string = domain + 'api/searchCakeApi?';
+const baseulr: string = domain + 'api/infomationlApi';
 
 // APIへの問い合わせ関数（fetchで取得する部分）
 const getItems = async (url: string) => {
@@ -49,7 +33,7 @@ const getItems = async (url: string) => {
       // console.log(responce);
       return responce.json();
     })
-    .then((data: dataList) => {
+    .then((data: infoDataArray) => {
       // console.log("fetch data reducer");
       // console.log(data);
       // const str: string = "data.name";
@@ -57,7 +41,7 @@ const getItems = async (url: string) => {
     })
     .catch(() => {
       // エラー発生時
-      return { status: 'error' };
+      return { status: 'error', data: [] };
     });
 
   return result;
@@ -66,7 +50,7 @@ const getItems = async (url: string) => {
 // Thunk
 // 第１引数：返り値の型
 // 第２引数：受け渡す引数の型
-export const fetchItems = createAsyncThunk<dataList, string>(
+export const fetchItems = createAsyncThunk<infoDataArray, string>(
   'fetchItem_Cake',
   async (query, thunkAPI) => {
     const result = getItems(baseulr + query); // API問い合わせ
@@ -84,24 +68,17 @@ const getCakeDetailSlice = createSlice({
     // 通信中
     builder.addCase(fetchItems.pending, (state, action) => {
       state.status = 'pending';
-
-      console.log('pending--cake');
-      console.log(state);
-      console.log(state.status);
     });
 
     // 通信完了
     builder.addCase(fetchItems.fulfilled, (state, action) => {
       // state.loading = true;
-      const item = action.payload.itemlist; //payloadから取得したデータを取り出す
+      const item = action.payload.data; //payloadから取得したデータを取り出す
 
+      state.data = item;
       // console.log("payload");
 
       console.log('success--cake');
-
-      if (item != undefined) {
-        state.itemlist = item;
-      }
 
       state.status = 'success';
 

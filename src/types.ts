@@ -88,7 +88,7 @@ export interface cakeDetailData {
   options?: { name: string; param: any }[]; //設定できるトッピング
 }
 
-// API用：ケーキの商品情報取得
+// Redux カートの商品情報取得
 export interface cartDataArray {
   data?: cartData[]; //カートのデータ配列
   count?: number; //カート数
@@ -111,10 +111,21 @@ export interface cartData {
   options?: { name: string; param: number; count: number }[]; //トッピング
 }
 
-// お知らせ情報
-export interface infoDataArray {
+// お知らせ情報データ部分
+export interface infoData {
   date: string; //日付（後でDateになおす）
   title: string; //タイトル
   message: string; //メッセージ
   type: string; //お知らせのタイプ
+}
+
+//API用 お知らせデータ
+export interface infomationArray {
+  data: infoData[]; //
+}
+
+// Redux 用 お知らせデータ
+export interface infoDataArray {
+  data: infoData[]; //
+  status: string; //
 }
