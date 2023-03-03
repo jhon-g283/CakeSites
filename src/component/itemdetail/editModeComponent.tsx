@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
 import Image from 'next/image'; //Imageコンポーネント
 import { editOptions, cakeDetailData } from '../../types';
-import { addCart } from '../../api/addCartData';
+import { addCart } from '../../api/addCartDataSlice';
 import AddedItem from '../addedItem/added';
 import Cake1 from '../../../public/img/cake1.png';
 import Cake2 from '../../../public/img/cake2.png';

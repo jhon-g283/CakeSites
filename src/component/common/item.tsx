@@ -7,7 +7,7 @@ import { itemData } from '../../types';
 
 // ////
 import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
-import { fetchDetails } from '../../api/getItemDetail';
+import { fetchDetails } from '../../api/getItemDetailSlice';
 import { AppDispatch } from '../../store'; //方で怒られるので入れた
 // ////
 

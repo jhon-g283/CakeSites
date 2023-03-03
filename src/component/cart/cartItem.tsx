@@ -5,7 +5,7 @@ import InPutForm from './inputForm';
 import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
 import { AppDispatch } from '../../store'; //方で怒られるので入れた
 import { cartData } from '../../types';
-import { removeCart } from '../../api/addCartData'; //カート削除機能
+import { removeCart } from '../../api/addCartDataSlice'; //カート削除機能
 import Cake1 from '../../../public/img/cake1.png';
 import gaberge from '../../../public/img/gaberge.png';
 

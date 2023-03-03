@@ -125,7 +125,7 @@ export interface infomationArray {
 }
 
 // Redux 用 お知らせデータ
-export interface infoDataArray {
+export interface infoDataList {
   data: infoData[]; //
   status: string; //
 }

@@ -14,7 +14,7 @@ import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdi
 import { fetchItems } from '../../api/searchCakeSlice';
 import { AppDispatch } from '../../store'; //方で怒られるので入れた
 
-import { fetchDetails } from '../../api/getItemDetail';
+import { fetchDetails } from '../../api/getItemDetailSlice';
 
 const Main = () => {
   //Reduxの設定

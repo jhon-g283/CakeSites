@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { infoDataArray, dataList } from '../types';
+import { infoDataList } from '../types';
 
 // ToDo検索失敗やエラー発生時のデフォルト値設定やペイロードの値チェック
 //
 //
 
 // State初期値の設定
-const initialState: infoDataArray = {
+const initialState: infoDataList = {
   data: [
     // {
     //   itemName: '**',
@@ -33,7 +33,7 @@ const getItems = async (url: string) => {
       // console.log(responce);
       return responce.json();
     })
-    .then((data: infoDataArray) => {
+    .then((data: infoDataList) => {
       // console.log("fetch data reducer");
       // console.log(data);
       // const str: string = "data.name";
@@ -50,7 +50,7 @@ const getItems = async (url: string) => {
 // Thunk
 // 第１引数：返り値の型
 // 第２引数：受け渡す引数の型
-export const fetchItems = createAsyncThunk<infoDataArray, string>(
+export const fetchItems = createAsyncThunk<infoDataList, string>(
   'fetchItem_Cake',
   async (query, thunkAPI) => {
     const result = getItems(baseulr + query); // API問い合わせ
@@ -58,10 +58,8 @@ export const fetchItems = createAsyncThunk<infoDataArray, string>(
   }
 );
 
-//https:future-architect.github.io/articles/20200501/
-
-const getCakeDetailSlice = createSlice({
-  name: 'cakeDetailData',
+const infomationSlice = createSlice({
+  name: 'infomationListData',
   initialState: initialState, //初期のStateセット
   reducers: {},
   extraReducers: (builder) => {
@@ -78,7 +76,7 @@ const getCakeDetailSlice = createSlice({
       state.data = item;
       // console.log("payload");
 
-      console.log('success--cake');
+      console.log('success--info');
 
       state.status = 'success';
 
@@ -96,7 +94,9 @@ const getCakeDetailSlice = createSlice({
 
 // selectorをエクスポート
 // export const resultOfCakeDetail = (cakeDetailData: dataList) => cakeDetailData;
+export const infomationList = (infomationListData: infoDataList) =>
+  infomationListData;
 
 // Reducerをエクスポート
 // 読み込み時にはuseSelectで[state.設定したreducer名.State名]で読み込む
-// export default getCakeDetailSlice.reducer;
+export default infomationSlice.reducer;

@@ -1,8 +1,9 @@
 // Reducerのエリアス
 import { configureStore } from '@reduxjs/toolkit';
 import cakeList from '../api/searchCakeSlice';
-import cakeDetail from '../api/getItemDetail';
-import cartList from '../api/addCartData';
+import cakeDetail from '../api/getItemDetailSlice';
+import cartList from '../api/addCartDataSlice';
+import infoList from '../api/getInfomationSlice';
 
 export type AppDispatch = typeof store.dispatch; // dispatchの方で怒られるので追加
 
@@ -13,5 +14,6 @@ export const store = configureStore({
     cakereducer: cakeList, //ケーキの一覧
     detailreducer: cakeDetail, //ケーキの詳細
     cartreducer: cartList, //ケーキの詳細
+    inforeducer: infoList, //お知らせ情報
   },
 });

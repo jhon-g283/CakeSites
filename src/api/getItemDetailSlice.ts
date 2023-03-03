@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { cakeDetail } from '../../src/types';
+import { cakeDetail } from '../types';
 // Stateの型の設定
 export interface dataList {
   itemlist?: {

@@ -8,11 +8,7 @@ import ReEditComponent from './reEditComponent';
 import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
 import { AppDispatch } from '../../store'; //方で怒られるので入れた
 import { cartDataArray, cartData } from '../../types';
-// ToDo 編集中Id実装
-//
-//
-
-// ToDo 編集画面読み込み
+// ToDo カート0件の時の表示機能
 //
 //
 

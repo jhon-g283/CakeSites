@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
+import { infoDataList, dataList } from '../../types';
+import { useSelector } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
 
 // ToDoお知らせをAPIからしゅとくする
 //
@@ -32,6 +33,14 @@ const InfomationComponent = ({ changePageFunc }: Props) => {
       type: '2',
     },
   ];
+
+  const itemlist = useSelector((state: { cakereducer: dataList }) =>
+    state.cakereducer?.itemlist ? state.cakereducer.itemlist : []
+  ); //商品リスト取得
+
+  // const infolist = useSelector((state: { imfomationducer: infoDataList }) =>
+  //   // state.cakereducer?.itemlist ? state.cakereducer.itemlist : []
+  // ); //商品リスト取得
 
   const [infoType, changeInfoType] = useState<string>('1'); //お知らせのタイプ
   const [infoArray, changeInfoArray] = useState(testdata); //お知らせのタイプ
@@ -185,15 +194,7 @@ const InfomationComponent = ({ changePageFunc }: Props) => {
   const InfoArea = () => {
     const result = (
       <>
-        <InfoDiv>
-          {/* ---マップで表示 */}
-          {infoList}
-
-          {/* <DateText>2022/12/1</DateText>
-          <InfoTitleText>お知らせのタイトルぶん</InfoTitleText>
-          <MessageText>メッセージのないよう</MessageText> */}
-          {/* ------ */}
-        </InfoDiv>
+        <InfoDiv>{infoList}</InfoDiv>
       </>
     );
 

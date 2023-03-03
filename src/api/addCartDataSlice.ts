@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit';
-import { cartDataArray, cartData } from '../../src/types';
+import { cartDataArray, cartData } from '../types';
 
 // ToDo カート情報の全量分の追加（Id連番含む）
 //
