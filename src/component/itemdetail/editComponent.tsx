@@ -5,9 +5,9 @@ import Image from 'next/image'; //Imageコンポーネント
 import Cake1 from '../../../public/img/cake1.png';
 import Cake2 from '../../../public/img/cake2.png';
 
-// ToDo　カートへの登録機能
-// Reduxを使用
-//ß
+// ToDo　カートの登録機能を共通化（外部ファイル）する、そして実装
+//
+//
 
 //Props 引数の型
 interface Props {

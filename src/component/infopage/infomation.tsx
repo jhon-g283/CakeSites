@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { infoDataList, dataList } from '../../types';
-import { useSelector } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
-
+import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
+import { fetchInfomations } from '../../api/getInfomationSlice';
+import { AppDispatch } from '../../store'; //方で怒られるので入れた
 // ToDoお知らせをAPIからしゅとくする
 //
 //
@@ -34,27 +35,38 @@ const InfomationComponent = ({ changePageFunc }: Props) => {
     },
   ];
 
-  const itemlist = useSelector((state: { cakereducer: dataList }) =>
-    state.cakereducer?.itemlist ? state.cakereducer.itemlist : []
-  ); //商品リスト取得
-
-  // const infolist = useSelector((state: { imfomationducer: infoDataList }) =>
-  //   // state.cakereducer?.itemlist ? state.cakereducer.itemlist : []
+  // const itemlist = useSelector((state: { cakereducer: dataList }) =>
+  //   state.cakereducer?.itemlist ? state.cakereducer.itemlist : []
   // ); //商品リスト取得
+
+  //Reduxの設定
+  const dispatch = useDispatch<AppDispatch>(); //dispatch設定
+
+  const infolist = useSelector((state: { inforeducer: infoDataList }) =>
+    state.inforeducer?.data ? state.inforeducer.data : []
+  ); //お知らせリスト取得
 
   const [infoType, changeInfoType] = useState<string>('1'); //お知らせのタイプ
   const [infoArray, changeInfoArray] = useState(testdata); //お知らせのタイプ
 
+  //dispatch実行
   useEffect(() => {
+    console.log('useEffect dispatch fetchinfomation');
+    dispatch(fetchInfomations(''));
+  }, [dispatch]);
+
+  useEffect(() => {
+    // Storeのお知らせデータかお知らせタイプ変更時に動くuseEffect
+
     // 現在表示中のお知らせのタイプにフィルター
-    const infomationList = testdata?.filter((it) => {
+    const infomationList = infolist?.filter((it) => {
       return it.type == infoType;
     });
 
     changeInfoArray(infomationList); //State更新
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [infoType]);
+  }, [infolist, infoType]);
 
   //ページのタイトル部分
   const Title = styled.p`

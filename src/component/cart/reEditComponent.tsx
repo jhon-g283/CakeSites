@@ -7,15 +7,6 @@ import { editCart } from '../../api/addCartDataSlice';
 import { AppDispatch } from '../../store'; //方で怒られるので入れた
 import { cartDataArray, cartData } from '../../types';
 
-// ToDo カート画面の一番上のこんぽから読み込む
-// 編集中Idを作って、そこから該当のカートデータを渡す
-//
-//
-
-// ToDo 編集コンポから機能をコピってくる
-//
-//
-
 // ToDo ケーキ単体Xピース数,ホールの値段の値をカート側に追加しておく
 //
 //
