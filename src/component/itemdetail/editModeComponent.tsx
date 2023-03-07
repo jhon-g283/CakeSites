@@ -8,14 +8,14 @@ import { addCart } from '../../api/addCartDataSlice';
 import AddedItem from '../addedItem/added';
 import Cake1 from '../../../public/img/cake1.png';
 import Cake2 from '../../../public/img/cake2.png';
-import { current } from '@reduxjs/toolkit';
+import addCartButton from '../common/addCartButton';
 
 // ToDo
 // 触った感じボタンの位置が微妙だからウィンドウのXボタンみたく固定にした方がいいかも。。
 //
 
 // ToDo
-// カートボタンのStore登録機能実装
+// カートボタン確認
 //
 
 // ToDo

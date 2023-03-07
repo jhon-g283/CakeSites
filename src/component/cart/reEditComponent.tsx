@@ -120,35 +120,15 @@ const ReEditComponent = ({ propsCartData, propsCloseModalFnc }: Props) => {
         priceHole: priceHole,
         pricePieace: pricePieace,
 
-        // code?: string;
-        // discription?: string;
         options: optionArray,
       },
     };
-
-    //   cartId?: number; //カートID
-    // itemId?: number; //商品ID
-    // itemName?: any; //商品名
-    // imageUrl?: any; //画像Url１
-    // imageUrl2?: any; //画像Url２
-    // price?: number; //価格
-    // peaceCount?: number; //ピース数
-    // priceHole?: number; //ホール値段
-    // pricePieace?: number; //ピース値段
-    // code?: string; //アイテムコード
-    // discription?: string; //説明
-    // options?: { name: string; param: number; count: number }[]; //トッピング
 
     // ここでDispatch実行と編集モーダルとじる機能実装
 
     console.log('dispatch editCart!!' + cartId);
     // カートIDじゃなくてデータ丸ごと投げる
     dispatch(editCart(pushData));
-
-    // dispatch(addCart(pushData)); //dispatch カートへ追加
-    // visibleAddedFunction(); //カート追加画面表示
-
-    // chyangeAddFlg(true);
   };
   // ・・・・・・・・・・・・・・・・・・・・・・・
 

@@ -68,9 +68,6 @@ const ItemDetailComponent = ({ cakeData, changePageFunc }: Props) => {
   useEffect(() => {
     console.log('change! detail');
     console.log(itemDetail);
-    console.log(itemDetail?.id);
-
-    console.log('hoaaaa');
   }, [itemDetail]);
 
   const DetailAreaDiv = styled.div`

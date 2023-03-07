@@ -3,8 +3,8 @@
     {
       "id": 1,
       "itemName": "モンブランs",
-      "imageUrl": "imageUrl",
-      "imageUrl2": "imageUrl",
+      "imageUrl": "/img/test.png",
+      "imageUrl2": "/img/test.png",
       "priceHole": 222,
       "pricePieace": 333,
       "kcal": "kcal",
