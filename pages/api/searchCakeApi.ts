@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { type } from 'os';
 import { itemData } from '../../src/types';
-import jsonData from './stbdata/sample.json';
+import jsonData from './stbdata/itemList.json';
 // type Data = Array<itemData>;
 
 // ToDo

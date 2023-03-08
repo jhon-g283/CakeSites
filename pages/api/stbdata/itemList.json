@@ -3,7 +3,7 @@
     {
       "id": 1,
       "itemName": "モンブランs",
-      "imageUrl": "imageUrl",
+      "imageUrl": "/img/test.png",
       "priceHole": "priceHole",
       "pricePieace": "pricePieace",
       "kcal": "kcal",
@@ -12,7 +12,7 @@
     {
       "id": 2,
       "itemName": "モンブランa",
-      "imageUrl": "imageUrl",
+      "imageUrl": "/img/pie.png",
       "priceHole": "priceHole",
       "pricePieace": "pricePieace",
       "kcal": "kcal",

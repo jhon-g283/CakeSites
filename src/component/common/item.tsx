@@ -5,11 +5,13 @@ import Cake1 from '../../../public/img/cake1.png';
 import Cake2 from '../../../public/img/cake2.png';
 import { itemData } from '../../types';
 
-// ////
-import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
-import { fetchDetails } from '../../api/getItemDetailSlice';
-import { AppDispatch } from '../../store'; //方で怒られるので入れた
-// ////
+// ToDo 引数を1つにまとめる
+//
+//
+
+// ToDo 画像Urlチェックの機能
+//
+//
 
 // 引数
 // 商品画像URL
@@ -22,15 +24,21 @@ import { AppDispatch } from '../../store'; //方で怒られるので入れた
 // 販売店名のリンク
 //
 
+interface Props {
+  propsClickFunction: (id: number) => void;
+  propsItemData: itemData;
+}
+
 const itemBox = ({
-  id,
-  itemName,
-  imageUrl,
-  priceHole,
-  pricePieace,
-  kcal,
-  clickFunction,
-}: itemData) => {
+  // id,
+  // itemName,
+  // imageUrl,
+  // priceHole,
+  // pricePieace,
+  // kcal,
+  propsItemData,
+  propsClickFunction,
+}: Props) => {
   // ToDo アイテムコンポーネント作成
   //　　値段のスタイル調整
   //　　星の色変更
@@ -49,6 +57,15 @@ const itemBox = ({
   // ToDo評価タグの計算機能実装
   //
   //
+
+  const id = propsItemData.id;
+  const itemName = propsItemData.itemName;
+  const imageUrl = propsItemData.imageUrl;
+  const priceHole = propsItemData.priceHole;
+  const pricePieace = propsItemData.pricePieace;
+  const kcal = propsItemData.kcal;
+
+  const dummyUrl: string = '/img/test.png'; // ダミー用のUrl
 
   // 外枠
   const Box = styled.div`
@@ -117,13 +134,20 @@ const itemBox = ({
     float: right;
   `;
 
+  // 商品用のURL
+  const itemImageUrl: string =
+    imageUrl.match(/^\/.+([\.png]|[\.jpg]|[\.svg])$/g) != null
+      ? imageUrl
+      : dummyUrl;
+
   // 返却するコンポーネント
   const result = (
     <>
-      <Box onClick={() => clickFunction(id || 99)}>
+      <Box onClick={() => propsClickFunction(id || 99)}>
+        {/* 商品画像 */}
         <ImageBox>
           <Image
-            src="/img/test.png"
+            src={itemImageUrl}
             width={223}
             height={196}
             alt="My avatar"
@@ -132,7 +156,7 @@ const itemBox = ({
 
         <TextGroup>
           <ItemNameLabel>{itemName}</ItemNameLabel>
-
+          {/* アイコン１ */}
           <FlexBlock>
             <Image
               src={Cake1.src}
@@ -143,6 +167,7 @@ const itemBox = ({
             <PriceTag1>200yen</PriceTag1>
           </FlexBlock>
 
+          {/* アイコン２ */}
           <FlexBlock>
             <Image
               src={Cake2.src}

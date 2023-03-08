@@ -8,7 +8,7 @@ export interface itemData {
   priceHole?: any;
   pricePieace?: any;
   kcal?: any;
-  clickFunction: (id: number) => void; //商品詳細情報取得用関数
+  // clickFunction: (id: number) => void; //商品詳細情報取得用関数
 }
 [];
 

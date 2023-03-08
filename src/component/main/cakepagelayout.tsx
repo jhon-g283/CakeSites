@@ -179,13 +179,14 @@ const Main = () => {
   const arrayItemBox = itemlist.map((item, index) => {
     const result = (
       <ItemBox
-        id={item.id}
-        itemName={item.itemName}
-        imageUrl={item.imageUrl}
-        priceHole={item.priceHole}
-        pricePieace={item.pricePieace}
-        kcal={item.kcal}
-        clickFunction={showItemDetail}
+        // id={item.id}
+        // itemName={item.itemName}
+        // imageUrl={item.imageUrl}
+        // priceHole={item.priceHole}
+        // pricePieace={item.pricePieace}
+        // kcal={item.kcal}
+        propsClickFunction={showItemDetail}
+        propsItemData={item}
         key={'key_itembox_' + item.id + '_' + index}
       />
     );
@@ -334,21 +335,7 @@ const Main = () => {
       <>
         <PanelDiv>
           <p>search panel {searchCode}</p>
-          <BtnList>
-            {searchBtnList}
-            {/* {searchBtn('/img/cupcake.png', 'カップ', 'A')}
-            {searchBtn('/img/cupcake.png', 'ss', 'B')}
-            {searchBtn('/img/cupcake.png', 'ss', 'B')}
-            {searchBtn('/img/cupcake.png', 'ss', 'B')}
-            {searchBtn('/img/cupcake.png', 'ss', 'B')}
-            {searchBtn('/img/cupcake.png', 'ss', 'B')}
-            {searchBtn('/img/cupcake.png', 'ss', 'B')}
-            {searchBtn('/img/cupcake.png', 'ss', 'B')}
-            {searchBtn('/img/cupcake.png', 'ss', 'B')}
-            {searchBtn('/img/cupcake.png', 'ss', 'B')}
-            {searchBtn('/img/cupcake.png', 'ss', 'B')}
-            {searchBtn('/img/cupcake.png', 'ss', 'B')} */}
-          </BtnList>
+          <BtnList>{searchBtnList}</BtnList>
 
           {priceArea()}
           {kcalArea()}
