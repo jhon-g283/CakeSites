@@ -21,6 +21,7 @@ interface Props {
 const AddCartButton = ({ data, propsvisibleAddedFunction }: Props) => {
   console.log('add Cart !!');
   const dispatch = useDispatch();
+
   const pushData = {
     data: {
       // cartId: cartId,
