@@ -8,7 +8,8 @@ import { addCart } from '../../api/addCartDataSlice';
 import AddedItem from '../addedItem/added';
 import Cake1 from '../../../public/img/cake1.png';
 import Cake2 from '../../../public/img/cake2.png';
-import addCartButton from '../common/addCartButton';
+// import addCartButton from '../common/addCartButton';
+import AddCartButton from '../common/addCartButton';
 
 // ToDo
 // 触った感じボタンの位置が微妙だからウィンドウのXボタンみたく固定にした方がいいかも。。
@@ -282,6 +283,20 @@ const EditModeComponent = ({
     <>
       <EditButtonWrapper>
         <MenuButton onClick={addCartFunction}>Cartへ追加</MenuButton>
+        <AddCartButton
+          data={{
+            price: witdhOptionPrice,
+            itemName: itemInfoName,
+            imageUrl: propImageUrl1,
+            imageUrl2: propImageUrl2,
+            priceHole: propsDetailData?.priceHole,
+            pricePieace: propsDetailData?.pricePieace,
+            peaceCount: countOfPeace,
+
+            // options: optionsData,
+          }}
+          propsvisibleAddedFunction={() => visibleAddedFunction()}
+        ></AddCartButton>
       </EditButtonWrapper>
     </>
   );
