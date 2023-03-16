@@ -54,7 +54,7 @@ const optionArrayDefault: number[] = [0, 0, 0]; // オプション（トッピ�
 // 編集モードのコンポーネント
 const EditModeComponent = ({
   clickFnction, //モードの切り替え用
-  options, //トッピング
+  // options, //トッピング
   peacePrice, //ピース値段
   holePrice, //ホール値段
   itemInfoName, //商品名
@@ -65,6 +65,7 @@ const EditModeComponent = ({
   propsDetailData,
 }: Props) => {
   const [optionArray, updateOption] = useState<number[]>(optionArrayDefault); //トッピングの個数管理
+  const [optionsDataArray, updateOptionDataArray] = useState([{}]); //カートへ渡すトッピングの個数管理
   const [witdhOptionPrice, updateOptioPrice] = useState<number>(
     propsDetailData?.pricePieace || 0
   );
@@ -73,6 +74,8 @@ const EditModeComponent = ({
     propsDetailData?.pricePieace || 0
   ); //ケーキの値段(ピース合計)
   // const [addFlg, chyangeAddFlg] = useState<boolean>(false); //カート追加完了モーダルの表示フラグ
+
+  const options = propsDetailData?.options || [];
 
   const dispatch = useDispatch();
 
@@ -103,9 +106,21 @@ const EditModeComponent = ({
         }) || 0;
 
     const newPrice: number = sum + cakePrice;
-    updateOptioPrice(newPrice); //State更新
 
+    const optionsData = options?.map((it, index) => {
+      const result = {
+        name: it.name,
+        param: it.param,
+        count: optionArray[index],
+      };
+
+      return result;
+    });
+
+    updateOptioPrice(newPrice); //State更新
+    updateOptionDataArray(optionsData);
     console.log('useEffect opptionArray');
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [optionArray, cakePrice]);
 
@@ -134,6 +149,7 @@ const EditModeComponent = ({
   const addCartFunction = () => {
     // optionArrayと引数のトッピング情報などからデータを作ってプッシュする
 
+    // ここをUseEffectで常に変わるようにする
     const optionsData = options?.map((it, index) => {
       const result = {
         name: it.name,
@@ -156,7 +172,7 @@ const EditModeComponent = ({
 
         // code?: string;
         // discription?: string;
-        options: optionsData,
+        options: optionsDataArray,
       },
       // id?: number;
       // itemName?: any;

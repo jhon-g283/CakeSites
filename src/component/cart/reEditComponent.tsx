@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import Image from 'next/image'; //Imageコンポーネント
 import { useSelector, useDispatch } from 'react-redux'; //Redux,useSelectorとdispatchの読み込み
 import { editCart } from '../../api/addCartDataSlice';
-import AddCartButton from '../common/addCartButton';
+// import AddCartButton from '../common/addCartButton';
+// <AddCartButton data={} propsvisibleAddedFunction={()=>{}} ></AddCartButton>
 import { AppDispatch } from '../../store'; //方で怒られるので入れた
 import { cartDataArray, cartData } from '../../types';
 

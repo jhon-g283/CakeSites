@@ -253,7 +253,7 @@ const ItemDetailComponent = ({ cakeData, changePageFunc }: Props) => {
       {editFlag ? (
         <EditModeComponent
           clickFnction={changeEditMode}
-          options={optionList}
+          // options={optionList}
           peacePrice={pPrice}
           holePrice={hPrice}
           itemInfoName={cakeName}
