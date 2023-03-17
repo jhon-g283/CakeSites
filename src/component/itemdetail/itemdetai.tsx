@@ -253,20 +253,14 @@ const ItemDetailComponent = ({ cakeData, changePageFunc }: Props) => {
       {editFlag ? (
         <EditModeComponent
           clickFnction={changeEditMode}
-          // options={optionList}
-          peacePrice={pPrice}
-          holePrice={hPrice}
-          itemInfoName={cakeName}
-          itemInfoShopName={shopName}
           visibleAddedFunction={visibleAdded}
-          propImageUrl1={imageUrl1}
-          propImageUrl2={imageUrl2}
           propsDetailData={itemDetail}
-          // const cakeName
-          // const shopName
         />
       ) : (
-        <EditComponent clickFnction={changeEditMode} />
+        <EditComponent
+          clickFnction={changeEditMode}
+          propsVisibleAddedFunction={visibleAdded}
+        />
       )}
 
       {addFlg ? <AddedItem clickFnction={changePageFunc}></AddedItem> : <></>}

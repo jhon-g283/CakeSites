@@ -32,7 +32,7 @@ const ReEditComponent = ({ propsCartData, propsCloseModalFnc }: Props) => {
   // const [newPeaceCount, setNewPeaceCount] = useState<number>(peaceCount);
 
   const [optionArray, updateOption] = useState(options); //トッピングの個数管理
-  //   ２
+  // ２
   // ３
   // 4
   const [witdhOptionPrice, updateOptioPrice] = useState<number>(price); //オプション含む合計値段

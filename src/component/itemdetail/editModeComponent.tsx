@@ -6,8 +6,7 @@ import Image from 'next/image'; //Imageコンポーネント
 import { editOptions, cakeDetailData } from '../../types';
 import { addCart } from '../../api/addCartDataSlice';
 import AddedItem from '../addedItem/added';
-import Cake1 from '../../../public/img/cake1.png';
-import Cake2 from '../../../public/img/cake2.png';
+
 // import addCartButton from '../common/addCartButton';
 import AddCartButton from '../common/addCartButton';
 
@@ -38,15 +37,8 @@ import AddCartButton from '../common/addCartButton';
 //Props 引数の型
 interface Props {
   clickFnction?: () => void; // //モードの切り替え用関数　()=>void
-  options?: editOptions[]; //トッピング
-  peacePrice: number;
-  holePrice: number;
-  itemInfoName?: string;
-  itemInfoShopName?: string;
   visibleAddedFunction: () => void; //カート画面の表示用関数
-  propImageUrl1: string;
-  propImageUrl2: string;
-  propsDetailData?: cakeDetailData;
+  propsDetailData?: cakeDetailData; //商品情報
 }
 
 const optionArrayDefault: number[] = [0, 0, 0]; // オプション（トッピング）の数量、インデックスを指定して更新する
@@ -54,15 +46,8 @@ const optionArrayDefault: number[] = [0, 0, 0]; // オプション（トッピ�
 // 編集モードのコンポーネント
 const EditModeComponent = ({
   clickFnction, //モードの切り替え用
-  // options, //トッピング
-  peacePrice, //ピース値段
-  holePrice, //ホール値段
-  itemInfoName, //商品名
-  itemInfoShopName, //店名
-  visibleAddedFunction,
-  propImageUrl1, //Url1
-  propImageUrl2, //Url2
-  propsDetailData,
+  visibleAddedFunction, //カート用の表示関数
+  propsDetailData, //商品のデータ
 }: Props) => {
   const [optionArray, updateOption] = useState<number[]>(optionArrayDefault); //トッピングの個数管理
   const [optionsDataArray, updateOptionDataArray] = useState([{}]); //カートへ渡すトッピングの個数管理
@@ -75,7 +60,13 @@ const EditModeComponent = ({
   ); //ケーキの値段(ピース合計)
   // const [addFlg, chyangeAddFlg] = useState<boolean>(false); //カート追加完了モーダルの表示フラグ
 
-  const options = propsDetailData?.options || [];
+  const options = propsDetailData?.options || []; //トッピング
+  const peacePrice = propsDetailData?.pricePieace || 0; //ピース値段
+  const holePrice = propsDetailData?.priceHole || 0; //ホール値段
+  const itemInfoName = propsDetailData?.itemName || 0; //商品名
+  const itemInfoShopName = propsDetailData?.shopname || 0; //店名
+  const propImageUrl1 = propsDetailData?.imageUrl || 0; //Url1
+  const propImageUrl2 = propsDetailData?.imageUrl2 || 0; //Url2
 
   const dispatch = useDispatch();
 
@@ -174,24 +165,11 @@ const EditModeComponent = ({
         // discription?: string;
         options: optionsDataArray,
       },
-      // id?: number;
-      // itemName?: any;
-      // imageUrl?: any;
-      // imageUrl2?: any;
-      // priceHole?: any;
-      // pricePieace?: any;
-      // kcal?: any;
-      // code?: string;
-      // shopname?: string;
-      // discriotion?: string;
-      // options?: { name: string; param: any }[];
     };
 
     console.log('dispatch addCart!!');
     dispatch(addCart(pushData)); //dispatch カートへ追加
     visibleAddedFunction(); //カート追加画面表示
-
-    // chyangeAddFlg(true);
   };
 
   // ピース数を変化させた時の変効用関数

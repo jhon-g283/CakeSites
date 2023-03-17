@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Image from 'next/image'; //Imageコンポーネント
+import AddCartButton from '../common/addCartButton';
 import Cake1 from '../../../public/img/cake1.png';
 import Cake2 from '../../../public/img/cake2.png';
 
@@ -12,10 +13,11 @@ import Cake2 from '../../../public/img/cake2.png';
 //Props 引数の型
 interface Props {
   clickFnction: () => void; // ()=>void
+  propsVisibleAddedFunction: () => void; //カート画面の表示用関数
 }
 
 // 編集コンポーネント
-const EditComponent = ({ clickFnction }: Props) => {
+const EditComponent = ({ clickFnction, propsVisibleAddedFunction }: Props) => {
   //   const [ingnmber, changeimgnumber] = useState(1);
 
   const NameText = styled.p``;
@@ -57,6 +59,10 @@ const EditComponent = ({ clickFnction }: Props) => {
     <>
       <CartButtonWrapper>
         <MenuButton>カートへ追加</MenuButton>
+        <AddCartButton
+          data={{}}
+          propsvisibleAddedFunction={propsVisibleAddedFunction}
+        ></AddCartButton>
       </CartButtonWrapper>
     </>
   );
