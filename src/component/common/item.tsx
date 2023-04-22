@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Image from 'next/image';
 import Cake1 from '../../../public/img/cake1.png';
 import Cake2 from '../../../public/img/cake2.png';
-import { itemData } from '../../types';
+import { cartData } from '../../types';
 
 // ToDo 引数を1つにまとめる
 //

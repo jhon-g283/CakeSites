@@ -5,6 +5,7 @@ import Image from 'next/image'; //Imageコンポーネント
 import AddCartButton from '../common/addCartButton';
 import Cake1 from '../../../public/img/cake1.png';
 import Cake2 from '../../../public/img/cake2.png';
+import { cartData } from '../../types';
 
 // ToDo　カートの登録機能を共通化（外部ファイル）する、そして実装
 //

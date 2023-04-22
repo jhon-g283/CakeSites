@@ -40,6 +40,8 @@ const ItemDetailComponent = ({ cakeData, changePageFunc }: Props) => {
   const [editFlag, changeEditFlag] = useState<boolean>(false); //編集モードの切り替え
   const [addFlg, chyangeAddFlg] = useState<boolean>(false); //カート追加完了モーダルの表示フラグ
 
+  const [pusuData, updatePushData] = useState({}); //カート用のデータ
+
   const pPrice = itemDetail?.pricePieace || '???';
   const hPrice = itemDetail?.priceHole || '???';
   const cakeName = itemDetail?.itemName || '???';

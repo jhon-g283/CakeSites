@@ -58,7 +58,6 @@ const EditModeComponent = ({
   const [cakePrice, updateCakePrice] = useState<number>(
     propsDetailData?.pricePieace || 0
   ); //ケーキの値段(ピース合計)
-  // const [addFlg, chyangeAddFlg] = useState<boolean>(false); //カート追加完了モーダルの表示フラグ
 
   const options = propsDetailData?.options || []; //トッピング
   const peacePrice = propsDetailData?.pricePieace || 0; //ピース値段
